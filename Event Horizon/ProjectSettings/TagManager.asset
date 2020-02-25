@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Damage
+  - Shield
+  - Button
+  - LevelEnd
+  - SlowField
+  - Bullet
+  - Ammo
+  - Healing
   layers:
   - Default
   - TransparentFX
@@ -17,8 +25,8 @@ TagManager:
   - Lighting
   - Ground
   - Postprocessing
-  - 
-  - 
+  - Player
+  - Items
   - 
   - 
   - 

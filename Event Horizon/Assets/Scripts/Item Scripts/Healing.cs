@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Healing : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [HideInInspector]
+    public Player player;
+    public float healingPercentage;
 
-    // Update is called once per frame
-    void Update()
+    public void use()
     {
-        
+        player.curHealth += player.maxHealth * healingPercentage;
+        if (player.curHealth > player.maxHealth)
+        {
+            player.curHealth = player.maxHealth;
+        }
+        Destroy(this.gameObject);
     }
 }

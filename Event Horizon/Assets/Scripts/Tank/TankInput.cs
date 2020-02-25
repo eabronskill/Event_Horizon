@@ -23,6 +23,8 @@ public class TankInput : Player
     {
         abilities = this.gameObject.GetComponent<TankAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
+        base.curAmmo = base.maxAmmo;
+        base.curHealth = base.maxHealth;
     }
 
     // Update is called once per frame
@@ -32,11 +34,11 @@ public class TankInput : Player
         base.FixedUpdate();
 
         // Shooting
-        if (Input.GetMouseButton(0) && Time.time >= strapTimer && ammo > 0)
+        if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            base.ammo--;
+            base.curAmmo--;
         }
 
         // Melee
@@ -67,8 +69,10 @@ public class TankInput : Player
     /// Called when the Tank can interact with things.
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerStay(Collider other)
+    new private void OnTriggerStay(Collider other)
     {
+        base.OnTriggerStay(other);
+
         if (other.gameObject.tag == "Shield")
         {
             // Pickup the shield.
