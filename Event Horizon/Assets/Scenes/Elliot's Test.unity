@@ -230,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &51269706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +266,9 @@ MonoBehaviour:
   movementSpeed: 80
   armor: 0
   curHealth: 0
-  maxHealth: 0
+  maxHealth: 100
   curAmmo: 0
-  maxAmmo: 0
+  maxAmmo: 100
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
@@ -1133,7 +1133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &309423494
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1197,6 +1197,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
   fireRate: 0.25
   canPound: 1
+  shieldCD: 0
+  groundPoundCD: 0
 --- !u!135 &309423498
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1248,8 +1250,10 @@ MonoBehaviour:
   shieldLookatPos: {fileID: 1142308397}
   shieldCDBar: {fileID: 1220637831}
   shieldCooldown: 0
+  shieldTimer: 0
   stunSprite: {fileID: 1819160176}
   groundPoundCD: 5
+  groundPoundTimer: 0
 --- !u!1 &357900787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,7 +2973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &831538582
 Transform:
   m_ObjectHideFlags: 0
@@ -5061,7 +5065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1695716290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6260,7 +6264,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

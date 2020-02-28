@@ -13,12 +13,12 @@ public class TankAbilities : MonoBehaviour
     public Slider shieldCDBar;
 
     public float shieldCooldown;
-    private float shieldCDTimer = 0f;
+    public float shieldTimer = 0f;
 
     // Ground Pound vars
     public GameObject stunSprite;
     public float groundPoundCD;
-    private float groundPoundTimer;
+    public float groundPoundTimer = 0f;
     private float spriteTimer = 0f;
 
     // Start is called before the first frame update

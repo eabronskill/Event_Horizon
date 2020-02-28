@@ -18,6 +18,10 @@ public class TankInput : Player
     [HideInInspector]
     public bool canPound = true;
 
+    // For Brett
+    public float shieldCD;
+    public float groundPoundCD;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +29,15 @@ public class TankInput : Player
         melee = this.gameObject.GetComponent<Melee>();
         base.curAmmo = base.maxAmmo;
         base.curHealth = base.maxHealth;
+        
     }
 
     // Update is called once per frame
     new void FixedUpdate()
     {
+        shieldCD = abilities.shieldTimer;
+        groundPoundCD = abilities.groundPoundTimer;
+
         // Call the Player FixedUpdate method.
         base.FixedUpdate();
 
