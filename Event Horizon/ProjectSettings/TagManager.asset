@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Damage
+  - Button
+  - LevelEnd
+  - Bullet
+  - Spike
+  - Mine
   layers:
   - Default
   - TransparentFX
