@@ -26,6 +26,8 @@ public class SoldierInput : Player
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
+        base.curAmmo = base.maxAmmo;
+        base.curHealth = base.maxHealth;
     }
 
     // Update is called once per frame
@@ -35,13 +37,13 @@ public class SoldierInput : Player
         base.FixedUpdate();
 
         // Shooting
-        if (Input.GetMouseButton(0) && Time.time >= strapTimer && ammo > 0)
+        if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             if (cnsmAmmo)
             {
-                base.ammo--;
+                base.curAmmo--;
             }
         }
 
@@ -68,4 +70,9 @@ public class SoldierInput : Player
         
     }
 
+    new void OnTriggerStay(Collider other)
+    {
+
+        base.OnTriggerStay(other);
+    }
 }

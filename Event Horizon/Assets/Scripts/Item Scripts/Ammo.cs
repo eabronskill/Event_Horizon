@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector]
+    public Player player;
+    public float ammoPercentage = 0.2f;
+
+    public void use()
     {
-        
+        player.curAmmo += player.maxAmmo * ammoPercentage;
+        if (player.curAmmo > player.maxAmmo)
+        {
+            player.curAmmo = player.maxAmmo;
+        }
+        Destroy(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

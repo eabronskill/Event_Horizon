@@ -18,25 +18,35 @@ public class TankInput : Player
     [HideInInspector]
     public bool canPound = true;
 
+    // For Brett
+    public float shieldCD;
+    public float groundPoundCD;
+
     // Start is called before the first frame update
     void Start()
     {
         abilities = this.gameObject.GetComponent<TankAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
+        base.curAmmo = base.maxAmmo;
+        base.curHealth = base.maxHealth;
+        
     }
 
     // Update is called once per frame
     new void FixedUpdate()
     {
+        shieldCD = abilities.shieldTimer;
+        groundPoundCD = abilities.groundPoundTimer;
+
         // Call the Player FixedUpdate method.
         base.FixedUpdate();
 
         // Shooting
-        if (Input.GetMouseButton(0) && Time.time >= strapTimer && ammo > 0)
+        if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            base.ammo--;
+            base.curAmmo--;
         }
 
         // Melee
@@ -67,8 +77,10 @@ public class TankInput : Player
     /// Called when the Tank can interact with things.
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerStay(Collider other)
+    new private void OnTriggerStay(Collider other)
     {
+        base.OnTriggerStay(other);
+
         if (other.gameObject.tag == "Shield")
         {
             // Pickup the shield.
