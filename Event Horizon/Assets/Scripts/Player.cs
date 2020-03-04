@@ -3,6 +3,7 @@
 public class Player : MonoBehaviour
 {
     // Stat vars
+    public float curMoveSpeed;
     public float movementSpeed;
     public float armor;
     public float curHealth;
@@ -26,12 +27,18 @@ public class Player : MonoBehaviour
     public bool hasHealing = false;
     private float bufferTimer = 0f;
 
+    public void Awake()
+    {
+        curAmmo = maxAmmo;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
+    }
 
     public void FixedUpdate()
     {
         // Movement
         Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        GetComponent<Rigidbody>().AddForce(movementVec * movementSpeed);
+        GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
 
         // Aiming 
         cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -61,7 +68,6 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "Ammo")
             {
-                print("Ammo can be picked up");
                 if (Input.GetKey(KeyCode.E) && !(hasAmmo || hasHealing))
                 {
                     ammoItem = other.GetComponent<Ammo>();
@@ -89,7 +95,6 @@ public class Player : MonoBehaviour
             }
             if (other.tag == "Healing")
             {
-
                 if (Input.GetKey(KeyCode.E) && !(hasAmmo || hasHealing))
                 {
                     healingItem = other.GetComponent<Healing>();

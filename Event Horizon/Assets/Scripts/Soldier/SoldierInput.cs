@@ -26,8 +26,6 @@ public class SoldierInput : Player
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        base.curAmmo = base.maxAmmo;
-        base.curHealth = base.maxHealth;
     }
 
     // Update is called once per frame
@@ -35,7 +33,7 @@ public class SoldierInput : Player
     {
         // Call the Player FixedUpdate method.
         base.FixedUpdate();
-
+        
         // Shooting
         if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
         {
@@ -45,6 +43,14 @@ public class SoldierInput : Player
             {
                 base.curAmmo--;
             }
+        }
+        if (Input.GetMouseButton(0) && base.curAmmo > 0)
+        {
+            base.curMoveSpeed = movementSpeed * 0.5f;
+        }
+        else
+        {
+            base.curMoveSpeed = movementSpeed;
         }
 
         // Melee

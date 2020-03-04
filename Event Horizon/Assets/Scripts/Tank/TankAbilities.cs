@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class TankAbilities : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class TankAbilities : MonoBehaviour
     public GameObject shoulderShield;
     public GameObject shieldPosition;
     public GameObject shieldLookatPos;
-    public Slider shieldCDBar;
 
     public float shieldCooldown;
     public float shieldTimer = 0f;
