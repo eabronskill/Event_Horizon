@@ -27,9 +27,6 @@ public class TankInput : Player
     {
         abilities = this.gameObject.GetComponent<TankAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        base.curAmmo = base.maxAmmo;
-        base.curHealth = base.maxHealth;
-        
     }
 
     // Update is called once per frame
@@ -47,6 +44,14 @@ public class TankInput : Player
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             base.curAmmo--;
+        }
+        if (Input.GetMouseButton(0) && base.curAmmo > 0)
+        {
+            base.curMoveSpeed = movementSpeed * 0.5f;
+        }
+        else
+        {
+            base.curMoveSpeed = movementSpeed;
         }
 
         // Melee
