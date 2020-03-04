@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Scene_Whitebox_Rogue.unity
+    guid: 2d5e8a6a4a680e941ae7061f7f4e1b85
+  - enabled: 1
+    path: Assets/Scenes/Scene_Whitebox_Soldier.unity
+    guid: e0cdeec48ad75fe4284c9195cecc6171
+  m_configObjects: {}

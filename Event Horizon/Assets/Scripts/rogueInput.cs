@@ -18,7 +18,7 @@ public class rogueInput : Player
     //public GameObject HPtext;
     public GameObject strap;
     //public GameObject melee;
-    public GameObject swordObj;
+    //public GameObject swordObj;
     public Sword sword;
 
     //public GameObject hammer;
@@ -42,6 +42,7 @@ public class rogueInput : Player
     public AudioSource music;
 
     public ParticleSystem gunFlash;
+    public RogueAbilities abilities;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +69,8 @@ public class rogueInput : Player
         finalRot = strapRot;
         finalRot.x -= .6f;
 
+        abilities = this.gameObject.GetComponent<RogueAbilities>();
+
         //sword = sword.GetComponent<Sword>();
 
     }
@@ -81,6 +84,14 @@ public class rogueInput : Player
             jump();
         if (Input.GetKeyDown("v") && canJump)
             dash();
+        if (Input.GetKey(KeyCode.Alpha1) && abilities.canSetSpikes)
+        {
+            abilities.setSpikes();
+        }
+        if (Input.GetKeyDown("r") && abilities.canSetMine)
+        {
+            abilities.setMine();
+        }
 
         if (Input.GetMouseButtonDown(0) && Time.time > strapTimer)
         {

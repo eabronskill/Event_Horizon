@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
-    private float speed = 15f;
     private float attackSpeed = 2f;
     private bool canAttack;
     private bool attackInvoked;
@@ -19,6 +18,12 @@ public class Enemy : MonoBehaviour
     private Vector3 bulletImpact;
 
     private float stunnedTimer = 0f;
+    private NavMeshAgent nav;
+    // declare delegate 
+    public delegate void MineHit();
+
+    //declare event of type delegate
+    public event MineHit mineExplosionEvent;
 
 
     bool dead;
@@ -27,10 +32,13 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Tank Model");
+        //player = GameObject.Find("Tank Model");
+        player = GameObject.FindGameObjectWithTag("Player");
         canAttack = true;
         attackInvoked = false;
         currHP = maxHP;
+        nav = GetComponent<NavMeshAgent>();
+        nav.speed = 8f;
 
         dead = false;
     }
@@ -61,7 +69,7 @@ public class Enemy : MonoBehaviour
                 GetComponent<NavMeshAgent>().ResetPath();
             }
         }
-            
+
 
 
 
@@ -103,6 +111,14 @@ public class Enemy : MonoBehaviour
             // }
         }
 
+        if (coll.gameObject.tag == "Spike")
+        {
+            nav.speed = 2.5f;
+            Invoke("resetSpeed", 3f);
+        }
+
+
+
         //if (coll.gameObject.tag == "Damage")
         //{
         //    bulletImpact = coll.transform.position;
@@ -134,6 +150,21 @@ public class Enemy : MonoBehaviour
             this.gameObject.SetActive(false);
             print("In here");
         }
+
+        if (other.gameObject.tag == "Mine")
+        {
+            print("collision");
+            if (mineExplosionEvent != null)
+            {
+                print("event not null");
+                mineExplosionEvent();
+            }
+        }
+    }
+
+    private void resetSpeed()
+    {
+        nav.speed *= 8f;
     }
 
     private void setAttack()
