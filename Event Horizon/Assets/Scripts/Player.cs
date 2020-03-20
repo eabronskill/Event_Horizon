@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Rewired;
 
 public class Player : MonoBehaviour
 {
