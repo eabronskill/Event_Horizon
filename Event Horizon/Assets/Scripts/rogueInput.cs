@@ -78,7 +78,7 @@ public class rogueInput : Player
     // Update is called once per frame
     void Update()
     {
-        base.FixedUpdate();
+        base.Update();
 
         if (Input.GetKeyDown("space") && canJump)
             jump();

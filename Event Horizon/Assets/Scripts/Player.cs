@@ -3,6 +3,9 @@ using Rewired;
 
 public class Player : MonoBehaviour
 {
+    // Rewired Vars
+    public Rewired.Player player; // Needs to be set by the Input script
+
     // Stat vars
     public float curMoveSpeed;
     public float movementSpeed;
@@ -33,33 +36,51 @@ public class Player : MonoBehaviour
         curAmmo = maxAmmo;
         curHealth = maxHealth;
         curMoveSpeed = movementSpeed;
+        print("Awake");
     }
 
-    public void FixedUpdate()
+    void Start()
     {
-        // Movement
-        Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+        curAmmo = maxAmmo;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
+    }
 
-        // Aiming 
-        cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        mousePlane.SetNormalAndPosition(Vector3.up, transform.position);
-        if (mousePlane.Raycast(cameraRay, out intersectionDistance))
+    public void Update()
+    {
+        if (player != null)
         {
-            Vector3 hitPoint = cameraRay.GetPoint(intersectionDistance);
-            transform.LookAt(hitPoint);
-        }
+            // Movement
+            Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
+            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
 
-        // Items
-        if (hasAmmo && Input.GetKey(KeyCode.F))
-        {
-            ammoItem.use();
-            hasAmmo = false;
-        }
-        if (hasHealing && Input.GetKey(KeyCode.F))
-        {
-            healingItem.use();
-            hasHealing = false;
+            //// Aiming 
+            //cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //mousePlane.SetNormalAndPosition(Vector3.up, transform.position);
+            //if (mousePlane.Raycast(cameraRay, out intersectionDistance))
+            //{
+            //    Vector3 hitPoint = cameraRay.GetPoint(intersectionDistance);
+            //    transform.LookAt(hitPoint);
+            //}
+            
+            Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
+            if (player.GetAxis("Rotate Horizontal") != 0 || player.GetAxis("Rotate Vertical") != 0)
+            {
+                transform.eulerAngles = rotateVec;
+            }
+            
+
+            // Items
+            if (hasAmmo && player.GetButtonDown("UseItem"))
+            {
+                ammoItem.use();
+                hasAmmo = false;
+            }
+            if (hasHealing && player.GetButtonDown("UseItem"))
+            {
+                healingItem.use();
+                hasHealing = false;
+            }
         }
     }
 
@@ -69,7 +90,7 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "Ammo")
             {
-                if (Input.GetKey(KeyCode.E) && !(hasAmmo || hasHealing))
+                if (player.GetButtonDown("Interact") && !(hasAmmo || hasHealing))
                 {
                     ammoItem = other.GetComponent<Ammo>();
                     ammoItem.player = this;
@@ -77,7 +98,7 @@ public class Player : MonoBehaviour
                     hasAmmo = true;
                     bufferTimer = Time.time + 1f;
                 }
-                else if (Input.GetKey(KeyCode.E) && hasHealing)
+                else if (player.GetButtonDown("Interact") && hasHealing)
                 {
                     healingItem.gameObject.SetActive(true);
                     healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
@@ -96,7 +117,7 @@ public class Player : MonoBehaviour
             }
             if (other.tag == "Healing")
             {
-                if (Input.GetKey(KeyCode.E) && !(hasAmmo || hasHealing))
+                if (player.GetButtonDown("Interact") && !(hasAmmo || hasHealing))
                 {
                     healingItem = other.GetComponent<Healing>();
                     healingItem.player = this;
@@ -104,7 +125,7 @@ public class Player : MonoBehaviour
                     hasHealing = true;
                     bufferTimer = Time.time + 1f;
                 }
-                else if (Input.GetKey(KeyCode.E) && hasAmmo)
+                else if (player.GetButtonDown("Interact") && hasAmmo)
                 {
                     ammoItem.gameObject.SetActive(true);
                     ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);

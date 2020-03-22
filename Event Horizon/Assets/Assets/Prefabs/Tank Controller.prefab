@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7114397070259473614}
   - component: {fileID: 7114397070259473600}
   - component: {fileID: 7114397070259473601}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 7114397070276357887}
   - component: {fileID: 7114397070276357873}
   - component: {fileID: 7114397070276357886}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Shield Key Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 7114397070278751088}
   - component: {fileID: 7114397070278751090}
   - component: {fileID: 7114397070278751091}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Shield Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397070408039664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ability Helpers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397070408479001}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7114397070582518674}
   - component: {fileID: 7114397070582518677}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gunshot Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 7114397070658993421}
   - component: {fileID: 7114397070658993423}
   - component: {fileID: 7114397070658993420}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Shield BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 7114397070673391987}
   - component: {fileID: 7114397070673391984}
   - component: {fileID: 7114397070673391989}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank Controller
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -591,14 +591,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448a7013df691d14c81cc483a7754f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curMoveSpeed: 0
   movementSpeed: 80
-  health: 100
   armor: 20
-  ammo: 100
+  curHealth: 200
+  maxHealth: 200
+  curAmmo: 2000
+  maxAmmo: 2000
+  ammoItem: {fileID: 0}
+  healingItem: {fileID: 0}
+  hasAmmo: 0
+  hasHealing: 0
+  playerID: 0
   attackPoint: {fileID: 7114397071417290695}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
   fireRate: 0.25
   canPound: 1
+  shieldCD: 0
+  groundPoundCD: 0
 --- !u!114 &7114397070673391989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,24 +625,11 @@ MonoBehaviour:
   shoulderShield: {fileID: 7114397070775028535}
   shieldPosition: {fileID: 7114397072066280198}
   shieldLookatPos: {fileID: 7114397071988646612}
-  shieldCDBar: {fileID: 7114397071907563646}
   shieldCooldown: 0
+  shieldTimer: 0
   stunSprite: {fileID: 7114397071310746249}
   groundPoundCD: 5
---- !u!64 &7114397070755580938
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7114397070780274450}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+  groundPoundTimer: 0
 --- !u!1 &7114397070775028535
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +642,7 @@ GameObject:
   - component: {fileID: 7114397070775028520}
   - component: {fileID: 7114397070775028521}
   - component: {fileID: 7114397070775028534}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoulder Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,6 +723,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!64 &7114397070755580938
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114397070780274450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
 --- !u!1 &7114397071080496092
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +749,7 @@ GameObject:
   - component: {fileID: 7114397071080496080}
   - component: {fileID: 7114397071080496081}
   - component: {fileID: 7114397071080496094}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +851,7 @@ GameObject:
   - component: {fileID: 7114397071090932716}
   - component: {fileID: 7114397071090932718}
   - component: {fileID: 7114397071090932719}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7114397071234738604}
   - component: {fileID: 7114397071234738607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dir Player Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1003,7 +1014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397071235540985}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7114397071310746251}
   - component: {fileID: 7114397071310746248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Temp AOE stun sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,7 +1131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397071417290694}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: attackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,7 +1163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7114397071907563633}
   - component: {fileID: 7114397071907563646}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Shield CD Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1241,7 +1252,7 @@ GameObject:
   - component: {fileID: 7114397071908466766}
   - component: {fileID: 7114397071908466752}
   - component: {fileID: 7114397071908466753}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HP Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1316,7 +1327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397071988646615}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shield Lookat Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7114397072066278649}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shield Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1434,6 +1445,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GunShot Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 4658679807483574202, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d2b42cb456a7824e9ac6d023b3c6369, type: 3}
 --- !u!4 &7114397070966213623 stripped
@@ -1449,9 +1465,89 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7114397070673391986}
     m_Modifications:
+    - target: {fileID: 100000, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
       propertyPath: m_Name
       value: Tank Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100030, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100032, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100036, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100038, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cefe594cbf980c34bb96dba3391b63f7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1521,6 +1617,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1d01d546701dd80479404049d0366fa3, type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1d01d546701dd80479404049d0366fa3, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1d01d546701dd80479404049d0366fa3, type: 3}
       propertyPath: m_LocalPosition.x

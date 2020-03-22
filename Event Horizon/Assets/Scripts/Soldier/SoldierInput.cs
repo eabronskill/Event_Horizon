@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
+using Rewired;
 
 public class SoldierInput : Player
 {
     private SoldierAbilities abilities;
     private Melee melee;
+
+    /// <summary>
+    /// ID of the player who is controlling this character.
+    /// </summary>
+    public int playerID;
 
     // Attacking vars
     public GameObject attackPoint;
@@ -20,22 +26,29 @@ public class SoldierInput : Player
     [HideInInspector]
     public bool canUseGrenade = true;
 
+
+    new void Awake()
+    {
+        player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
+        playerID = player.id;
     }
 
     // Update is called once per frame
-    new void FixedUpdate()
+    new void Update()
     {
         // Call the Player FixedUpdate method.
-        base.FixedUpdate();
+        base.Update();
         
         // Shooting
-        if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curAmmo > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
@@ -44,7 +57,7 @@ public class SoldierInput : Player
                 base.curAmmo--;
             }
         }
-        if (Input.GetMouseButton(0) && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && base.curAmmo > 0)
         {
             base.curMoveSpeed = movementSpeed * 0.5f;
         }
@@ -54,21 +67,21 @@ public class SoldierInput : Player
         }
 
         // Melee
-        if (Input.GetMouseButtonDown(1) && Time.time >= hammerTimer)
+        if (player.GetButton("Melee") && Time.time >= hammerTimer)
         {
             hammerTimer = Time.time + 1f;
             melee.soldierMelee();
         }
 
         // Ability 1: Rapid Fire
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (player.GetButton("Ability1"))
         {
             // Call SoldierAbilities Script
             abilities.rapidFire();
         }
 
         // Ability 2: Grenade 
-        if (Input.GetKey(KeyCode.Alpha2) && canUseGrenade)
+        if (player.GetButton("Ability2") && canUseGrenade)
         {
             // Call TankAbilities Script
             abilities.grenadeToss();

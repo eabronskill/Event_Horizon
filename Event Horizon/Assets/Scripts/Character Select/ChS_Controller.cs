@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -22,7 +21,7 @@ public class ChS_Controller : MonoBehaviour
     /// <summary>
     /// Will be used to map the players to the characters in the actual levels.
     /// </summary>
-    public static Dictionary<int, ChS_Model.Character> finalSelection = new Dictionary<int, ChS_Model.Character>();
+    public static Dictionary<string, int> finalSelection = new Dictionary<string, int>();
 
     private ChS_Model model;
     private ChS_View view;
@@ -78,26 +77,27 @@ public class ChS_Controller : MonoBehaviour
     {
         if (!loadedNextScene)
         {
-            // Player 1 Logic
-            if (playerIDToPlayer[1].isPlaying)
+            //Player 1 Logic
+            if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
             {
                 getInput(1);
             }
-            // Player 2 Logic
-            if (playerIDToPlayer[1].isPlaying)
+            //Player 2 Logic
+            if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
             {
                 getInput(2);
             }
-            // Player 3 Logic
-            if (playerIDToPlayer[1].isPlaying)
+            //Player 3 Logic
+            if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
             {
                 getInput(3);
             }
-            // Player 4 Logic
-            if (playerIDToPlayer[1].isPlaying)
+            //Player 4 Logic
+            if (playerIDToPlayer[4].controllers.Joysticks.Count > 0)
             {
                 getInput(4);
             }
+            
         }
     }
 
@@ -186,16 +186,14 @@ public class ChS_Controller : MonoBehaviour
         // Finalize the selections
         for (int i = 1; i <= 4; i++)
         {
-            finalSelection.Add(i, model.getCIDtoC()[model.getPIDtoCID()[i]]);
+            finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i - 1);
         }
 
         loadedNextScene = true;
 
         // TODO: Load the first level.
-        //SceneManager.LoadScene("");
-        print("PLAY - Need to load first level");
+        SceneManager.LoadScene("Elliot's");
         
     }
-
 
 }

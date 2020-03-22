@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,7 +71,7 @@ public class ChS_View : MonoBehaviour
                 
                 if (otherPlayerIcon.GetComponent<Image>().sprite == thisSprite)
                 {
-                    fadeIcon(player);
+                    fade(player);
                 }
             }
         }
@@ -105,7 +103,7 @@ public class ChS_View : MonoBehaviour
 
                 if (otherPlayerIcon.GetComponent<Image>().sprite == thisSprite)
                 {
-                    restoreIcon(player);
+                    restore(player);
                 }
             }
         }
@@ -139,31 +137,33 @@ public class ChS_View : MonoBehaviour
         // If this character has been selected, fade the icon.
         if (character.selected)
         {
-            fadeIcon(playerID);
+            fade(playerID);
         }
         else
         {
-            restoreIcon(playerID);
+            restore(playerID);
         }
     }
 
     /// <summary>
-    /// Fades the Icon the input playerID is hovering.
+    /// Fades the playerIDs Icon for all other players. Also fades the Select button for all other players
+    /// when they are hovering the playerIDs Icon.
     /// </summary>
     /// <param name="playerID"></param>
-    private void fadeIcon(int playerID)
+    private void fade(int playerID)
     {
         playerToHover.TryGetValue(playerID, out GameObject imageToChange);
         imageToChange.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
     /// <summary>
-    /// Restores the Icon the input playerID is hovering.
-    /// </summary>
+    /// Restores the playerIDs Icon for all other players. Also restores the Select button for all other players.
     /// <param name="playerID"></param>
-    private void restoreIcon(int playerID)
+    private void restore(int playerID)
     {
         playerToHover.TryGetValue(playerID, out GameObject imageToChange);
         imageToChange.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+        playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
     }
 }

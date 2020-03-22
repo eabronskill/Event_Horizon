@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
+using Rewired;
 
 public class TankInput : Player
 {
     private TankAbilities abilities;
     private Melee melee;
+
+    /// <summary>
+    /// ID of the player who is controlling this character.
+    /// </summary>
+    public int playerID;
 
     // Attacking vars
     public GameObject attackPoint;
@@ -22,30 +28,36 @@ public class TankInput : Player
     public float shieldCD;
     public float groundPoundCD;
 
+    new void Awake()
+    {
+        player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         abilities = this.gameObject.GetComponent<TankAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
+        playerID = player.id;
     }
 
     // Update is called once per frame
-    new void FixedUpdate()
+    new void Update()
     {
         shieldCD = abilities.shieldTimer;
         groundPoundCD = abilities.groundPoundTimer;
 
         // Call the Player FixedUpdate method.
-        base.FixedUpdate();
+        base.Update();
 
         // Shooting
-        if (Input.GetMouseButton(0) && Time.time >= strapTimer && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curAmmo > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             base.curAmmo--;
         }
-        if (Input.GetMouseButton(0) && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && base.curAmmo > 0)
         {
             base.curMoveSpeed = movementSpeed * 0.5f;
         }
@@ -55,14 +67,14 @@ public class TankInput : Player
         }
 
         // Melee
-        if (Input.GetMouseButtonDown(1) && Time.time >= hammerTimer)
+        if (player.GetButtonDown("Melee") && Time.time >= hammerTimer)
         {
             hammerTimer = Time.time + 1f;
-            melee.tankMelee();
+            //melee.tankMelee();
         }
 
         // Ability 1: Shield Plant
-        if (canPlaceShield && Input.GetKey(KeyCode.Alpha1))
+        if (canPlaceShield && player.GetButtonDown("Ability1"))
         {
             // Call TankAbilities Script
             abilities.shieldPlant();
@@ -70,7 +82,7 @@ public class TankInput : Player
         }
 
         // Ability 2: Ground Pound
-        if (Input.GetKey(KeyCode.Alpha2) && canPound)
+        if (player.GetButtonDown("Ability2") && canPound)
         {
             // Call TankAbilities Script
             abilities.groundPound();
