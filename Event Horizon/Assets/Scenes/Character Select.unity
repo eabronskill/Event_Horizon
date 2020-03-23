@@ -772,7 +772,7 @@ MonoBehaviour:
     - _id: 2
       _name: Player1
       _descriptiveName: Player1
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -794,7 +794,7 @@ MonoBehaviour:
     - _id: 3
       _name: Player2
       _descriptiveName: Player2
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -816,7 +816,7 @@ MonoBehaviour:
     - _id: 4
       _name: Player3
       _descriptiveName: Player3
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0

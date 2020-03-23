@@ -26,6 +26,9 @@ public class SoldierInput : Player
     [HideInInspector]
     public bool canUseGrenade = true;
 
+    // For Brett
+    public float rapidFireCD;
+    public float grenadeCD;
 
     new void Awake()
     {
@@ -44,6 +47,8 @@ public class SoldierInput : Player
     // Update is called once per frame
     new void Update()
     {
+        rapidFireCD = abilities.rapidFireTimeRemaining;
+        grenadeCD = abilities.grenadeTimeRemaining;
         // Call the Player FixedUpdate method.
         base.Update();
         

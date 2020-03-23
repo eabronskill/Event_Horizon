@@ -44,8 +44,8 @@ public class TankInput : Player
     // Update is called once per frame
     new void Update()
     {
-        shieldCD = abilities.shieldTimer;
-        groundPoundCD = abilities.groundPoundTimer;
+        shieldCD = abilities.shieldTimeRemaining;
+        groundPoundCD = abilities.groundPoundTimeRemaining;
 
         // Call the Player FixedUpdate method.
         base.Update();

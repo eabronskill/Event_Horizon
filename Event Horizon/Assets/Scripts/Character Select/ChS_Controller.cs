@@ -25,8 +25,6 @@ public class ChS_Controller : MonoBehaviour
 
     private ChS_Model model;
     private ChS_View view;
-
-    private bool loadedNextScene = false;
     
     void Awake()
     {
@@ -75,29 +73,25 @@ public class ChS_Controller : MonoBehaviour
 
     void Update()
     {
-        if (!loadedNextScene)
+        //Player 1 Logic
+        if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
         {
-            //Player 1 Logic
-            if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
-            {
-                getInput(1);
-            }
-            //Player 2 Logic
-            if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
-            {
-                getInput(2);
-            }
-            //Player 3 Logic
-            if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
-            {
-                getInput(3);
-            }
-            //Player 4 Logic
-            if (playerIDToPlayer[4].controllers.Joysticks.Count > 0)
-            {
-                getInput(4);
-            }
-            
+            getInput(1);
+        }
+        //Player 2 Logic
+        if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
+        {
+            getInput(2);
+        }
+        //Player 3 Logic
+        if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
+        {
+            getInput(3);
+        }
+        //Player 4 Logic
+        if (playerIDToPlayer[4].controllers.Joysticks.Count > 0)
+        {
+            getInput(4);
         }
     }
 
@@ -188,8 +182,6 @@ public class ChS_Controller : MonoBehaviour
         {
             finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i - 1);
         }
-
-        loadedNextScene = true;
 
         // TODO: Load the first level.
         SceneManager.LoadScene("Elliot's");

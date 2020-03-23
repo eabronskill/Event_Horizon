@@ -12,11 +12,13 @@ public class TankAbilities : MonoBehaviour
 
     public float shieldCooldown;
     public float shieldTimer = 0f;
+    public float shieldTimeRemaining = 0;
 
     // Ground Pound vars
     public GameObject stunSprite;
     public float groundPoundCD;
     public float groundPoundTimer = 0f;
+    public float groundPoundTimeRemaining = 0f;
     private float spriteTimer = 0f;
 
     // Start is called before the first frame update
@@ -27,8 +29,19 @@ public class TankAbilities : MonoBehaviour
         stunSprite.SetActive(false);
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        groundPoundTimeRemaining = groundPoundTimer - Time.time;
+        shieldTimeRemaining = shieldTimer - Time.time;
+        if (groundPoundTimeRemaining <= 0)
+        {
+            groundPoundTimeRemaining = 0;
+        }
+        if (shieldTimeRemaining <= 0)
+        {
+            shieldTimeRemaining = 0;
+        }
+        
         if (Time.time > spriteTimer)
         {
             stunSprite.SetActive(false);
