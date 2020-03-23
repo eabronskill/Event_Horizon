@@ -25,6 +25,8 @@ public class SoldierInput : Player
     public bool cnsmAmmo = true;
     [HideInInspector]
     public bool canUseGrenade = true;
+    [HideInInspector]
+    public bool canUseRF = true;
 
     // For Brett
     public float rapidFireCD;
@@ -79,7 +81,7 @@ public class SoldierInput : Player
         }
 
         // Ability 1: Rapid Fire
-        if (player.GetButton("Ability1"))
+        if (player.GetButton("Ability1") && canUseRF)
         {
             // Call SoldierAbilities Script
             abilities.rapidFire();

@@ -81,6 +81,9 @@ MonoBehaviour:
   baseFireRate: 0
   cnsmAmmo: 1
   canUseGrenade: 1
+  canUseRF: 1
+  rapidFireCD: 0
+  grenadeCD: 0
 --- !u!114 &8064502178942012885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,12 +98,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rapidFireDuration: 5
   rfFireRate: 0.08
-  rapidFireCooldown: 5
+  rapidFireCD: 10
+  rapidFireTimeRemaining: 0
   grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
     type: 3}
   grenadeStart: {fileID: 8064502180463576899}
-  grenadeCD: 1
+  grenadeCD: 5
   throwForce: 30
+  grenadeTimeRemaining: 0
 --- !u!1 &8064502180463576899
 GameObject:
   m_ObjectHideFlags: 0

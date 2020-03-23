@@ -58,6 +58,10 @@ public class SoldierAbilities : MonoBehaviour
         {
             soldier.canUseGrenade = true;
         }
+        if (Time.time > rapidFireTimer)
+        {
+            soldier.canUseRF = true;
+        }
     }
 
     /// <summary>
@@ -74,6 +78,10 @@ public class SoldierAbilities : MonoBehaviour
 
         // Increase fire rate.
         soldier.fireRate = rfFireRate;
+
+        // Set timers
+        rapidFireTimer = Time.time + rapidFireCD;
+        soldier.canUseRF = false;
         
     }
 
