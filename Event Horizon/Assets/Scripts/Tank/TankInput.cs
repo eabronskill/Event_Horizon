@@ -30,7 +30,16 @@ public class TankInput : Player
 
     new void Awake()
     {
-        player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+        // TRY CATCH FOR TESTING.
+        try
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+        }
+        catch
+        {
+            player = ReInput.players.GetPlayer(0);
+            testing = true;
+        }
     }
 
     // Start is called before the first frame update
@@ -51,13 +60,14 @@ public class TankInput : Player
         base.Update();
 
         // Shooting
-        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             base.curAmmo--;
+            base.curClip--;
         }
-        if (player.GetButton("Shoot") && base.curAmmo > 0)
+        if (player.GetButton("Shoot") && base.curClip > 0)
         {
             base.curMoveSpeed = movementSpeed * 0.5f;
         }
@@ -101,7 +111,7 @@ public class TankInput : Player
         if (other.gameObject.tag == "Shield")
         {
             // Pickup the shield.
-            if (Input.GetKey(KeyCode.E))
+            if (player.GetButtonDown("Interact"))
             {
                 canPlaceShield = true;
                 abilities.pickupShield();

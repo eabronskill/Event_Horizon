@@ -49,7 +49,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &8064502178942012884
 MonoBehaviour:
@@ -68,12 +68,15 @@ MonoBehaviour:
   armor: 0
   curHealth: 200
   maxHealth: 200
+  curClip: 50
+  maxClip: 50
   curAmmo: 2000
   maxAmmo: 2000
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
   hasHealing: 0
+  testing: 0
   playerID: 0
   attackPoint: {fileID: 2923163325037765492}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
@@ -143,6 +146,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8064502178942012882}
     m_Modifications:
+    - target: {fileID: 1510644018981112, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645129626705928005, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5150982793516753003, guid: 809f388215420cc4f8d6e1de376861bb,
         type: 3}
       propertyPath: m_Layer
@@ -162,6 +174,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515613173194550614, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515613173194550614, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515613173194550614, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515613173194550614, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 8651507842383350308, guid: 809f388215420cc4f8d6e1de376861bb,
         type: 3}
@@ -287,6 +319,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651507844434414063, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_Height
+      value: 3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651507844434414063, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.28
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8651507844434414062, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
