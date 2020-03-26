@@ -9,13 +9,13 @@ public class Player : MonoBehaviour
     // Stat vars
     public float curMoveSpeed;
     public float movementSpeed;
-    public float armor;
     public float curHealth;
     public float maxHealth;
     public float curClip;
     public float maxClip;
     public float curAmmo;
     public float maxAmmo;
+    private float dif;
 
     // Aiming vars
     private Plane mousePlane;
@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool hasHealing = false;
     private float bufferTimer = 0f;
+
     public bool testing = false;
 
     public void Awake()
@@ -67,8 +68,6 @@ public class Player : MonoBehaviour
             // Reloading
             if (curClip != maxClip && player.GetButtonDown("Reload"))
             {
-                print("reloading");
-                float dif;
                 if (maxClip < curAmmo)
                 {
                     dif = maxClip - curClip;
@@ -110,11 +109,17 @@ public class Player : MonoBehaviour
                 healingItem = null;
                 hasHealing = false;
             }
+
+            // Death
+            if (curHealth <= 0)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
-        else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. USED WHEN 
+        else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. 
         {
             // Movement
-            Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
+            Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
 
             // Aiming 
@@ -127,7 +132,7 @@ public class Player : MonoBehaviour
             }
 
             // Reloading
-            if (curClip != maxClip && player.GetButtonDown("Reload"))
+            if (curClip != maxClip && Input.GetKeyDown(KeyCode.R))
             {
                 print("reloading");
                 float dif;
@@ -146,12 +151,12 @@ public class Player : MonoBehaviour
             }
 
             // Items
-            if (hasAmmo && player.GetButtonDown("Interact"))
+            if (hasAmmo && Input.GetKeyDown(KeyCode.E))
             {
                 ammoItem.use();
                 hasAmmo = false;
             }
-            else if (hasAmmo && player.GetButtonDown("DropItem"))
+            else if (hasAmmo && Input.GetKeyDown(KeyCode.F))
             {
                 ammoItem.gameObject.SetActive(true);
                 ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
@@ -159,18 +164,24 @@ public class Player : MonoBehaviour
                 ammoItem = null;
                 hasAmmo = false;
             }
-            if (hasHealing && player.GetButtonDown("Interact"))
+            if (hasHealing && Input.GetKeyDown(KeyCode.E))
             {
                 healingItem.use();
                 hasHealing = false;
             }
-            else if (hasHealing && player.GetButtonDown("DropItem"))
+            else if (hasHealing && Input.GetKeyDown(KeyCode.F))
             {
                 healingItem.gameObject.SetActive(true);
                 healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
                 healingItem.player = null;
                 healingItem = null;
                 hasHealing = false;
+            }
+
+            // Death
+            if (curHealth <= 0)
+            {
+                this.gameObject.SetActive(false);
             }
         }
     }

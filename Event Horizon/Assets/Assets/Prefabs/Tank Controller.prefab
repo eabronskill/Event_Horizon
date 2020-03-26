@@ -310,7 +310,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
   movementSpeed: 80
-  armor: 20
   curHealth: 200
   maxHealth: 200
   curClip: 100
@@ -341,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35738a8c47488da418a86a76068fec06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 0}
+  shield: {fileID: 3478612432537916565}
   shoulderShield: {fileID: 3478612432537916565}
   shieldPosition: {fileID: 7114397072066280198}
   shieldLookatPos: {fileID: 7114397071988646612}

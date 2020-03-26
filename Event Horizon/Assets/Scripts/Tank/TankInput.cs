@@ -27,6 +27,7 @@ public class TankInput : Player
     // For Brett
     public float shieldCD;
     public float groundPoundCD;
+    public bool shieldDown;
 
     new void Awake()
     {
@@ -55,6 +56,7 @@ public class TankInput : Player
     {
         shieldCD = abilities.shieldTimeRemaining;
         groundPoundCD = abilities.groundPoundTimeRemaining;
+        shieldDown = abilities.shieldDown;
 
         // Call the Player FixedUpdate method.
         base.Update();

@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour
         attackInvoked = false;
         currHP = maxHP;
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = 8f;
 
         dead = false;
     }
