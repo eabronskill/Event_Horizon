@@ -8,7 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scene_Whitebox_Rogue.unity
     guid: 2d5e8a6a4a680e941ae7061f7f4e1b85
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_Whitebox_Soldier.unity
     guid: e0cdeec48ad75fe4284c9195cecc6171
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 7ed52d822b9143e4081a6bc16dd65c5c
+  - enabled: 1
+    path: Assets/Scenes/Character Select.unity
+    guid: 6858acd03750bb34c9c8e0d5b2ec69c5
+  - enabled: 1
+    path: Assets/Scenes/Elliot's.unity
+    guid: 5957d28dc5062484595c46d6fa51063e
   m_configObjects: {}

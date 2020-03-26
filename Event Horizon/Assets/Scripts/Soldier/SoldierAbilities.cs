@@ -12,8 +12,9 @@ public class SoldierAbilities : MonoBehaviour
     public float rapidFireDuration;
     public float rfFireRate;
 
-    public float rapidFireCooldown;
-    private float rapidFireCDTimer = 0f;
+    public float rapidFireCD;
+    private float rapidFireTimer = 0f;
+    public float rapidFireTimeRemaining = 0f;
 
     // Grenade vars
     public GameObject grenadePrefab;
@@ -23,6 +24,7 @@ public class SoldierAbilities : MonoBehaviour
     public float throwForce;
 
     private float grenadeTimer = 0f;
+    public float grenadeTimeRemaining = 0f;
     private bool canUseGrenade = true;
 
     //public GameObject stunSprite;
@@ -34,8 +36,19 @@ public class SoldierAbilities : MonoBehaviour
         soldier = GetComponent<SoldierInput>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        rapidFireTimeRemaining = rapidFireTimer - Time.time;
+        grenadeTimeRemaining = grenadeTimer - Time.time;
+        if (rapidFireTimeRemaining <= 0)
+        {
+            rapidFireTimeRemaining = 0;
+        }
+        if (grenadeTimeRemaining <= 0)
+        {
+            grenadeTimeRemaining = 0;
+        }
+
         if (Time.time > cnsmAmmoTimer)
         {
             soldier.cnsmAmmo = true;
@@ -44,6 +57,10 @@ public class SoldierAbilities : MonoBehaviour
         if (Time.time > grenadeTimer)
         {
             soldier.canUseGrenade = true;
+        }
+        if (Time.time > rapidFireTimer)
+        {
+            soldier.canUseRF = true;
         }
     }
 
@@ -61,6 +78,10 @@ public class SoldierAbilities : MonoBehaviour
 
         // Increase fire rate.
         soldier.fireRate = rfFireRate;
+
+        // Set timers
+        rapidFireTimer = Time.time + rapidFireCD;
+        soldier.canUseRF = false;
         
     }
 
