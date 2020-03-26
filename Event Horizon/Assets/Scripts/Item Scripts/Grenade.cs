@@ -39,7 +39,7 @@ public class Grenade : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].tag == "Damage")
+            if (hitColliders[i].tag == "Damage") //change to enemy
             {
                 hitColliders[i].SendMessage("grenadeHit");
             }

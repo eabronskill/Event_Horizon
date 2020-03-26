@@ -78,7 +78,7 @@ public class rogueInput : Player
     // Update is called once per frame
     void Update()
     {
-        base.FixedUpdate();
+        base.Update();
 
         if (Input.GetKeyDown("space") && canJump)
             jump();
@@ -88,9 +88,13 @@ public class rogueInput : Player
         {
             abilities.setSpikes();
         }
-        if (Input.GetKeyDown("r") && abilities.canSetMine)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && abilities.canSetMine && !abilities.mineSet)
         {
             abilities.setMine();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && abilities.mineSet)
+        {
+            abilities.detonate();
         }
 
         if (Input.GetMouseButtonDown(0) && Time.time > strapTimer)

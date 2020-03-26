@@ -9,19 +9,21 @@ public class RogueAbilities : MonoBehaviour
     private float spikeCooldown;
 
     public bool canSetMine;
+    public bool mineSet;
     private float mineCooldown;
 
     public GameObject spikes;
     public GameObject mine;
     public GameObject grenade;
-    Enemy enemy;
+    //Enemy enemy;
 
     void Start()
     {
         canSetSpikes = true;
-        enemy = new Enemy();
-        enemy.mineExplosionEvent += detonate;
+        //enemy = new Enemy();
+        //enemy.mineExplosionEvent += detonate;
         canSetMine = true;
+        mineSet = false;
         spikeCooldown = 3.0f;
         mineCooldown = 3.0f;
         
@@ -50,15 +52,20 @@ public class RogueAbilities : MonoBehaviour
     {
         canSetMine = false;
         Invoke("resetMine", mineCooldown);
-
-        //actually put in spikes
-        Instantiate(mine, transform.position, transform.rotation);
+        mineSet = true;
+        //actually put in mine
+        Vector3 mineLoc = transform.position;
+        mineLoc.y += .3f;
+        mineLoc += transform.forward * 2;
+        mine = Instantiate(mine, mineLoc, transform.rotation);
     }
 
-    private void detonate()
+    public void detonate()
     {
         print("boom!");
-        GameObject grenadeObj = Instantiate(grenade, mine.transform);
+        mine.SendMessage("explode");
+        Destroy(mine);
+        mineSet = false;
     }
 
     private void resetMine()

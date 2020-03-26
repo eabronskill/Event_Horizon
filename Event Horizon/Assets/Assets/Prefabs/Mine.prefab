@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6447022206257847752}
   - component: {fileID: 8459364324372697082}
   - component: {fileID: 9072376652988708714}
+  - component: {fileID: -294863211062539523}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Mine
@@ -110,3 +111,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-294863211062539523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3021328355752557052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5307c3d2a41494dae5de397b8721f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
+    type: 3}

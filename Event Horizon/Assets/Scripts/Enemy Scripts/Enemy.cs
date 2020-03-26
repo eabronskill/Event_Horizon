@@ -20,10 +20,10 @@ public class Enemy : MonoBehaviour
     private float stunnedTimer = 0f;
     private NavMeshAgent nav;
     // declare delegate 
-    public delegate void MineHit();
+    //public delegate void MineHit();
 
     //declare event of type delegate
-    public event MineHit mineExplosionEvent;
+    //public event MineHit mineExplosionEvent;
 
 
     bool dead;
@@ -118,7 +118,6 @@ public class Enemy : MonoBehaviour
         }
 
 
-
         //if (coll.gameObject.tag == "Damage")
         //{
         //    bulletImpact = coll.transform.position;
@@ -151,15 +150,6 @@ public class Enemy : MonoBehaviour
             print("In here");
         }
 
-        if (other.gameObject.tag == "Mine")
-        {
-            print("collision");
-            if (mineExplosionEvent != null)
-            {
-                print("event not null");
-                mineExplosionEvent();
-            }
-        }
     }
 
     private void resetSpeed()
