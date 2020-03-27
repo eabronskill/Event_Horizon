@@ -29,7 +29,7 @@ public class TankInput : Player
     public float groundPoundCD;
     public bool shieldDown;
 
-    new void Awake()
+    void Awake()
     {
         // TRY CATCH FOR TESTING.
         try
@@ -41,6 +41,10 @@ public class TankInput : Player
             player = ReInput.players.GetPlayer(0);
             testing = true;
         }
+        curAmmo = maxAmmo;
+        curClip = maxClip;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
     }
 
     // Start is called before the first frame update
@@ -122,5 +126,13 @@ public class TankInput : Player
         }
 
     }
-    
+
+    /// <summary>
+    /// Used by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public new void takeDamage(float damage)
+    {
+        base.takeDamage(damage);
+    }
 }

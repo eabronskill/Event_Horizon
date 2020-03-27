@@ -34,22 +34,7 @@ public class Player : MonoBehaviour
     private float bufferTimer = 0f;
 
     public bool testing = false;
-
-    public void Awake()
-    {
-        curAmmo = maxAmmo;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
-        print("Awake");
-    }
-
-    void Start()
-    {
-        curAmmo = maxAmmo;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
-    }
-
+    
     public void Update()
     {
         if (!testing)
@@ -57,7 +42,7 @@ public class Player : MonoBehaviour
             // Movement
             Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
-            
+
             // Rotation
             Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
             if (player.GetAxis("Rotate Horizontal") != 0 || player.GetAxis("Rotate Vertical") != 0)
@@ -78,7 +63,7 @@ public class Player : MonoBehaviour
                     dif = curAmmo - curClip;
                     curClip = curAmmo;
                 }
-               
+
                 curAmmo -= dif;
             }
 
@@ -242,6 +227,19 @@ public class Player : MonoBehaviour
                     bufferTimer = Time.time + 1f;
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Used by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public void takeDamage(float damage)
+    {
+        curHealth = curHealth - damage;
+        if(curHealth < 0)
+        {
+            curHealth = 0;
         }
     }
 }
