@@ -16,8 +16,9 @@ public class Enemy : MonoBehaviour
     public bool active = false;
 
     // Stat vars
-    public int maxHP = 30;
     public int currHP;
+    public int rangedHP;
+    public int meleeHP;
 
     // Damage vars
     public float attackRange = 7f;
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
     // Target change vars
     private float changeTargetTimer = 0f;
     public float changeTargetTime = 5f;
+    private bool rotating = false;
     
     // Death roll vars
     private Quaternion initRot;
@@ -60,21 +62,21 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
-        print(players.Length);
-
+        
         nav = GetComponent<NavMeshAgent>();
         if (melee)
         {
             damage = meleeDamage;
+            currHP = meleeHP;
             ranged = false;
         }
         else if (ranged)
         {
             damage = rangedDamage;
+            currHP = rangedHP;
             melee = false;
         }
         
-        currHP = maxHP;
     }
 
     // Update is called once per frame
@@ -94,9 +96,9 @@ public class Enemy : MonoBehaviour
             }
             if (Time.time > stunnedTimer)
             {
-                if (ranged)
+                if (target != null && ranged)
                 {
-                    //Always look at your target. TODO:
+                    transform.LookAt(target.transform.position);
                 }
                 // This enemy has been activated and has no path.
                 if (active && !nav.hasPath)
@@ -104,8 +106,14 @@ public class Enemy : MonoBehaviour
                     setPathClosestPlayer();
                     print("Setting Path");
                 }
-                // This enemy has not reached its destination and it is time to find the nearest enemy.
-                else if (nav.remainingDistance - nav.stoppingDistance > 0 && Time.time > changeTargetTimer)
+                // This melee enemy has not reached its destination and it is time to find the nearest enemy.
+                else if (melee && nav.remainingDistance - nav.stoppingDistance > 0 && Time.time > changeTargetTimer)
+                {
+                    setPathClosestPlayer();
+                    print("Resetting Path");
+                }
+                // This ranged enemy has not reached its destination and it is time to find the nearest enemy.
+                else if (ranged && nav.remainingDistance - nav.stoppingDistance <= 0 && Time.time > changeTargetTimer)
                 {
                     setPathClosestPlayer();
                     print("Resetting Path");
@@ -207,29 +215,48 @@ public class Enemy : MonoBehaviour
         nav.SetDestination(target.transform.position);
     }
 
+    /// <summary>
+    /// Used for the grenade. Instantly blows them up if they take enough damage.
+    /// </summary>
+    /// <param name="damage"></param>
+    public void takeDamage(int damage)
+    {
+        currHP = currHP - damage;
+        if (currHP <= 0)
+        {
+            dead = true;
+            die();
+        }
+    }
+
     private void OnCollisionEnter(Collision coll)
     {
         if (coll.gameObject.tag == "Bullet")
         {
-            bulletImpact = coll.transform.position;
+            currHP = currHP - 10;
+            if (currHP <= 0)
+            {
+                bulletImpact = coll.transform.position;
 
-            deathLoc = transform.position;
-            initRot = transform.localRotation;
-            fallRot = initRot;
+                deathLoc = transform.position;
+                initRot = transform.localRotation;
+                fallRot = initRot;
 
-            if (bulletImpact.x > 0)
-                fallRot.x -= .5f;
-            else
-                fallRot.x += .5f;
+                if (bulletImpact.x > 0)
+                    fallRot.x -= .5f;
+                else
+                    fallRot.x += .5f;
 
-            if (bulletImpact.z > 0)
-                fallRot.z -= .5f;
-            else
-                fallRot.z += .5f;
+                if (bulletImpact.z > 0)
+                    fallRot.z -= .5f;
+                else
+                    fallRot.z += .5f;
 
-            deathTimer = Time.time + 1f;
-            dead = true;
-            Invoke("die", 1f);
+                deathTimer = Time.time + 1f;
+                dead = true;
+                Invoke("die", 1f);
+            }
+            
         }
 
         if (coll.gameObject.tag == "Spike")
@@ -255,6 +282,11 @@ public class Enemy : MonoBehaviour
                 print("event not null");
                 mineExplosionEvent();
             }
+        }
+
+        if (other.gameObject.tag == "Melee")
+        {
+            takeDamage(20);
         }
     }
 

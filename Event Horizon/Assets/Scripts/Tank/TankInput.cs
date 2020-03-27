@@ -70,7 +70,6 @@ public class TankInput : Player
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            base.curAmmo--;
             base.curClip--;
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
@@ -127,6 +126,11 @@ public class TankInput : Player
 
     }
 
+    new private void OnCollisionEnter(Collision other)
+    {
+        base.OnCollisionEnter(other);
+    }
+
     /// <summary>
     /// Used by the enemy script to cause damage to this player.
     /// </summary>
@@ -135,4 +139,5 @@ public class TankInput : Player
     {
         base.takeDamage(damage);
     }
+    
 }

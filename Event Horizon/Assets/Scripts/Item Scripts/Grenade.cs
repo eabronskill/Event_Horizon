@@ -39,9 +39,9 @@ public class Grenade : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].tag == "Damage")
+            if (hitColliders[i].tag == "Enemy")
             {
-                hitColliders[i].SendMessage("grenadeHit");
+                hitColliders[i].gameObject.GetComponent<Enemy>().takeDamage(20);
             }
             i++;
         }

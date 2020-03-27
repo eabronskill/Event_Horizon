@@ -74,7 +74,6 @@ public class SoldierInput : Player
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             if (cnsmAmmo)
             {
-                base.curAmmo--;
                 base.curClip--;
             }
         }
@@ -124,4 +123,10 @@ public class SoldierInput : Player
     {
         base.takeDamage(damage);
     }
+
+    new private void OnCollisionEnter(Collision other)
+    {
+        base.OnCollisionEnter(other);
+    }
+    
 }

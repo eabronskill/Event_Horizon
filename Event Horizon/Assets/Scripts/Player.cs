@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public float curAmmo;
     public float maxAmmo;
     private float dif;
+    public bool dead = false;
 
     // Aiming vars
     private Plane mousePlane;
@@ -31,7 +32,8 @@ public class Player : MonoBehaviour
     public bool hasAmmo = false;
     [HideInInspector]
     public bool hasHealing = false;
-    private float bufferTimer = 0f;
+    private float bufferTimer = 0.5f;
+    private bool cantUse = false;
 
     public bool testing = false;
     
@@ -135,33 +137,37 @@ public class Player : MonoBehaviour
                 curAmmo -= dif;
             }
 
-            // Items
-            if (hasAmmo && Input.GetKeyDown(KeyCode.E))
+            if (!cantUse)
             {
-                ammoItem.use();
-                hasAmmo = false;
+                // Items
+                if (hasAmmo && Input.GetKeyDown(KeyCode.E))
+                {
+                    ammoItem.use();
+                    hasAmmo = false;
+                }
+                else if (hasAmmo && Input.GetKeyDown(KeyCode.F))
+                {
+                    ammoItem.gameObject.SetActive(true);
+                    ammoItem.transform.position = new Vector3(transform.position.x, transform.localPosition.y + 1f, transform.position.z);
+                    ammoItem.player = null;
+                    ammoItem = null;
+                    hasAmmo = false;
+                }
+                if (hasHealing && Input.GetKeyDown(KeyCode.E))
+                {
+                    healingItem.use();
+                    hasHealing = false;
+                }
+                else if (hasHealing && Input.GetKeyDown(KeyCode.F))
+                {
+                    healingItem.gameObject.SetActive(true);
+                    healingItem.transform.position = new Vector3(transform.position.x, transform.localPosition.y + 1f, transform.position.z);
+                    healingItem.player = null;
+                    healingItem = null;
+                    hasHealing = false;
+                }
             }
-            else if (hasAmmo && Input.GetKeyDown(KeyCode.F))
-            {
-                ammoItem.gameObject.SetActive(true);
-                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                ammoItem.player = null;
-                ammoItem = null;
-                hasAmmo = false;
-            }
-            if (hasHealing && Input.GetKeyDown(KeyCode.E))
-            {
-                healingItem.use();
-                hasHealing = false;
-            }
-            else if (hasHealing && Input.GetKeyDown(KeyCode.F))
-            {
-                healingItem.gameObject.SetActive(true);
-                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                healingItem.player = null;
-                healingItem = null;
-                hasHealing = false;
-            }
+            
 
             // Death
             if (curHealth <= 0)
@@ -177,15 +183,17 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "Ammo")
             {
-                if (player.GetButtonDown("Interact") && !(hasAmmo || hasHealing))
+                cantUse = true;
+                if (player.GetButton("Interact") && !(hasAmmo || hasHealing))
                 {
                     ammoItem = other.GetComponent<Ammo>();
                     ammoItem.player = this;
                     ammoItem.gameObject.SetActive(false);
                     hasAmmo = true;
                     bufferTimer = Time.time + 1f;
+                    cantUse = false;
                 }
-                else if (player.GetButtonDown("Interact") && hasHealing)
+                else if (player.GetButton("Interact") && hasHealing)
                 {
                     healingItem.gameObject.SetActive(true);
                     healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
@@ -199,20 +207,23 @@ public class Player : MonoBehaviour
                     ammoItem.gameObject.SetActive(false);
                     hasAmmo = true;
                     bufferTimer = Time.time + 1f;
+                    cantUse = false;
                 }
 
             }
             if (other.tag == "Healing")
             {
-                if (player.GetButtonDown("Interact") && !(hasAmmo || hasHealing))
+                cantUse = true;
+                if (player.GetButton("Interact") && !(hasAmmo || hasHealing))
                 {
                     healingItem = other.GetComponent<Healing>();
                     healingItem.player = this;
                     healingItem.gameObject.SetActive(false);
                     hasHealing = true;
                     bufferTimer = Time.time + 1f;
+                    cantUse = false;
                 }
-                else if (player.GetButtonDown("Interact") && hasAmmo)
+                else if (player.GetButton("Interact") && hasAmmo)
                 {
                     ammoItem.gameObject.SetActive(true);
                     ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
@@ -225,6 +236,7 @@ public class Player : MonoBehaviour
                     healingItem.gameObject.SetActive(false);
                     hasHealing = true;
                     bufferTimer = Time.time + 1f;
+                    cantUse = false;
                 }
             }
         }
@@ -240,6 +252,31 @@ public class Player : MonoBehaviour
         if(curHealth < 0)
         {
             curHealth = 0;
+            dead = true;
         }
+    }
+
+    public void OnCollisionEnter(Collision coll)
+    {
+        if (coll.gameObject.tag == "Enemy Bullet")
+        {
+            takeDamage(30);
+            print("Bullet Damage");
+        }
+    }
+
+    /// <summary>
+    /// Called when players respawn. Will dissable collision with other players for a time.
+    /// </summary>
+    public void respawning()
+    {
+        print("Here");
+        gameObject.layer = LayerMask.NameToLayer("Respawning");
+        Invoke("stopSpawning", 3f);
+    }
+
+    private void stopSpawning()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Players");
     }
 }
