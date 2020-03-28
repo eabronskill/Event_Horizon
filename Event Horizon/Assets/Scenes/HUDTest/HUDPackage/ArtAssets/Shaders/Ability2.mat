@@ -82,7 +82,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Fillpercentage: 1
+    - _Fillpercentage: 0
     - _Globalopacity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -116,9 +116,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Backgroundbordercolor: {r: 0.2132353, g: 0.6418865, b: 1, a: 1}
-    - _Backgroundfillcolor: {r: 0.30980393, g: 0.30980393, b: 0.30980393, a: 1}
-    - _Barmaxcolor: {r: 0, g: 0.8745098, b: 1, a: 1}
-    - _Barmincolor: {r: 1, g: 0, b: 0, a: 1}
+    - _Backgroundfillcolor: {r: 0, g: 0.87058824, b: 1, a: 1}
+    - _Barmaxcolor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
+    - _Barmincolor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
     - _Barsecondarymaxcolor: {r: 0, g: 1, b: 0.08965516, a: 1}
     - _Barsecondarymincolor: {r: 1, g: 0, b: 0, a: 1}
     - _Bordermaxcolor: {r: 0, g: 1, b: 0.08965516, a: 1}

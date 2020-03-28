@@ -2259,10 +2259,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bf21cd063adf74c924437b26720322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curMoveSpeed: 0
   movementSpeed: 80
-  health: 100
   armor: 0
-  ammo: 200
+  curHealth: 0
+  maxHealth: 0
+  curAmmo: 0
+  maxAmmo: 0
+  ammoItem: {fileID: 0}
+  healingItem: {fileID: 0}
+  hasAmmo: 0
+  hasHealing: 0
   attackPoint: {fileID: 1259496034}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
   fireRate: 0.13
@@ -2669,6 +2676,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7114397070673391984, guid: 10a0d649b92db304c874020a7f6daa68,
+        type: 3}
+      propertyPath: curAmmo
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114397070673391984, guid: 10a0d649b92db304c874020a7f6daa68,
+        type: 3}
+      propertyPath: maxAmmo
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7114397070673391986, guid: 10a0d649b92db304c874020a7f6daa68,
         type: 3}
       propertyPath: m_LocalPosition.x

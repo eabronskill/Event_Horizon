@@ -159,6 +159,7 @@ MonoBehaviour:
   maxClip: 0
   curAmmo: 0
   maxAmmo: 0
+  dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
@@ -442,6 +443,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &607895763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5618568427179658904, guid: 9cb94b3dfe375614588284fc452326d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1547914855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &944763229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8064502178942012886, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
@@ -520,6 +527,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 7114397070673391996, guid: 10a0d649b92db304c874020a7f6daa68,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10a0d649b92db304c874020a7f6daa68, type: 3}
 --- !u!1001 &1160338645
@@ -589,6 +601,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 8064502178942012886, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e, type: 3}
 --- !u!1001 &1547914855
@@ -633,6 +650,11 @@ PrefabInstance:
       propertyPath: Rogue
       value: 
       objectReference: {fileID: 1988865906}
+    - target: {fileID: 5461346387300937711, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5461346387442220022, guid: 9cb94b3dfe375614588284fc452326d0,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -748,6 +770,11 @@ PrefabInstance:
       propertyPath: Rogue
       value: 
       objectReference: {fileID: 1988865906}
+    - target: {fileID: 5461346388273660173, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5461346388273660208, guid: 9cb94b3dfe375614588284fc452326d0,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -803,6 +830,11 @@ PrefabInstance:
       propertyPath: Rogue
       value: 
       objectReference: {fileID: 1988865906}
+    - target: {fileID: 5461346388298616382, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5461346389030180698, guid: 9cb94b3dfe375614588284fc452326d0,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -878,6 +910,21 @@ PrefabInstance:
       propertyPath: Rogue
       value: 
       objectReference: {fileID: 1988865906}
+    - target: {fileID: 5618568427399977282, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618568427399977282, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: abilityImage1
+      value: 
+      objectReference: {fileID: 607895763}
+    - target: {fileID: 5618568427399977282, guid: 9cb94b3dfe375614588284fc452326d0,
+        type: 3}
+      propertyPath: abilityImage2
+      value: 
+      objectReference: {fileID: 1643072161}
     - target: {fileID: 5618568427399977343, guid: 9cb94b3dfe375614588284fc452326d0,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1048,6 +1095,7 @@ MonoBehaviour:
   maxClip: 0
   curAmmo: 0
   maxAmmo: 0
+  dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
@@ -1099,6 +1147,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1643072161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5618568426935300081, guid: 9cb94b3dfe375614588284fc452326d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1547914855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1988865906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1208,7 @@ MonoBehaviour:
   maxClip: 0
   curAmmo: 0
   maxAmmo: 0
+  dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0

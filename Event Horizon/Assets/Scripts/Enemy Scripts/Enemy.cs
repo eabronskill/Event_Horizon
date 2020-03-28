@@ -51,10 +51,10 @@ public class Enemy : MonoBehaviour
     public bool canBeStunned = true;
     
     // declare delegate 
-    public delegate void MineHit();
+    //public delegate void MineHit();
 
     //declare event of type delegate
-    public event MineHit mineExplosionEvent;
+    //public event MineHit mineExplosionEvent;
 
 
     bool dead = false;
@@ -276,16 +276,7 @@ public class Enemy : MonoBehaviour
             print("In here");
         }
 
-        if (other.gameObject.tag == "Mine")
-        {
-            print("collision");
-            if (mineExplosionEvent != null)
-            {
-                print("event not null");
-                mineExplosionEvent();
-            }
-        }
-
+       
         if (other.gameObject.tag == "Melee")
         {
             takeDamage(20);

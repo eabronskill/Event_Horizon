@@ -24,12 +24,24 @@ public class HUDController : MonoBehaviour
     public GameObject Rogue;
     public GameObject Engineer;
     public GameObject classImage;
+    public GameObject abilityImage1;
+    public GameObject abilityImage2;
     public int playerNumber;
     //Class Images
     public Sprite tankPic;
     public Sprite soldierPic;
     public Sprite roguePic;
     public Sprite engineerPic;
+    //Ability Images
+    public Sprite groundPound;
+    public Sprite shieldImage;
+    public Sprite turretImage;
+    public Sprite repairImage;
+    public Sprite rapidFire;
+    public Sprite Grenade;
+    public Sprite Caltrops;
+    public Sprite landMine;
+
 
 
     // Start is called before the first frame update
@@ -42,6 +54,8 @@ public class HUDController : MonoBehaviour
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = tankPic;
+            abilityImage1.GetComponent<Image>().sprite = shieldImage;
+            abilityImage2.GetComponent<Image>().sprite = groundPound;
 
         }
 
@@ -52,26 +66,32 @@ public class HUDController : MonoBehaviour
             CurAmmo = Soldier.GetComponent<SoldierInput>().curClip;
             MaxAmmo = Soldier.GetComponent<SoldierInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = soldierPic;
+            abilityImage1.GetComponent<Image>().sprite = rapidFire;
+            abilityImage2.GetComponent<Image>().sprite = Grenade;
         }
 
-        /*if (playerNumber == Rogue.GetComponent<PlayerAttributes>().playerID)
+        if (playerNumber == Rogue.GetComponent<rogueInput>().playerID)
         {
-            CurHealth = Rogue.GetComponent<RogueInput>().curHealth;
-            MaxHealth = Rogue.GetComponent<RogueInput>().maxHealth;
-            CurAmmo = Rogue.GetComponent<RogueInput>().curClip;
-            MaxAmmo = Rogue.GetComponent<RogueInput>().curAmmo;
+            CurHealth = Rogue.GetComponent<rogueInput>().curHealth;
+            MaxHealth = Rogue.GetComponent<rogueInput>().maxHealth;
+            CurAmmo = Rogue.GetComponent<rogueInput>().curClip;
+            MaxAmmo = Rogue.GetComponent<rogueInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = roguePic;
+            abilityImage1.GetComponent<Image>().sprite = Caltrops;
+            abilityImage2.GetComponent<Image>().sprite = landMine;
         }
 
-        if (playerNumber == Engineer.GetComponent<PlayerAttributes>().playerID)
+        if (playerNumber == Engineer.GetComponent<TechnicianInput>().playerID)
         {
-            CurHealth = Engineer.GetComponent<EngineerInput>().curHealth;
-            MaxHealth = Engineer.GetComponent<EngineerInput>().maxHealth;
-            CurAmmo = Engineer.GetComponent<EngineerInput>().curClip;
-            MaxAmmo = Engineer.GetComponent<EngineerInput>().curAmmo;
-            classImage.GetComponent<Image>().sprite = engineerPic; 
-        }*/
-        
+            CurHealth = Engineer.GetComponent<TechnicianInput>().curHealth;
+            MaxHealth = Engineer.GetComponent<TechnicianInput>().maxHealth;
+            CurAmmo = Engineer.GetComponent<TechnicianInput>().curClip;
+            MaxAmmo = Engineer.GetComponent<TechnicianInput>().curAmmo;
+            classImage.GetComponent<Image>().sprite = engineerPic;
+            abilityImage1.GetComponent<Image>().sprite = turretImage;
+            abilityImage2.GetComponent<Image>().sprite = repairImage;
+        }
+
         health.SetFloat("_Fillpercentage", CurHealth / MaxHealth);
         
     }
@@ -86,8 +106,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Tank.GetComponent<TankInput>().maxHealth;
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
-            /*AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<PlayerAttributes>().abilityCooldown1 / Tank.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<PlayerAttributes>().abilityCooldown2 / Tank.GetComponent<PlayerAttributes>().maxCooldown2); */
+            AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().shieldCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().groundPoundCD / Tank.GetComponent<TankAbilities>().groundPoundCD); 
 
             if (Tank.GetComponent<TankInput>().hasAmmo ^ Tank.GetComponent<TankInput>().hasHealing)
             {
@@ -116,8 +136,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Soldier.GetComponent<SoldierInput>().maxHealth;
             CurAmmo = Soldier.GetComponent<SoldierInput>().curClip;
             MaxAmmo = Soldier.GetComponent<SoldierInput>().curAmmo;
-            /*AbilityOne.SetFloat("_Fillpercentage", Soldier.GetComponent<PlayerAttributes>().abilityCooldown1 / Soldier.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Soldier.GetComponent<PlayerAttributes>().abilityCooldown2 / Soldier.GetComponent<PlayerAttributes>().maxCooldown2);*/
+            AbilityOne.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().rapidFireCD / Soldier.GetComponent<SoldierAbilities>().rapidFireCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().grenadeCD / Soldier.GetComponent<SoldierAbilities>().grenadeCD);
 
             if (Soldier.GetComponent<SoldierInput>().hasAmmo ^ Soldier.GetComponent<SoldierInput>().hasHealing)
             {
@@ -140,24 +160,24 @@ public class HUDController : MonoBehaviour
             }
         }
 
-        /*if (playerNumber == Rogue.GetComponent<PlayerAttributes>().playerID)
+        if (playerNumber == Rogue.GetComponent<rogueInput>().playerID)
         {
-            CurHealth = Rogue.GetComponent<RogueInput>().curHealth;
-            MaxHealth = Rogue.GetComponent<RogueInput>().maxHealth;
-            CurAmmo = Rogue.GetComponent<RogueInput>().curClip;
-            MaxAmmo = Rogue.GetComponent<RogueInput>().curAmmo;
-            AbilityOne.SetFloat("_Fillpercentage", Rogue.GetComponent<PlayerAttributes>().abilityCooldown1 / Rogue.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Rogue.GetComponent<PlayerAttributes>().abilityCooldown2 / Rogue.GetComponent<PlayerAttributes>().maxCooldown2);
+            CurHealth = Rogue.GetComponent<rogueInput>().curHealth;
+            MaxHealth = Rogue.GetComponent<rogueInput>().maxHealth;
+            CurAmmo = Rogue.GetComponent<rogueInput>().curClip;
+            MaxAmmo = Rogue.GetComponent<rogueInput>().curAmmo;
+            AbilityOne.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().spikeTimeRemaining / Rogue.GetComponent<RogueAbilities>().spikeCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().mineTimeRemaining / Rogue.GetComponent<RogueAbilities>().mineCD);
 
-            if (Rogue.GetComponent<RogueInput>().hasAmmo ^ Rogue.GetComponent<RogueInput>().hasHealing)
+            if (Rogue.GetComponent<rogueInput>().hasAmmo ^ Rogue.GetComponent<rogueInput>().hasHealing)
             {
-                if (Rogue.GetComponent<RogueInput>().hasAmmo)
+                if (Rogue.GetComponent<rogueInput>().hasAmmo)
                 {
                     ammoPickup.SetActive(true);
                     FAK.SetActive(false);
                 }
 
-                if (Rogue.GetComponent<RogueInput>().hasHealing)
+                if (Rogue.GetComponent<rogueInput>().hasHealing)
                 {
                     FAK.SetActive(true);
                     ammoPickup.SetActive(false);
@@ -168,26 +188,26 @@ public class HUDController : MonoBehaviour
                 FAK.SetActive(false);
                 ammoPickup.SetActive(false);
             }
-        }*/
+        }
 
-        /*if (playerNumber == Engineer.GetComponent<EngineerInput>().playerID)
+        if (playerNumber == Engineer.GetComponent<TechnicianInput>().playerID)
         {
-            CurHealth = Engineer.GetComponent<EngineerInput>().curHealth;
-            MaxHealth = Engineer.GetComponent<EngineerInput>().maxHealth;
-            CurAmmo = Engineer.GetComponent<EngineerInput>().curClip;
-            MaxAmmo = Engineer.GetComponent<EngineerInput>().curAmmo;
-            AbilityOne.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().abilityCooldown1 / Engineer.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().abilityCooldown2 / Engineer.GetComponent<PlayerAttributes>().maxCooldown2);
+            CurHealth = Engineer.GetComponent<TechnicianInput>().curHealth;
+            MaxHealth = Engineer.GetComponent<TechnicianInput>().maxHealth;
+            CurAmmo = Engineer.GetComponent<TechnicianInput>().curClip;
+            MaxAmmo = Engineer.GetComponent<TechnicianInput>().curAmmo;
+            AbilityOne.SetFloat("_Fillpercentage", Engineer.GetComponent<TechnicianAbilities>().turretTimeRemaining / Engineer.GetComponent<TechnicianAbilities>().turretCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Engineer.GetComponent<TechnicianAbilities>().repairTimeRemaining / Engineer.GetComponent<TechnicianAbilities>().repairCD);
             
-            if (Engineer.GetComponent<EngineerInput>().hasAmmo ^ Engineer.GetComponent<EngineerInput>().hasHealing)
+            if (Engineer.GetComponent<TechnicianInput>().hasAmmo ^ Engineer.GetComponent<TechnicianInput>().hasHealing)
             {
-                if (Engineer.GetComponent<EngineerInput>().hasAmmo)
+                if (Engineer.GetComponent<TechnicianInput>().hasAmmo)
                 {
                     ammoPickup.SetActive(true);
                     FAK.SetActive(false);
                 }
 
-                if (Engineer.GetComponent<EngineerInput>().Healing)
+                if (Engineer.GetComponent<TechnicianInput>().hasHealing)
                 {
                     FAK.SetActive(true);
                     ammoPickup.SetActive(false);
@@ -198,7 +218,7 @@ public class HUDController : MonoBehaviour
                 FAK.SetActive(false);
                 ammoPickup.SetActive(false);
             }
-        }*/
+        }
 
         AmmoCounter.text = CurAmmo.ToString();
         AmmoReserve.text = MaxAmmo.ToString();
