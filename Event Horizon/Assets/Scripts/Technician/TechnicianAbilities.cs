@@ -26,8 +26,8 @@ public class TechnicianAbilities : MonoBehaviour
         canSetTurret = true;
         canRepair = true;
         turretSet = false;
-        turretCD = 5.0f;
-        repairCD = 5.0f;
+        turretCD = 30.0f;
+        repairCD = 90.0f;
 
     }
 
@@ -55,6 +55,7 @@ public class TechnicianAbilities : MonoBehaviour
         turretLoc += transform.forward * 2;
 
         turret = Instantiate(turret, turretLoc, transform.rotation); //TODO: TURRET LOGIC
+        Invoke("resetTurret", turretCD);
     }
 
     private void resetTurret()

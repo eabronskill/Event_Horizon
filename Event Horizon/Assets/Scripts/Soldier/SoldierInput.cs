@@ -17,6 +17,7 @@ public class SoldierInput : Player
     private float hammerTimer = 0;
     private float strapTimer = 0;
     public float fireRate;
+    public Sword sword;
 
     // Ability vars
     [HideInInspector]
@@ -87,10 +88,16 @@ public class SoldierInput : Player
         }
 
         // Melee
-        if (player.GetButton("Melee") && Time.time >= hammerTimer)
+        /*if (player.GetButton("Melee") && Time.time >= hammerTimer)
         {
             hammerTimer = Time.time + 1f;
             melee.soldierMelee();
+        }*/
+
+
+        if (player.GetButtonDown("Melee"))
+        {
+            sword.SwordAttack();
         }
 
         // Ability 1: Rapid Fire

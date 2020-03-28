@@ -65,15 +65,15 @@ public class TechnicianInput : Player
         if (Input.GetKeyDown("space") && canJump)
             jump();
 
-        /*if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)  ------ADD TECH ABILITIES
+        if (player.GetButtonDown("Ability1") && abilities.canSetTurret)
         {
-            abilities.setSpikes();
+            abilities.setTurret();
         }
-        if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
+        if (player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
         {
-            abilities.setMine();
+            abilities.repair();
         }
-        */
+        
 
         if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
