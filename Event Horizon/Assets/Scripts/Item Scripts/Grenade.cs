@@ -7,7 +7,7 @@ public class Grenade : MonoBehaviour
     public GameObject explosionPrefab;
 
     public float explosionDelay = 2f;
-    public float range = 10f;
+    public float range = 8f;
     private float countdown1;
     private float countdown2;
     private bool hasExploded = false;

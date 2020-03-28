@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 4167106792907074876}
   - component: {fileID: 878029164}
   - component: {fileID: -3910043933789587445}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Spider Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -152,6 +152,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4167106793585809070}
     m_Modifications:
+    - target: {fileID: -8052994932809076077, guid: 5e69484565752e449b4688ee437464c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e69484565752e449b4688ee437464c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -226,6 +231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spider_enemy05
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 5e69484565752e449b4688ee437464c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e69484565752e449b4688ee437464c6, type: 3}

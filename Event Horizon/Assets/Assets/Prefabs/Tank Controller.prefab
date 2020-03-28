@@ -13,7 +13,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 4.524728
   m_Direction: 1
-  m_Center: {x: 0.04, y: -0.1, z: 0.06}
+  m_Center: {x: 0.04, y: 0, z: 0.06}
 --- !u!1 &7114397070408039665
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +317,7 @@ MonoBehaviour:
   maxClip: 100
   curAmmo: 2000
   maxAmmo: 2000
+  dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0

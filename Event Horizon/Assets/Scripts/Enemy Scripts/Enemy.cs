@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour
 
     // Player interaction vars
     private float stunnedTimer = 0f;
+
+    public bool canBeStunned = true;
     
     // declare delegate 
     public delegate void MineHit();
@@ -90,13 +92,14 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (target != null && !target.activeSelf)
+            
+            if (Time.time > stunnedTimer && active)
             {
-                setPathClosestPlayer();
-            }
-            if (Time.time > stunnedTimer)
-            {
-                if (target != null && ranged)
+                if (target != null && !target.activeSelf)
+                {
+                    setPathClosestPlayer();
+                }
+                if (target != null && nav.remainingDistance - nav.stoppingDistance <= 0)
                 {
                     transform.LookAt(target.transform.position);
                 }
@@ -302,7 +305,11 @@ public class Enemy : MonoBehaviour
 
     public void stun()
     {
-        stunnedTimer = Time.time + 3;
+        if (canBeStunned)
+        {
+            stunnedTimer = Time.time + 3;
+        }
+        
     }
 
 

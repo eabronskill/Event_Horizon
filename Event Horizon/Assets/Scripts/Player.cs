@@ -264,19 +264,4 @@ public class Player : MonoBehaviour
             print("Bullet Damage");
         }
     }
-
-    ///// <summary>
-    ///// Called when players respawn. Will dissable collision with other players for a time.
-    ///// </summary>
-    //public void respawning()
-    //{
-    //    print("Here");
-    //    gameObject.layer = LayerMask.NameToLayer("Respawning");
-    //    Invoke("stopSpawning", 3f);
-    //}
-
-    //private void stopSpawning()
-    //{
-    //    gameObject.layer = LayerMask.NameToLayer("Players");
-    //}
 }
