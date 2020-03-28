@@ -24,12 +24,24 @@ public class HUDController : MonoBehaviour
     public GameObject Rogue;
     public GameObject Engineer;
     public GameObject classImage;
+    public GameObject abilityImage1;
+    public GameObject abilityImage2;
     public int playerNumber;
     //Class Images
     public Sprite tankPic;
     public Sprite soldierPic;
     public Sprite roguePic;
     public Sprite engineerPic;
+    //Ability Images
+    public Sprite groundPound;
+    public Sprite shieldImage;
+    public Sprite turretImage;
+    public Sprite repairImage;
+    public Sprite rapidFire;
+    public Sprite Grenade;
+    public Sprite Caltrops;
+    public Sprite landMine;
+
 
 
     // Start is called before the first frame update
@@ -42,6 +54,8 @@ public class HUDController : MonoBehaviour
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = tankPic;
+            abilityImage1.GetComponent<Image>().sprite = shieldImage;
+            abilityImage2.GetComponent<Image>().sprite = groundPound;
 
         }
 
@@ -52,6 +66,8 @@ public class HUDController : MonoBehaviour
             CurAmmo = Soldier.GetComponent<SoldierInput>().curClip;
             MaxAmmo = Soldier.GetComponent<SoldierInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = soldierPic;
+            abilityImage1.GetComponent<Image>().sprite = rapidFire;
+            abilityImage2.GetComponent<Image>().sprite = Grenade;
         }
 
         /*if (playerNumber == Rogue.GetComponent<PlayerAttributes>().playerID)
@@ -61,6 +77,8 @@ public class HUDController : MonoBehaviour
             CurAmmo = Rogue.GetComponent<RogueInput>().curClip;
             MaxAmmo = Rogue.GetComponent<RogueInput>().curAmmo;
             classImage.GetComponent<Image>().sprite = roguePic;
+            abilityImage1.GetComponent<Image>().sprite = Caltrops;
+            abilityImage2.GetComponent<Image>().sprite = landMine;
         }
 
         if (playerNumber == Engineer.GetComponent<PlayerAttributes>().playerID)
@@ -69,9 +87,11 @@ public class HUDController : MonoBehaviour
             MaxHealth = Engineer.GetComponent<EngineerInput>().maxHealth;
             CurAmmo = Engineer.GetComponent<EngineerInput>().curClip;
             MaxAmmo = Engineer.GetComponent<EngineerInput>().curAmmo;
-            classImage.GetComponent<Image>().sprite = engineerPic; 
+            classImage.GetComponent<Image>().sprite = engineerPic;
+            abilityImage1.GetComponent<Image>().sprite = turretImage;
+            abilityImage2.GetComponent<Image>().sprite = repairImage;
         }*/
-        
+
         health.SetFloat("_Fillpercentage", CurHealth / MaxHealth);
         
     }
@@ -86,8 +106,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Tank.GetComponent<TankInput>().maxHealth;
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
-            /*AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().shieldCD / Tank.GetComponent<TankInput>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<PlayerAttributes>().abilityCooldown2 / Tank.GetComponent<PlayerAttributes>().maxCooldown2); */
+            AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().shieldCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().groundPoundCD / Tank.GetComponent<TankAbilities>().groundPoundCD); 
 
             if (Tank.GetComponent<TankInput>().hasAmmo ^ Tank.GetComponent<TankInput>().hasHealing)
             {
@@ -116,8 +136,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Soldier.GetComponent<SoldierInput>().maxHealth;
             CurAmmo = Soldier.GetComponent<SoldierInput>().curClip;
             MaxAmmo = Soldier.GetComponent<SoldierInput>().curAmmo;
-            /*AbilityOne.SetFloat("_Fillpercentage", Soldier.GetComponent<PlayerAttributes>().abilityCooldown1 / Soldier.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Soldier.GetComponent<PlayerAttributes>().abilityCooldown2 / Soldier.GetComponent<PlayerAttributes>().maxCooldown2);*/
+            AbilityOne.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().rapidFireCD / Soldier.GetComponent<SoldierAbilities>().rapidFireCD);
+            AbilityTwo.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().grenadeCD / Soldier.GetComponent<SoldierAbilities>().grenadeCD);
 
             if (Soldier.GetComponent<SoldierInput>().hasAmmo ^ Soldier.GetComponent<SoldierInput>().hasHealing)
             {
@@ -146,8 +166,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Rogue.GetComponent<RogueInput>().maxHealth;
             CurAmmo = Rogue.GetComponent<RogueInput>().curClip;
             MaxAmmo = Rogue.GetComponent<RogueInput>().curAmmo;
-            AbilityOne.SetFloat("_Fillpercentage", Rogue.GetComponent<PlayerAttributes>().abilityCooldown1 / Rogue.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Rogue.GetComponent<PlayerAttributes>().abilityCooldown2 / Rogue.GetComponent<PlayerAttributes>().maxCooldown2);
+            AbilityOne.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().spikeCooldown / Rogue.GetComponent<PlayerAttributes>().maxCooldown1);
+            AbilityTwo.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().mineCooldowns / Rogue.GetComponent<PlayerAttributes>().maxCooldown2);
 
             if (Rogue.GetComponent<RogueInput>().hasAmmo ^ Rogue.GetComponent<RogueInput>().hasHealing)
             {
@@ -176,8 +196,8 @@ public class HUDController : MonoBehaviour
             MaxHealth = Engineer.GetComponent<EngineerInput>().maxHealth;
             CurAmmo = Engineer.GetComponent<EngineerInput>().curClip;
             MaxAmmo = Engineer.GetComponent<EngineerInput>().curAmmo;
-            AbilityOne.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().abilityCooldown1 / Engineer.GetComponent<PlayerAttributes>().maxCooldown1);
-            AbilityTwo.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().abilityCooldown2 / Engineer.GetComponent<PlayerAttributes>().maxCooldown2);
+            AbilityOne.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().turretCooldown / Engineer.GetComponent<PlayerAttributes>().maxCooldown1);
+            AbilityTwo.SetFloat("_Fillpercentage", Engineer.GetComponent<PlayerAttributes>().repairCooldown / Engineer.GetComponent<PlayerAttributes>().maxCooldown2);
             
             if (Engineer.GetComponent<EngineerInput>().hasAmmo ^ Engineer.GetComponent<EngineerInput>().hasHealing)
             {
