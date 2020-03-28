@@ -51,10 +51,10 @@ public class Enemy : MonoBehaviour
     public bool canBeStunned = true;
     
     // declare delegate 
-    public delegate void MineHit();
+    //public delegate void MineHit();
 
     //declare event of type delegate
-    public event MineHit mineExplosionEvent;
+    //public event MineHit mineExplosionEvent;
 
 
     bool dead = false;

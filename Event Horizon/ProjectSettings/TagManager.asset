@@ -4,7 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Damage
+  - SlowField
+  - Button
+  - LevelEnd
+  - Shield
   - Bullet
+  - Spike
   - Mine
   - Ammo
   - Healing
