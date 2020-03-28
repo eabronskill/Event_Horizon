@@ -277,16 +277,7 @@ public class Enemy : MonoBehaviour
             print("In here");
         }
 
-        if (other.gameObject.tag == "Mine")
-        {
-            print("collision");
-            if (mineExplosionEvent != null)
-            {
-                print("event not null");
-                mineExplosionEvent();
-            }
-        }
-
+       
         if (other.gameObject.tag == "Melee")
         {
             takeDamage(20);

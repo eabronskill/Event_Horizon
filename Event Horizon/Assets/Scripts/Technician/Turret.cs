@@ -10,6 +10,11 @@ public class Turret : MonoBehaviour
     public GameObject attackPoint;
     public GameObject projectile;
     private int itr;
+    private int currHP;
+    private int maxHP;
+
+    private float timePlaced;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,11 +23,17 @@ public class Turret : MonoBehaviour
 
         guns.transform.rotation.SetLookRotation(attackPoint.transform.forward);
         itr = 0;
+        maxHP = 100;
+        currHP = maxHP;
+        timePlaced = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time - timePlaced > 30f)
+            Destroy(this);
+
         if (nearestEnemy != null)
             targetAlive = true;
         else
@@ -40,7 +51,7 @@ public class Turret : MonoBehaviour
 
             guns.transform.forward = rotatedVector;
 
-            if (itr == 20)
+            if (itr == 60)
             {
                 Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
                 itr = 0;
@@ -51,8 +62,8 @@ public class Turret : MonoBehaviour
             nearestEnemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
-    void Fire()
+    void repair()
     {
-
+        currHP = maxHP;
     }
 }
