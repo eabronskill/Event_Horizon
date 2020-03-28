@@ -165,7 +165,7 @@ public class rogueInput : Player
         // TRY CATCH FOR TESTING.
         try
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
         }
         catch
         {

@@ -145,7 +145,7 @@ public class TechnicianInput : Player
         // TRY CATCH FOR TESTING.
         try
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
         }
         catch
         {
