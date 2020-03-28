@@ -168,7 +168,6 @@ public class Enemy : MonoBehaviour
             Vector3 dist = transform.position - player.transform.position;
             if (dist.magnitude < smallestDist)
             {
-                print(smallestDist);
                 smallestDist = dist.magnitude;
                 target = player;
             }
