@@ -310,13 +310,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 80
-  curHealth: 200
+  movementSpeed: 50
+  curHealth: 0
   maxHealth: 200
-  curClip: 100
+  curClip: 0
   maxClip: 100
-  curAmmo: 2000
-  maxAmmo: 2000
+  curAmmo: 0
+  maxAmmo: 200
   dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
@@ -352,7 +352,7 @@ MonoBehaviour:
   shieldTimeRemaining: 0
   shieldDown: 0
   stunSprite: {fileID: 7114397071310746249}
-  groundPoundCD: 5
+  groundPoundCD: 60
   groundPoundTimer: 0
   groundPoundTimeRemaining: 0
 --- !u!114 &261708168

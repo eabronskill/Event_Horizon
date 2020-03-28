@@ -29,7 +29,7 @@ public class ChS_Controller : MonoBehaviour
     void Awake()
     {
         // Inilialize model and view.
-        model = new ChS_Model
+        model = new ChS_Model()
         {
             tankIcon = tankIcon,
             soldierIcon = soldierIcon,

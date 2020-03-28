@@ -127,13 +127,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 80
-  curHealth: 200
-  maxHealth: 200
-  curClip: 50
+  movementSpeed: 40
+  curHealth: 0
+  maxHealth: 100
+  curClip: 0
   maxClip: 50
-  curAmmo: 2000
-  maxAmmo: 2000
+  curAmmo: 150
+  maxAmmo: 150
   dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
@@ -165,12 +165,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rapidFireDuration: 5
   rfFireRate: 0.08
-  rapidFireCD: 10
+  rapidFireCD: 120
   rapidFireTimeRemaining: 0
   grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
     type: 3}
   grenadeStart: {fileID: 8064502180463576899}
-  grenadeCD: 5
+  grenadeCD: 45
   throwForce: 30
   grenadeTimeRemaining: 0
 --- !u!136 &512554164
