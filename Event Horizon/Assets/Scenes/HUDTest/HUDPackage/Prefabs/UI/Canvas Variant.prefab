@@ -76,6 +76,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 46d6766f60735a64fab3f8bf66afb71c,
         type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage1
+      value: 
+      objectReference: {fileID: 5461346387516799029}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage2
+      value: 
+      objectReference: {fileID: 5461346387238967644}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: groundPound
+      value: 
+      objectReference: {fileID: 21300000, guid: 58cefe9d54a6493439f8667f018c0709,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: shieldImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 618464b5dcbb66d43a3ee0b12daff5af,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: turretImage
+      value: 
+      objectReference: {fileID: 21300000, guid: e211509084014ba4d93d2647989b3635,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: repairImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d7af3bf71ad05b438ad6ae8fb769039,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: rapidFire
+      value: 
+      objectReference: {fileID: 21300000, guid: 3239fe9b5f6c8934e8543aa12a43dd68,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Grenade
+      value: 
+      objectReference: {fileID: 21300000, guid: 01d921b7723fda84d80296287f91cc57,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Caltrops
+      value: 
+      objectReference: {fileID: 21300000, guid: e8cb33b22d4bd364a983633016431ffc,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: landMine
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e892a0b24ea31444ae0b1e19a9a8d2e,
+        type: 3}
+    - target: {fileID: 4707638422653505241, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: playerNumber
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4707638422653505252, guid: e33861d340afec14690d57374e449669,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -185,6 +248,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 46d6766f60735a64fab3f8bf66afb71c,
         type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage1
+      value: 
+      objectReference: {fileID: 5461346388078270948}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage2
+      value: 
+      objectReference: {fileID: 5461346388354037901}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: groundPound
+      value: 
+      objectReference: {fileID: 21300000, guid: 58cefe9d54a6493439f8667f018c0709,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: shieldImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 618464b5dcbb66d43a3ee0b12daff5af,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: turretImage
+      value: 
+      objectReference: {fileID: 21300000, guid: e211509084014ba4d93d2647989b3635,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: repairImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d7af3bf71ad05b438ad6ae8fb769039,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: rapidFire
+      value: 
+      objectReference: {fileID: 21300000, guid: 3239fe9b5f6c8934e8543aa12a43dd68,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Grenade
+      value: 
+      objectReference: {fileID: 21300000, guid: 01d921b7723fda84d80296287f91cc57,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Caltrops
+      value: 
+      objectReference: {fileID: 21300000, guid: e8cb33b22d4bd364a983633016431ffc,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: landMine
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e892a0b24ea31444ae0b1e19a9a8d2e,
+        type: 3}
+    - target: {fileID: 4707638423953321736, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: playerNumber
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4707638423953321781, guid: e33861d340afec14690d57374e449669,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -274,6 +400,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 46d6766f60735a64fab3f8bf66afb71c,
         type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage1
+      value: 
+      objectReference: {fileID: 5461346388086904535}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage2
+      value: 
+      objectReference: {fileID: 5461346388345927614}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: groundPound
+      value: 
+      objectReference: {fileID: 21300000, guid: 58cefe9d54a6493439f8667f018c0709,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: shieldImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 618464b5dcbb66d43a3ee0b12daff5af,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: turretImage
+      value: 
+      objectReference: {fileID: 21300000, guid: e211509084014ba4d93d2647989b3635,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: repairImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d7af3bf71ad05b438ad6ae8fb769039,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: rapidFire
+      value: 
+      objectReference: {fileID: 21300000, guid: 3239fe9b5f6c8934e8543aa12a43dd68,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Grenade
+      value: 
+      objectReference: {fileID: 21300000, guid: 01d921b7723fda84d80296287f91cc57,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Caltrops
+      value: 
+      objectReference: {fileID: 21300000, guid: e8cb33b22d4bd364a983633016431ffc,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: landMine
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e892a0b24ea31444ae0b1e19a9a8d2e,
+        type: 3}
+    - target: {fileID: 4707638423961952315, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: playerNumber
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4707638424075762449, guid: e33861d340afec14690d57374e449669,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -423,6 +612,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 46d6766f60735a64fab3f8bf66afb71c,
         type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage1
+      value: 
+      objectReference: {fileID: 5618568427179658904}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: abilityImage2
+      value: 
+      objectReference: {fileID: 5618568426935300081}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: groundPound
+      value: 
+      objectReference: {fileID: 21300000, guid: 58cefe9d54a6493439f8667f018c0709,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: shieldImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 618464b5dcbb66d43a3ee0b12daff5af,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: turretImage
+      value: 
+      objectReference: {fileID: 21300000, guid: e211509084014ba4d93d2647989b3635,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: repairImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d7af3bf71ad05b438ad6ae8fb769039,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: rapidFire
+      value: 
+      objectReference: {fileID: 21300000, guid: 3239fe9b5f6c8934e8543aa12a43dd68,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Grenade
+      value: 
+      objectReference: {fileID: 21300000, guid: 01d921b7723fda84d80296287f91cc57,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: Caltrops
+      value: 
+      objectReference: {fileID: 21300000, guid: e8cb33b22d4bd364a983633016431ffc,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: landMine
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e892a0b24ea31444ae0b1e19a9a8d2e,
+        type: 3}
+    - target: {fileID: 5145177417261250676, guid: e33861d340afec14690d57374e449669,
+        type: 3}
+      propertyPath: playerNumber
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5145177417400429677, guid: e33861d340afec14690d57374e449669,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -561,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 5145177418156915003, guid: e33861d340afec14690d57374e449669,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: Canvas Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e33861d340afec14690d57374e449669, type: 3}
@@ -571,9 +823,33 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 765187175583146294}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5618568427179658904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5145177417342889902, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5618568426935300081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5145177417608154823, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5461346388288957763 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4707638423941418101, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346387516799029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638422567409923, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346387238967644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638422866278506, guid: e33861d340afec14690d57374e449669,
     type: 3}
   m_PrefabInstance: {fileID: 765187175583146294}
   m_PrefabAsset: {fileID: 0}
@@ -583,9 +859,33 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 765187175583146294}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346388086904535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638424010045409, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346388345927614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638423772059272, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5461346387307973778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4707638422658592164, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346388078270948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638424034998482, guid: e33861d340afec14690d57374e449669,
+    type: 3}
+  m_PrefabInstance: {fileID: 765187175583146294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5461346388354037901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4707638423746582971, guid: e33861d340afec14690d57374e449669,
     type: 3}
   m_PrefabInstance: {fileID: 765187175583146294}
   m_PrefabAsset: {fileID: 0}
