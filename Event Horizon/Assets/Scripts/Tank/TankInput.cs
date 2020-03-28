@@ -29,7 +29,7 @@ public class TankInput : Player
     public float groundPoundCD;
     public bool shieldDown;
 
-    new void Awake()
+    void Awake()
     {
         // TRY CATCH FOR TESTING.
         try
@@ -41,6 +41,10 @@ public class TankInput : Player
             player = ReInput.players.GetPlayer(0);
             testing = true;
         }
+        curAmmo = maxAmmo;
+        curClip = maxClip;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
     }
 
     // Start is called before the first frame update
@@ -66,7 +70,6 @@ public class TankInput : Player
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            base.curAmmo--;
             base.curClip--;
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
@@ -121,6 +124,20 @@ public class TankInput : Player
             
         }
 
+    }
+
+    new private void OnCollisionEnter(Collision other)
+    {
+        base.OnCollisionEnter(other);
+    }
+
+    /// <summary>
+    /// Used by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public new void takeDamage(float damage)
+    {
+        base.takeDamage(damage);
     }
     
 }

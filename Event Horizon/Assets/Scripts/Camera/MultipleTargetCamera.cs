@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultipleTargetCamera : MonoBehaviour
 {
-    public List<Transform> targets;
+    public List<GameObject> targets;
     public Vector3 offset;
     public float smoothTime = 0.5f;
     private Vector3 velocity;
@@ -43,10 +43,13 @@ public class MultipleTargetCamera : MonoBehaviour
 
     float getGreatestDistance()
     {
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
+        var bounds = new Bounds(targets[0].transform.position, Vector3.zero);
         for (int i = 0; i < targets.Count; i++)
         {
-            bounds.Encapsulate(targets[i].position);
+            if (targets[i].activeSelf)
+            {
+                bounds.Encapsulate(targets[i].transform.position);
+            }
         }
         return Mathf.Max(bounds.size.x, bounds.size.z);
     }
@@ -55,13 +58,16 @@ public class MultipleTargetCamera : MonoBehaviour
     {
         if (targets.Count == 1)
         {
-            return targets[0].position;
+            return targets[0].transform.position;
         }
 
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
+        var bounds = new Bounds(targets[0].transform.position, Vector3.zero);
         for (int i = 0; i < targets.Count; i++)
         {
-            bounds.Encapsulate(targets[i].position);
+            if (targets[i].activeSelf)
+            {
+                bounds.Encapsulate(targets[i].transform.position);
+            }
         }
         return bounds.center;
     }

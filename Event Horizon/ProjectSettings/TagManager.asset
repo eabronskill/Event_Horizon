@@ -9,6 +9,8 @@ TagManager:
   - Ammo
   - Healing
   - Shield
+  - Enemy Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - 
   - Items
   - Players
-  - 
-  - 
-  - 
+  - Respawning
+  - Enemy
+  - Enemy Bullet
   - 
   - 
   - 

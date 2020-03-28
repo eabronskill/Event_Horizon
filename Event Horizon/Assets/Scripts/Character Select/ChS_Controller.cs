@@ -184,7 +184,7 @@ public class ChS_Controller : MonoBehaviour
         }
 
         // TODO: Load the first level.
-        SceneManager.LoadScene("Elliot's");
+        SceneManager.LoadScene("Level1");
         
     }
 

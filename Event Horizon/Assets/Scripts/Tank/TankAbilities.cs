@@ -103,9 +103,10 @@ public class TankAbilities : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].tag == "Damage")
+            if (hitColliders[i].tag == "Enemy")
             {
-                hitColliders[i].SendMessage("stun");
+                print(i);
+                hitColliders[i].gameObject.GetComponent<Enemy>().stun();
             }
             i++;
         }

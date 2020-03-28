@@ -26,9 +26,11 @@ GameObject:
   - component: {fileID: 4167106793578330478}
   - component: {fileID: 4167106792907074879}
   - component: {fileID: 4167106792907074876}
-  m_Layer: 0
+  - component: {fileID: 878029164}
+  - component: {fileID: -3910043933789587445}
+  m_Layer: 11
   m_Name: Spider Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +81,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd980717037083c4483e9d39f91642c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
+  currHP: 0
+  rangedHP: 0
+  meleeHP: 50
+  attackRange: 7
+  attackSpeed: 1
+  melee: 1
+  ranged: 0
+  meleeDamage: 10
+  rangedDamage: 30
+  meleeAttackTime: 2
+  rangedAttackTime: 4
+  attackPoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  changeTargetTime: 5
 --- !u!195 &4167106792907074876
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -101,6 +118,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!135 &878029164
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167106793585707726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &-3910043933789587445
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167106793585707726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.86
+  m_Height: 3.97
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.28, z: 0}
 --- !u!1001 &1931489040871696521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,6 +152,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4167106793585809070}
     m_Modifications:
+    - target: {fileID: -8052994932809076077, guid: 5e69484565752e449b4688ee437464c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e69484565752e449b4688ee437464c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,6 +231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spider_enemy05
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 5e69484565752e449b4688ee437464c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e69484565752e449b4688ee437464c6, type: 3}

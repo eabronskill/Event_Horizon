@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8064502178942012883}
   - component: {fileID: 8064502178942012884}
   - component: {fileID: 8064502178942012885}
+  - component: {fileID: 512554164}
+  - component: {fileID: 512554163}
   m_Layer: 9
   m_Name: Soldier Controller
   m_TagString: Player
@@ -65,13 +67,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
   movementSpeed: 80
-  armor: 0
   curHealth: 200
   maxHealth: 200
   curClip: 50
   maxClip: 50
   curAmmo: 2000
   maxAmmo: 2000
+  dead: 0
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
@@ -109,6 +111,32 @@ MonoBehaviour:
   grenadeCD: 5
   throwForce: 30
   grenadeTimeRemaining: 0
+--- !u!136 &512554164
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064502178942012886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.27, z: 0}
+--- !u!114 &512554163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064502178942012886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a36b7bac7a02d4ba28e1cc09e52e3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8064502180463576899
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8064502180463576899}
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -1.2, y: 1.8170002, z: 0.548}
+  m_LocalPosition: {x: -1.2, y: 2.6199996, z: 0.548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8064502178942012882}
@@ -243,7 +271,7 @@ PrefabInstance:
     - target: {fileID: 8651507844434414050, guid: 809f388215420cc4f8d6e1de376861bb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.803
       objectReference: {fileID: 0}
     - target: {fileID: 8651507844434414050, guid: 809f388215420cc4f8d6e1de376861bb,
         type: 3}
@@ -320,6 +348,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8651507844434414057, guid: 809f388215420cc4f8d6e1de376861bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8651507844434414063, guid: 809f388215420cc4f8d6e1de376861bb,
         type: 3}
       propertyPath: m_Height
@@ -333,6 +366,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8651507844434414062, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
     - {fileID: 8651507844434414051, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
+    - {fileID: 8651507844434414063, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 809f388215420cc4f8d6e1de376861bb, type: 3}
 --- !u!4 &1727845735583509896 stripped
 Transform:
