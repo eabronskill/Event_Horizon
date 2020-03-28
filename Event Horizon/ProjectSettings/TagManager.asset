@@ -12,6 +12,10 @@ TagManager:
   - Bullet
   - Spike
   - Mine
+  - Ammo
+  - Healing
+  - Shield
+  - Enemy Bullet
   - Enemy
   layers:
   - Default
@@ -22,11 +26,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Items
+  - Players
+  - Respawning
+  - Enemy
+  - Enemy Bullet
   - 
   - 
   - 

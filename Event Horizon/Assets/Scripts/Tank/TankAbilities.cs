@@ -13,6 +13,7 @@ public class TankAbilities : MonoBehaviour
     public float shieldCooldown;
     public float shieldTimer = 0f;
     public float shieldTimeRemaining = 0;
+    public bool shieldDown = false;
 
     // Ground Pound vars
     public GameObject stunSprite;
@@ -67,6 +68,8 @@ public class TankAbilities : MonoBehaviour
         // Make the Shield active and the ShoulderShield inactive.
         shield.SetActive(true);
         shoulderShield.SetActive(false);
+
+        shieldDown = true;
     }
 
     /// <summary>
@@ -81,6 +84,8 @@ public class TankAbilities : MonoBehaviour
         // Make the Shield inactive and the ShoulderShield active.
         shield.SetActive(false);
         shoulderShield.SetActive(true);
+
+        shieldDown = false;
     }
     
     /// <summary>
@@ -98,9 +103,10 @@ public class TankAbilities : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].tag == "Damage")
+            if (hitColliders[i].tag == "Enemy")
             {
-                hitColliders[i].SendMessage("stun");
+                print(i);
+                hitColliders[i].gameObject.GetComponent<Enemy>().stun();
             }
             i++;
         }

@@ -17,7 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Character Select.unity
     guid: 6858acd03750bb34c9c8e0d5b2ec69c5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Elliot's.unity
     guid: 5957d28dc5062484595c46d6fa51063e
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 09eeef06cc4a13a42a38d2cd4f49e751
+  - enabled: 1
+    path: Assets/Scenes/End Level 1.unity
+    guid: bfa4618fd5bfee547bd5d237862bb94c
   m_configObjects: {}
