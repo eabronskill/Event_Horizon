@@ -5,23 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
+using Rewired;
 
 public class rogueInput : Player
 {
-    //public float m_speed = 5f;
-
-    private Vector3 startPos;
-
-    public int startHP = 100;
-    public int currHP;
-
-    //public GameObject HPtext;
     public GameObject strap;
-    //public GameObject melee;
-    //public GameObject swordObj;
     public Sword sword;
-
-    //public GameObject hammer;
 
     public GameObject projectile;
     public GameObject attackPoint;
@@ -44,23 +33,18 @@ public class rogueInput : Player
     public ParticleSystem gunFlash;
     public RogueAbilities abilities;
 
+    /// <summary>
+    /// ID of the player who is controlling this character.
+    /// </summary>
+    public int playerID;
+
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;
-
-        currHP = startHP;
-        //HPtext.GetComponent<Text>().text = currHP.ToString() + " HP";
-
-        // strap.transform.position.Set(transform.position.x + (float)1.19, transform.position.y + (float)1.59, transform.position.z + (float)1.1);
-        //strap.transform.rotation.Set(0, 0, 0, 0);
-
-        //attackPoint.transform.position.Set(transform.position.x + (float)1.19, transform.position.y + (float)2.101, transform.position.z + (float)3);
-
-        //attackPoint.transform.position.Set(transform.position.x + (float)1.19, transform.position.y + (float)2.101, transform.position.z + (float)3);
         GetComponent<Rigidbody>().freezeRotation = true;
 
         canJump = true;
+        playerID = player.id;
 
         strapTimer = 0f;
         swordTimer = 0f;
@@ -70,8 +54,6 @@ public class rogueInput : Player
         finalRot.x -= .6f;
 
         abilities = this.gameObject.GetComponent<RogueAbilities>();
-
-        //sword = sword.GetComponent<Sword>();
 
     }
 
@@ -84,28 +66,30 @@ public class rogueInput : Player
             jump();
         if (Input.GetKeyDown("v") && canJump)
             dash();
-        if (Input.GetKey(KeyCode.Alpha1) && abilities.canSetSpikes)
+        if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)
         {
             abilities.setSpikes();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && abilities.canSetMine && !abilities.mineSet)
+        if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
             abilities.setMine();
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && abilities.mineSet)
+        else if (player.GetButtonDown("Ability2") && abilities.mineSet)
         {
             abilities.detonate();
         }
 
-        if (Input.GetMouseButtonDown(0) && Time.time > strapTimer)
+        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             gunFlash.Play();
+
+            base.curClip--;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (player.GetButtonDown("Melee"))
         {
             sword.SwordAttack();
         }
@@ -168,29 +152,26 @@ public class rogueInput : Player
 
     private void OnCollisionEnter(Collision coll)
     {
-        if (coll.collider.tag == "LevelEnd")
-        {
-            Invoke("resetCharacter", 2);
-        }
     }
 
 
     public void resetCharacter()
     {
-        //currHP = startHP;
-        //transform.position = startPos;
-        //rstEvent.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void takeDamage()
+    new void Awake()
     {
-        currHP -= 10;
-
-        if (currHP <= 0)
-            Invoke("resetCharacter", 0.5f);
-
-        //HPtext.GetComponent<Text>().text = currHP.ToString() + " HP";
+        // TRY CATCH FOR TESTING.
+        try
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+        }
+        catch
+        {
+            player = ReInput.players.GetPlayer(0);
+            testing = true;
+        }
     }
 
 

@@ -6,11 +6,17 @@ public class RogueAbilities : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool canSetSpikes;
-    private float spikeCooldown;
+    public float spikeCD;
 
     public bool canSetMine;
     public bool mineSet;
-    private float mineCooldown;
+    public float mineCD;
+
+    public float mineTimeRemaining;
+    public float spikeTimeRemaining;
+
+    private float mineSetTime;
+    private float spikeSetTime;
 
     public GameObject spikes;
     public GameObject mine;
@@ -24,20 +30,30 @@ public class RogueAbilities : MonoBehaviour
         //enemy.mineExplosionEvent += detonate;
         canSetMine = true;
         mineSet = false;
-        spikeCooldown = 3.0f;
-        mineCooldown = 3.0f;
+        spikeCD = 3.0f;
+        mineCD = 3.0f;
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!canSetMine)
+        {
+            mineTimeRemaining = mineSetTime + mineCD - Time.time;
+        }
+
+        if (!canSetSpikes)
+        {
+           spikeTimeRemaining = spikeSetTime + spikeCD - Time.time;
+        }
     }
 
     public void setSpikes()
     {
         canSetSpikes = false;
-        Invoke("resetSpikes", spikeCooldown);
+        spikeSetTime = Time.time;
+        Invoke("resetSpikes", spikeCD);
 
         //actually put in spikes
         Instantiate(spikes, transform.position, transform.rotation);
@@ -51,7 +67,8 @@ public class RogueAbilities : MonoBehaviour
     public void setMine()
     {
         canSetMine = false;
-        Invoke("resetMine", mineCooldown);
+        spikeSetTime = Time.time;
+        Invoke("resetMine", mineCD);
         mineSet = true;
         //actually put in mine
         Vector3 mineLoc = transform.position;
