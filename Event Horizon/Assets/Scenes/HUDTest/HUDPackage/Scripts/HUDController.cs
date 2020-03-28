@@ -86,7 +86,7 @@ public class HUDController : MonoBehaviour
             MaxHealth = Tank.GetComponent<TankInput>().maxHealth;
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
-            /*AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<PlayerAttributes>().abilityCooldown1 / Tank.GetComponent<PlayerAttributes>().maxCooldown1);
+            /*AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().shieldCD / Tank.GetComponent<TankInput>().maxCooldown1);
             AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<PlayerAttributes>().abilityCooldown2 / Tank.GetComponent<PlayerAttributes>().maxCooldown2); */
 
             if (Tank.GetComponent<TankInput>().hasAmmo ^ Tank.GetComponent<TankInput>().hasHealing)
