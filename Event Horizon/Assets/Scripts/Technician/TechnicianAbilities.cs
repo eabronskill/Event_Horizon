@@ -26,7 +26,7 @@ public class TechnicianAbilities : MonoBehaviour
         canSetTurret = true;
         canRepair = true;
         turretSet = false;
-        turretCD = 30.0f;
+        turretCD = 120.0f;
         repairCD = 90.0f;
 
     }
