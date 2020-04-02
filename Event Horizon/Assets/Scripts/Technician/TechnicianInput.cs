@@ -108,7 +108,7 @@ public class TechnicianInput : Player
             gunshot.Play();
             gunFlash.Play();
 
-            base.curAmmo--;
+            //curAmmo--;
             base.curClip--;
         }
 
