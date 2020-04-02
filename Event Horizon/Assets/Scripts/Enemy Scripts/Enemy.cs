@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public int currHP;
     public int rangedHP;
     public int meleeHP;
+    private float initialSpeed;
 
     // Damage vars
     public float attackRange = 7f;
@@ -78,6 +79,8 @@ public class Enemy : MonoBehaviour
             currHP = rangedHP;
             melee = false;
         }
+
+        initialSpeed = nav.speed;
         
     }
 
@@ -285,7 +288,7 @@ public class Enemy : MonoBehaviour
 
     private void resetSpeed()
     {
-        nav.speed *= 8f;
+        nav.speed = initialSpeed;
     }
     
     private void die()

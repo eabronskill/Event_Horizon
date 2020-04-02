@@ -38,9 +38,30 @@ public class TechnicianInput : Player
     /// </summary>
     public int playerID;
 
+
+    void Awake()
+    {
+        // TRY CATCH FOR TESTING.
+        try
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
+        }
+        catch
+        {
+            player = ReInput.players.GetPlayer(0);
+            testing = true;
+        }
+        curAmmo = maxAmmo;
+        curClip = maxClip;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.SetActive(true);
+
         GetComponent<Rigidbody>().freezeRotation = true;
 
         canJump = true;
@@ -140,24 +161,18 @@ public class TechnicianInput : Player
     }
 
 
-    public void resetCharacter()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //public void resetCharacter()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
-    new void Awake()
+    /// <summary>
+    /// Used by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public new void takeDamage(float damage)
     {
-        // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
+        base.takeDamage(damage);
     }
-
 
 }

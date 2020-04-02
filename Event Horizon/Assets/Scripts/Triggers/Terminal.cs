@@ -34,26 +34,26 @@ public class Terminal : MonoBehaviour
                     light.color = Color.green;
                 }
             }
-            //if (col.gameObject.name.Equals("Engineer Controller"))
-            //{
-            //    player = col.GetComponent<EngineerInput>().player;
-            //    if (player.GetButtonDown("Interact") && !activated)
-            //    {
-            //        lockedDoor.GetComponent<LockedDoor>().activated++;
-            //        activated = true;
-            //        light.color = Color.green;
-            //    }
-            //}
-            //if (col.gameObject.name.Equals("Rogue Controller"))
-            //{
-            //    player = col.GetComponent<RogueInput>().player;
-            //    if (player.GetButtonDown("Interact") && !activated)
-            //    {
-            //        lockedDoor.GetComponent<LockedDoor>().activated++;
-            //        activated = true;
-            //        light.color = Color.green;
-            //    }
-            //}
+            if (col.gameObject.name.Equals("Engineer Controller"))
+            {
+                player = col.GetComponent<TechnicianInput>().player;
+                if (player.GetButtonDown("Interact") && !activated)
+                {
+                    lockedDoor.GetComponent<LockedDoor>().activated++;
+                    activated = true;
+                    light.color = Color.green;
+                }
+            }
+            if (col.gameObject.name.Equals("Rogue Controller"))
+            {
+                player = col.GetComponent<rogueInput>().player;
+                if (player.GetButtonDown("Interact") && !activated)
+                {
+                    lockedDoor.GetComponent<LockedDoor>().activated++;
+                    activated = true;
+                    light.color = Color.green;
+                }
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ public class SoldierInput : Player
         // TRY CATCH FOR TESTING.
         try
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
         }
         catch
         {

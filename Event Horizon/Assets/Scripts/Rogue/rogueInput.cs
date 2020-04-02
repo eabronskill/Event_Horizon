@@ -38,10 +38,30 @@ public class rogueInput : Player
     /// </summary>
     public int playerID;
 
+
+    void Awake()
+    {
+        // TRY CATCH FOR TESTING.
+        try
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
+        }
+        catch
+        {
+            player = ReInput.players.GetPlayer(0);
+            testing = true;
+        }
+        curAmmo = maxAmmo;
+        curClip = maxClip;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody>().freezeRotation = true;
+        //GetComponent<Rigidbody>().freezeRotation = true;
+        gameObject.SetActive(true);
 
         canJump = true;
         playerID = player.id;
@@ -58,7 +78,7 @@ public class rogueInput : Player
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         base.Update();
 
@@ -94,7 +114,7 @@ public class rogueInput : Player
             sword.SwordAttack();
         }
 
-        if (strapTimer > Time.time ) //gun movement
+        if (strapTimer > Time.time) //gun movement
         {
             strapRecoil(strapRot, finalRot);
         }
@@ -149,30 +169,19 @@ public class rogueInput : Player
     {
         strap.transform.localRotation = Quaternion.Lerp(initRot, finalRot, .1f);
     }
+    
+    //public void resetCharacter()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
-    private void OnCollisionEnter(Collision coll)
+    /// <summary>
+    /// Used by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public new void takeDamage(float damage)
     {
+        base.takeDamage(damage);
     }
-
-
-    public void resetCharacter()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    new void Awake()
-    {
-        // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
-    }
-
 
 }
