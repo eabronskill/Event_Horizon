@@ -53,6 +53,11 @@ public class TechnicianInput : Player
         finalRot = strapRot;
         finalRot.x -= .6f;
 
+        curAmmo = maxAmmo;
+        curClip = maxClip;
+        curHealth = maxHealth;
+        curMoveSpeed = movementSpeed;
+
         abilities = this.gameObject.GetComponent<TechnicianAbilities>();
 
     }
