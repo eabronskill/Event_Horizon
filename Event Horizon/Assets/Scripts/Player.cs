@@ -111,11 +111,17 @@ public class Player : MonoBehaviour
             Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
 
-            if ((Input.GetAxis("Horizontal") >= 0.3 && Input.GetAxis("Horizontal") <= -0.3) || (Input.GetAxis("Vertical") >= 0.3 && Input.GetAxis("Vertical") <= -0.3))
+            //if ((Input.GetAxis("Horizontal") >= 0.3 && Input.GetAxis("Horizontal") <= -0.3) || (Input.GetAxis("Vertical") >= 0.3 && Input.GetAxis("Vertical") <= -0.3))
+            //{
+            //    playerAnimator.SetBool("Running", true);
+            //    print("running true");
+            //   // playerAnimator.SetBool("Idle", false);
+            //}
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
                 playerAnimator.SetBool("Running", true);
                 print("running true");
-               // playerAnimator.SetBool("Idle", false);
+                // playerAnimator.SetBool("Idle", false);
             }
             else
             {
