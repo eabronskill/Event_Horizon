@@ -30,6 +30,8 @@ public class RogueAbilities : MonoBehaviour
         //enemy.mineExplosionEvent += detonate;
         canSetMine = true;
         mineSet = false;
+        spikeCD = 30f;
+        mineCD = 60f;
         
     }
 
