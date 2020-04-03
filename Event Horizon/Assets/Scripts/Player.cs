@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float maxAmmo;
     private float dif;
     public bool dead = false;
+    //animation for player
+    public Animator playerAnimator;
 
     // Aiming vars
     private Plane mousePlane;
@@ -108,6 +110,22 @@ public class Player : MonoBehaviour
             // Movement
             Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+
+            if ((Input.GetAxis("Horizontal") >= 0.3 && Input.GetAxis("Horizontal") <= -0.3) || (Input.GetAxis("Vertical") >= 0.3 && Input.GetAxis("Vertical") <= -0.3))
+            {
+                playerAnimator.SetBool("Running", true);
+                print("running true");
+               // playerAnimator.SetBool("Idle", false);
+            }
+            else
+            {
+                playerAnimator.SetBool("Running", false);
+                print("running false");
+               // playerAnimator.SetBool("Idle", true);
+            }
+
+         
+
 
             // Aiming 
             cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
