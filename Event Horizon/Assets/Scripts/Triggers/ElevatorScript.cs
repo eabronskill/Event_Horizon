@@ -96,24 +96,24 @@ public class ElevatorScript : MonoBehaviour
                         SceneManager.LoadScene("End Level 1");
                     }
                 }
-                //if (col.gameObject.name.Equals("Engineer Controller"))
-                //{
-                //    engineer = true;
-                //    player3 = col.GetComponent<EngineerInput>().player;
-                //    if (player3.GetButtonDown("Interact"))
-                //    {
-
-                //    }
-                //}
-                //if (col.gameObject.name.Equals("Rogue Controller"))
-                //{
-                //    rogue = true;
-                //    player4 = col.GetComponent<RogueInput>().player;
-                //    if (player4.GetButtonDown("Interact"))
-                //    {
-                        
-                //    }
-                //}
+                if (col.gameObject.name.Equals("Engineer Controller"))
+                {
+                    engineer = true;
+                    player3 = col.GetComponent<TechnicianInput>().player;
+                    if (player3.GetButtonDown("Interact"))
+                    {
+                        SceneManager.LoadScene("End Level 1");
+                    }
+                }
+                if (col.gameObject.name.Equals("Rogue Controller"))
+                {
+                    rogue = true;
+                    player4 = col.GetComponent<rogueInput>().player;
+                    if (player4.GetButtonDown("Interact"))
+                    {
+                        SceneManager.LoadScene("End Level 1");
+                    }
+                }
             }
         }
         

@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
             else if (hasAmmo && player.GetButtonDown("DropItem"))
             {
                 ammoItem.gameObject.SetActive(true);
-                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 ammoItem.player = null;
                 ammoItem = null;
                 hasAmmo = false;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
             else if (hasHealing && player.GetButtonDown("DropItem"))
             {
                 healingItem.gameObject.SetActive(true);
-                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 healingItem.player = null;
                 healingItem = null;
                 hasHealing = false;
