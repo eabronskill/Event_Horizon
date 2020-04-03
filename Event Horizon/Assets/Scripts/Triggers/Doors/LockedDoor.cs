@@ -49,22 +49,22 @@ public class LockedDoor : MonoBehaviour
                         open = true;
                     }
                 }
-                //if (col.gameObject.name.Equals("Engineer Controller"))
-                //{
-                //    player = col.GetComponent<EngineerInput>().player;
-                //    if (player.GetButtonDown("Interact"))
-                //    {
-                //        open = true;
-                //    }
-                //}
-                //if (col.gameObject.name.Equals("Rogue Controller"))
-                //{
-                //    player = col.GetComponent<RogueInput>().player;
-                //    if (player.GetButtonDown("Interact"))
-                //    {
-                //        open = true;
-                //    }
-                //}
+                if (col.gameObject.name.Equals("Engineer Controller"))
+                {
+                    player = col.GetComponent<TechnicianInput>().player;
+                    if (player.GetButtonDown("Interact"))
+                    {
+                        open = true;
+                    }
+                }
+                if (col.gameObject.name.Equals("Rogue Controller"))
+                {
+                    player = col.GetComponent<rogueInput>().player;
+                    if (player.GetButtonDown("Interact"))
+                    {
+                        open = true;
+                    }
+                }
             }
         }
     }
