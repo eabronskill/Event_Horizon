@@ -38,14 +38,30 @@ public class Player : MonoBehaviour
     private bool cantUse = false;
 
     public bool testing = false;
+
+    private CharacterController controller;
+
+    public void Start()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
+    public void FixedUpdate()
+    {
+        // Movement
+        Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+        //controller.Move(movementVec * Time.deltaTime * curMoveSpeed);
+        print(movementVec * curMoveSpeed * Time.deltaTime);
+    }
     
     public void Update()
     {
         if (!testing)
         {
-            // Movement
-            Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
-            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+            //// Movement
+            //Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
+            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
 
             // Rotation
             Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
@@ -107,16 +123,11 @@ public class Player : MonoBehaviour
         }
         else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. 
         {
-            // Movement
-            Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+            //// Movement
+            //Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+            //print(movementVec * curMoveSpeed * Time.deltaTime);
 
-            //if ((Input.GetAxis("Horizontal") >= 0.3 && Input.GetAxis("Horizontal") <= -0.3) || (Input.GetAxis("Vertical") >= 0.3 && Input.GetAxis("Vertical") <= -0.3))
-            //{
-            //    playerAnimator.SetBool("Running", true);
-            //    print("running true");
-            //   // playerAnimator.SetBool("Idle", false);
-            //}
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
                 playerAnimator.SetBool("Running", true);
