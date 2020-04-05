@@ -99,7 +99,7 @@ public class SoldierAbilities : MonoBehaviour
         rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
 
         // Set timers
-        grenadeTimer = Time.time + grenadeCD;
-        soldier.canUseGrenade = false;
+        //grenadeTimer = Time.time + grenadeCD;
+        //soldier.canUseGrenade = false;
     }
 }
