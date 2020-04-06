@@ -28,6 +28,7 @@ public class SoldierInput : Player
     public bool canUseGrenade = true;
     [HideInInspector]
     public bool canUseRF = true;
+    private float grenadeTimer = 0.65f;
 
     // For Brett
     public float rapidFireCD;
@@ -77,7 +78,7 @@ public class SoldierInput : Player
         grenadeCD = abilities.grenadeTimeRemaining;
         // Call the Player FixedUpdate method.
         base.Update();
-        
+
         // Shooting
         if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
@@ -102,7 +103,7 @@ public class SoldierInput : Player
         {
             //hammertimer = time.time + 1f;
             //melee.soldiermelee();
-            playerAnimator.SetTrigger("Melee");          
+            playerAnimator.SetTrigger("Melee");
         }
 
         //if (player.GetButtonDown("Melee"))
@@ -118,17 +119,18 @@ public class SoldierInput : Player
         }
 
         // Ability 2: Grenade 
-        if (player.GetButton("Ability2") && canUseGrenade)
+        if (player.GetButtonDown("Ability2") && Time.time > grenadeTimer)
         {
             // Call TankAbilities Script
-            abilities.grenadeToss();
+            playerAnimator.SetTrigger("Grenade");
+            grenadeTimer = Time.time + grenadeCD;
+            abilities.Invoke("grenadeToss", 0.65f);
+            //abilities.grenadeToss();
         }
-        
     }
 
     new void OnTriggerStay(Collider other)
     {
-
         base.OnTriggerStay(other);
     }
 
