@@ -61,38 +61,79 @@ public class ChS_Controller : MonoBehaviour
             downButton4 = downButton4
         };
         view.initialize();
+
+        // Subscribe to events
+        ReInput.ControllerConnectedEvent += OnControllerConnected;
+        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
+        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
     }
 
     void Start()
     {
-        playerIDToPlayer.Add(1, ReInput.players.GetPlayer(0));
-        playerIDToPlayer.Add(2, ReInput.players.GetPlayer(1));
-        playerIDToPlayer.Add(3, ReInput.players.GetPlayer(2));
-        playerIDToPlayer.Add(4, ReInput.players.GetPlayer(3));
+        //playerIDToPlayer.Add(1, ReInput.players.GetPlayer(0));
+        //playerIDToPlayer.Add(2, ReInput.players.GetPlayer(1));
+        //playerIDToPlayer.Add(3, ReInput.players.GetPlayer(2));
+        //playerIDToPlayer.Add(4, ReInput.players.GetPlayer(3));
+
+        playerIDToPlayer = MainMenuController.playerIDToPlayer;
+
+        // Subscribe to events
+        ReInput.ControllerConnectedEvent += OnControllerConnected;
+        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
+        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
     }
 
     void Update()
     {
         //Player 1 Logic
-        if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer[0].controllers.Joysticks.Count > 0)
         {
-            getInput(1);
+            print("Player1");
+            getInput(0);
         }
         //Player 2 Logic
-        if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
         {
-            getInput(2);
+            print("Player2");
+            getInput(1);
         }
         //Player 3 Logic
-        if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
         {
-            getInput(3);
+            print("Player3");
+            getInput(2);
         }
         //Player 4 Logic
-        if (playerIDToPlayer[4].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
         {
-            getInput(4);
+            print("Player4");
+            getInput(3);
         }
+    }
+
+    // This function will be called when a controller is connected
+    // You can get information about the controller that was connected via the args parameter
+    void OnControllerConnected(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+        
+        playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
+    }
+    
+    // This function will be called when a controller is fully disconnected
+    // You can get information about the controller that was disconnected via the args parameter
+    void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+        playerIDToPlayer.Remove(args.controllerId);
+    }
+
+    // This function will be called when a controller is about to be disconnected
+    // You can get information about the controller that is being disconnected via the args parameter
+    // You can use this event to save the controller's maps before it's disconnected
+    void OnControllerPreDisconnect(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller is being disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
     }
 
     /// <summary>
@@ -104,17 +145,17 @@ public class ChS_Controller : MonoBehaviour
         if (playerIDToPlayer[playerID].GetButtonDown("Select"))
         {
             print("Select" + playerID);
-            selectButtonClick(playerID);
+            selectButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Up"))
         {
             print("Up" + playerID);
-            upButtonClick(playerID);
+            upButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Down"))
         {
             print("Down" + playerID);
-            downButtonClick(playerID);
+            downButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Play"))
         {

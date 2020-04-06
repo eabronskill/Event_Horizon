@@ -35,10 +35,20 @@ public class SoldierInput : Player
 
     void Awake()
     {
+        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
         // TRY CATCH FOR TESTING.
         try
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+            print("try");
         }
         catch
         {
