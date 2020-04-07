@@ -76,11 +76,30 @@ public class ChS_Controller : MonoBehaviour
         //playerIDToPlayer.Add(2, ReInput.players.GetPlayer(1));
         //playerIDToPlayer.Add(3, ReInput.players.GetPlayer(2));
         //playerIDToPlayer.Add(4, ReInput.players.GetPlayer(3));
+        foreach (Joystick cont in ReInput.controllers.Joysticks)
+        {
+            print("Controller (" + cont.id + ") found.");
+            playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
+            
 
-        foreach (int id in MainMenuController.controllerIDToPlayerID.Keys)
+
+        }
+        /*foreach (int id in MainMenuController.controllerIDToPlayerID.Keys)
         {
             playerIDToPlayer.Add(id, ReInput.players.GetPlayer(id));
-        }
+            
+            if (playerIDToPlayer[id].controllers.joystickCount != 1)
+            {
+                // Get the Joystick from ReInput
+                Joystick joystick = ReInput.controllers.GetJoystick(0);
+
+                // Assign Joystick to first Player that doesn't have any assigned
+                //ReInput.controllers.AutoAssignJoystick(joystick);
+                playerIDToPlayer[id].controllers.AddController(joystick, false);
+            }
+            print("JCount: " + playerIDToPlayer[id].controllers.joystickCount);
+            print("ID: " + id);
+        }*/
         //playerIDToPlayer = ReInput.players.GetPlayer(MainMenuController.controllerIDToPlayerID);
 
         // Subscribe to events
@@ -91,28 +110,33 @@ public class ChS_Controller : MonoBehaviour
 
     void Update()
     {
-        print(connectedControllers);
+        print("Connected Controllers: " + connectedControllers);
+        print("PID to Player Count: " + playerIDToPlayer.Count);
+        foreach (int id in playerIDToPlayer.Keys)
+        {
+            print("contains:" + id);
+        }
 
         //Player 1 Logic
-        if (playerIDToPlayer[0].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(0) && playerIDToPlayer[0].controllers.Joysticks.Count > 0)
         {
             print("Player1");
             getInput(0);
         }
         //Player 2 Logic
-        if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(1) && playerIDToPlayer[1].controllers.Joysticks.Count > 0)
         {
             print("Player2");
             getInput(1);
         }
         //Player 3 Logic
-        if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(2) && playerIDToPlayer[2].controllers.Joysticks.Count > 0)
         {
             print("Player3");
             getInput(2);
         }
         //Player 4 Logic
-        if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(3)) //&& playerIDToPlayer[3].controllers.Joysticks.Count > 0)
         {
             print("Player4");
             getInput(3);
@@ -121,7 +145,7 @@ public class ChS_Controller : MonoBehaviour
 
     void LateUpdate()
     {
-        connectedControllers = ReInput.controllers.Controllers.Count;
+        connectedControllers = ReInput.controllers.Joysticks.Count;
     }
 
     // This function will be called when a controller is connected
@@ -129,8 +153,11 @@ public class ChS_Controller : MonoBehaviour
     void OnControllerConnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+        if (args.controllerType == ControllerType.Joystick)
+        {
+            playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
+        }
         
-        playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
     }
     
     // This function will be called when a controller is fully disconnected
@@ -138,7 +165,11 @@ public class ChS_Controller : MonoBehaviour
     void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
-        playerIDToPlayer.Remove(args.controllerId);
+        if (args.controllerType == ControllerType.Joystick)
+        {
+            playerIDToPlayer.Remove(args.controllerId);
+        }
+        
     }
 
     // This function will be called when a controller is about to be disconnected
