@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
     /// <summary>
     /// Maps the player number to the Rewired Player.
     /// </summary>
-    public static Dictionary<int, Rewired.Player> playerIDToPlayer = new Dictionary<int, Rewired.Player>();
+    public static Dictionary<int, int> controllerIDToPlayerID = new Dictionary<int, int>();
 
     Rewired.Player player1;
     
@@ -44,13 +44,14 @@ public class MainMenuController : MonoBehaviour
         foreach (Controller cont in ReInput.controllers.Controllers)
         {
             print("Controller (" + cont.id + ") found.");
-            playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
+            controllerIDToPlayerID.Add(cont.id, cont.id);
+            player1 = ReInput.players.GetPlayer(cont.id);
         }
     }
 
     void Update()
     {
-        print(playerIDToPlayer.Count);
+        print(controllerIDToPlayerID.Count);
         if (player1.controllers.Joysticks.Count > 0)
         {
             if (player1.GetButtonDown("Select"))
@@ -111,7 +112,7 @@ public class MainMenuController : MonoBehaviour
         {
             player1 = ReInput.players.GetPlayer(args.controllerId);
         }
-        playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
+        controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
     }
 
     // This function will be called when a controller is fully disconnected
@@ -119,7 +120,8 @@ public class MainMenuController : MonoBehaviour
     void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
-        playerIDToPlayer.Remove(args.controllerId);
+        controllerIDToPlayerID.Remove(args.controllerId);
+        player1 = null;
     }
 
     // This function will be called when a controller is about to be disconnected
