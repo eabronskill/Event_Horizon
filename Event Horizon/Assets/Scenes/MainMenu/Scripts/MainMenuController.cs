@@ -40,6 +40,12 @@ public class MainMenuController : MonoBehaviour
         ReInput.ControllerConnectedEvent += OnControllerConnected;
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
         ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
+
+        foreach (Controller cont in ReInput.controllers.Controllers)
+        {
+            print("Controller (" + cont.id + ") found.");
+            playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
+        }
     }
 
     void Update()
