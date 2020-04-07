@@ -50,6 +50,7 @@ public class MainMenuController : MonoBehaviour
 
     void Update()
     {
+        print(playerIDToPlayer.Count);
         if (player1.controllers.Joysticks.Count > 0)
         {
             if (player1.GetButtonDown("Select"))
@@ -106,7 +107,7 @@ public class MainMenuController : MonoBehaviour
     void OnControllerConnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
-        if (player1 != null)
+        if (args.controllerId == 0)
         {
             player1 = ReInput.players.GetPlayer(args.controllerId);
         }
