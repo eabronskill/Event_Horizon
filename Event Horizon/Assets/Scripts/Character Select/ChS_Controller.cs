@@ -25,6 +25,8 @@ public class ChS_Controller : MonoBehaviour
 
     private ChS_Model model;
     private ChS_View view;
+
+    public int connectedControllers;
     
     void Awake()
     {
@@ -75,7 +77,11 @@ public class ChS_Controller : MonoBehaviour
         //playerIDToPlayer.Add(3, ReInput.players.GetPlayer(2));
         //playerIDToPlayer.Add(4, ReInput.players.GetPlayer(3));
 
-        playerIDToPlayer = MainMenuController.playerIDToPlayer;
+        foreach (int id in MainMenuController.controllerIDToPlayerID.Keys)
+        {
+            playerIDToPlayer.Add(id, ReInput.players.GetPlayer(id));
+        }
+        //playerIDToPlayer = ReInput.players.GetPlayer(MainMenuController.controllerIDToPlayerID);
 
         // Subscribe to events
         ReInput.ControllerConnectedEvent += OnControllerConnected;
@@ -85,6 +91,8 @@ public class ChS_Controller : MonoBehaviour
 
     void Update()
     {
+        print(connectedControllers);
+
         //Player 1 Logic
         if (playerIDToPlayer[0].controllers.Joysticks.Count > 0)
         {
@@ -109,6 +117,11 @@ public class ChS_Controller : MonoBehaviour
             print("Player4");
             getInput(3);
         }
+    }
+
+    void LateUpdate()
+    {
+        connectedControllers = ReInput.controllers.Controllers.Count;
     }
 
     // This function will be called when a controller is connected
