@@ -8,13 +8,15 @@ using UnityEngine.UI;
 public class ChS_View : MonoBehaviour
 {
     public GameObject player1Hover, player2Hover, player3Hover, player4Hover, tankIcon, soldierIcon,
-        rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1, 
+        rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1,
         upButton2, upButton3, upButton4, downButton1, downButton2, downButton3, downButton4;
 
     private Dictionary<int, GameObject> playerToHover = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> playerToSelectBtn = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> playerToUpBtn = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> playerToDownBtn = new Dictionary<int, GameObject>();
+
+    public bool player1, player2, player3, player4;
 
     /// <summary>
     /// Initialize the images and dictionaries used in the View.
@@ -166,4 +168,15 @@ public class ChS_View : MonoBehaviour
         imageToChange.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
         playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
     }
+
+    public void toggleGroupOff(GameObject group)
+    {
+        group.gameObject.SetActive(false);
+    }
+
+    public void toggleGroupOn(GameObject group)
+    {
+        group.gameObject.SetActive(false);
+    }
+
 }

@@ -41,11 +41,15 @@ public class MainMenuController : MonoBehaviour
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
         ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
 
-        foreach (Controller cont in ReInput.controllers.Controllers)
+        foreach (Joystick cont in ReInput.controllers.Joysticks)
         {
             print("Controller (" + cont.id + ") found.");
             controllerIDToPlayerID.Add(cont.id, cont.id);
-            player1 = ReInput.players.GetPlayer(cont.id);
+            if (cont.id == 0)
+            {
+                player1 = ReInput.players.GetPlayer(cont.id);
+            }
+           
         }
     }
 
@@ -108,9 +112,13 @@ public class MainMenuController : MonoBehaviour
     void OnControllerConnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
-        if (args.controllerId == 0)
+        if (args.controllerType == ControllerType.Joystick)
         {
-            player1 = ReInput.players.GetPlayer(args.controllerId);
+            if (args.controllerId == 0)
+            {
+                player1 = ReInput.players.GetPlayer(args.controllerId);
+            }
+            controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
         }
         controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
     }
@@ -120,8 +128,15 @@ public class MainMenuController : MonoBehaviour
     void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
     {
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
-        controllerIDToPlayerID.Remove(args.controllerId);
-        player1 = null;
+        if (args.controllerType == ControllerType.Joystick)
+        {
+            controllerIDToPlayerID.Remove(args.controllerId);
+            if (args.controllerId == 0)
+            {
+                player1 = null;
+            }
+
+        }
     }
 
     // This function will be called when a controller is about to be disconnected
