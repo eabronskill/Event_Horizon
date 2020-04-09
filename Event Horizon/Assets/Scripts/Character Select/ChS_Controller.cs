@@ -78,7 +78,10 @@ public class ChS_Controller : MonoBehaviour
             print("Controller (" + cont.id + ") found.");
             playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
         }
-
+        view.toggleGroupOn(group1);
+        view.toggleGroupOn(group2);
+        view.toggleGroupOn(group3);
+        view.toggleGroupOn(group4);
         // Subscribe to events
         ReInput.ControllerConnectedEvent += OnControllerConnected;
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;

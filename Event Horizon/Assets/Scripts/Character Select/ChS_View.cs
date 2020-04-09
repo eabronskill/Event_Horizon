@@ -176,7 +176,7 @@ public class ChS_View : MonoBehaviour
 
     public void toggleGroupOn(GameObject group)
     {
-        group.gameObject.SetActive(false);
+        group.gameObject.SetActive(true);
     }
 
 }
