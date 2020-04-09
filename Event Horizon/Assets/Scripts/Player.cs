@@ -68,6 +68,19 @@ public class Player : MonoBehaviour
             if (player.GetAxis("Rotate Horizontal") != 0 || player.GetAxis("Rotate Vertical") != 0)
             {
                 transform.eulerAngles = rotateVec;
+
+                // blending anims:
+                // if (left l-stick)a - run left; within r-stick -75 to 14*
+                //wasd
+                // if (up l-stick)w - run forward; within r-stick -15 to 15*
+                //wasd
+                // if (right l-stick)d - run right; within r-stick 16 to 75*
+                //wasd
+                // if (down l-stick)s - backwards; within r-stick 76 - 180*
+                //wasd
+
+                //abilities stuff
+
             }
 
             // Reloading
@@ -132,16 +145,18 @@ public class Player : MonoBehaviour
             {
                 playerAnimator.SetBool("Running", true);
                 print("running true");
-                // playerAnimator.SetBool("Idle", false);
+                //playerAnimator.SetBool("Idle", false);
+
             }
             else
             {
                 playerAnimator.SetBool("Running", false);
                 print("running false");
-               // playerAnimator.SetBool("Idle", true);
+                //playerAnimator.SetBool("Idle", true);
             }
 
-         
+
+
 
 
             // Aiming 
