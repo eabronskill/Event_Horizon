@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
                 {
                     nav.isStopped = true;
                     // Play animation HERE:
-                    Invoke("attack", attackSpeed);
+                    Invoke("Attack", attackSpeed);
                     if (melee)
                     {
                         attackTimer = Time.time + meleeAttackTime;
