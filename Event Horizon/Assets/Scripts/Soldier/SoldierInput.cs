@@ -39,6 +39,7 @@ public class SoldierInput : Player
         if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
         }
         else
         {
@@ -46,16 +47,16 @@ public class SoldierInput : Player
         }
 
         // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
-            print("try");
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
+        //try
+        //{
+        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+        //    print("try");
+        //}
+        //catch
+        //{
+        //    player = ReInput.players.GetPlayer(0);
+        //    testing = true;
+        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;

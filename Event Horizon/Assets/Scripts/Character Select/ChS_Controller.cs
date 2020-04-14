@@ -140,7 +140,7 @@ public class ChS_Controller : MonoBehaviour
 
     void LateUpdate()
     {
-        connectedControllers = ReInput.controllers.Controllers.Count;
+        connectedControllers = ReInput.controllers.Joysticks.Count;
     }
 
     // This function will be called when a controller is connected
@@ -247,19 +247,29 @@ public class ChS_Controller : MonoBehaviour
     /// </summary>
     public void playButtonClick()
     {
+        int numNeeded = 0;
         // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
         foreach (int cID in model.getCIDtoC().Keys)
         {
-            if (model.getCIDtoC()[cID].selected == false)
+            if (model.getCIDtoC()[cID].selected)
             {
-                return;
+                numNeeded++;
             }
+        }
+        print("NumNeeded: " + numNeeded);
+        if (numNeeded != connectedControllers || connectedControllers == 0)
+        {
+            return;
         }
 
         // Finalize the selections
         for (int i = 1; i <= 4; i++)
         {
-            finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i - 1);
+            print("i: " + i);
+            if (model.getCIDtoC()[model.getPIDtoCID()[i]].selected && (model.getCIDtoC()[model.getPIDtoCID()[i]].playerID == i))//!finalSelection.ContainsKey(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name))
+            {
+                finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i);
+            }
         }
 
         // TODO: Load the first level.
