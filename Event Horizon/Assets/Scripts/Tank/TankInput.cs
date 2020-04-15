@@ -31,15 +31,7 @@ public class TankInput : Player
 
     void Awake()
     {
-        if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
-            MultipleTargetCamera.targets.Add(this.gameObject);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
+        
         // TRY CATCH FOR TESTING.
         //try
         //{
@@ -60,9 +52,20 @@ public class TankInput : Player
     // Start is called before the first frame update
     void Start()
     {
+        if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
         abilities = this.gameObject.GetComponent<TankAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        playerID = player.id;
+        
     }
 
     // Update is called once per frame

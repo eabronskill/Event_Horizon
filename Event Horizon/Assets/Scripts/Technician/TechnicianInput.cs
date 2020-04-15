@@ -41,15 +41,7 @@ public class TechnicianInput : Player
 
     void Awake()
     {
-        if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
-            MultipleTargetCamera.targets.Add(this.gameObject);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
+        
         // TRY CATCH FOR TESTING.
         //try
         //{
@@ -70,12 +62,23 @@ public class TechnicianInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(true);
+        if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
+        
 
         GetComponent<Rigidbody>().freezeRotation = true;
 
         canJump = true;
-        playerID = player.id;
+        
 
         strapTimer = 0f;
         swordTimer = 0f;

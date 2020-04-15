@@ -36,15 +36,7 @@ public class SoldierInput : Player
 
     void Awake()
     {
-        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
-            MultipleTargetCamera.targets.Add(this.gameObject);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
+        
 
         // TRY CATCH FOR TESTING.
         //try
@@ -62,14 +54,27 @@ public class SoldierInput : Player
         curHealth = maxHealth;
         curMoveSpeed = movementSpeed;
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
+        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        playerID = player.id;
+        
+        
     }
 
     // Update is called once per frame

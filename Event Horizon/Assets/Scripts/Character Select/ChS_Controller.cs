@@ -268,7 +268,7 @@ public class ChS_Controller : MonoBehaviour
             print("i: " + i);
             if (model.getCIDtoC()[model.getPIDtoCID()[i]].selected && (model.getCIDtoC()[model.getPIDtoCID()[i]].playerID == i))//!finalSelection.ContainsKey(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name))
             {
-                finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i);
+                finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, model.getCIDtoC()[model.getPIDtoCID()[i]].playerID -1);
             }
         }
 

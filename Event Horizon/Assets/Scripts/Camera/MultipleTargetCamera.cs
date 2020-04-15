@@ -12,7 +12,11 @@ public class MultipleTargetCamera : MonoBehaviour
     public float maxZoom = 80f;
     public float zoomLimiter = 1;
     private Camera cam;
-    
+
+    private void Awake()
+    {
+        targets = new List<GameObject>();
+    }
     void Start()
     {
         cam = GetComponent<Camera>();

@@ -718,6 +718,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rewired Character Select
       objectReference: {fileID: 0}
+    - target: {fileID: 6566115264758478056, guid: fecfd75c24883b0408ef738ffef22a61,
+        type: 3}
+      propertyPath: _userData.players.Array.data[1]._defaultJoystickMaps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566115264758478056, guid: fecfd75c24883b0408ef738ffef22a61,
+        type: 3}
+      propertyPath: _userData.configVars.assignJoysticksToPlayingPlayersOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6566115264758478057, guid: fecfd75c24883b0408ef738ffef22a61,
         type: 3}
       propertyPath: m_LocalPosition.x

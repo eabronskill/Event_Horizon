@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
                 {
                     nav.isStopped = true;
                     // Play animation HERE:
-                    Invoke("Attack", attackSpeed);
+                    Invoke("attack", attackSpeed);
                     if (melee)
                     {
                         attackTimer = Time.time + meleeAttackTime;
@@ -202,14 +202,14 @@ public class Enemy : MonoBehaviour
                     {
                         player.GetComponent<SoldierInput>().takeDamage(damage);
                     }
-                    //if (player.gameObject.name.Equals("Engineer Controller"))
-                    //{
-                    //    player.GetComponent<EngineerInput>().takeDamage(damage);
-                    //}
-                    //if (player.gameObject.name.Equals("Rogue Controller"))
-                    //{
-                    //    player.GetComponent<RogueInput>().takeDamage(damage);
-                    //}
+                    if (player.gameObject.name.Equals("Engineer Controller"))
+                    {
+                        player.GetComponent<TechnicianInput>().takeDamage(damage);
+                    }
+                    if (player.gameObject.name.Equals("Rogue Controller"))
+                    {
+                        player.GetComponent<rogueInput>().takeDamage(damage);
+                    }
                 }
             }
         }
