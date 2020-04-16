@@ -47,6 +47,16 @@ public class HUDController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(LateStart(0.01f));
+
+        
+        
+        
+    }
+
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
         if (playerNumber == Tank.GetComponent<TankInput>().playerID)
         {
             CurHealth = Tank.GetComponent<TankInput>().curHealth;
@@ -56,10 +66,10 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = tankPic;
             abilityImage1.GetComponent<Image>().sprite = shieldImage;
             abilityImage2.GetComponent<Image>().sprite = groundPound;
+            //print("Player " + playerNumber + "is assigned Tank.");
 
         }
-
-        if (playerNumber == Soldier.GetComponent<SoldierInput>().playerID)
+        else if (playerNumber == Soldier.GetComponent<SoldierInput>().playerID)
         {
             CurHealth = Soldier.GetComponent<SoldierInput>().curHealth;
             MaxHealth = Soldier.GetComponent<SoldierInput>().maxHealth;
@@ -68,9 +78,9 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = soldierPic;
             abilityImage1.GetComponent<Image>().sprite = rapidFire;
             abilityImage2.GetComponent<Image>().sprite = Grenade;
+            //print("Player " + playerNumber + "is assigned Soldier.");
         }
-
-        if (playerNumber == Rogue.GetComponent<rogueInput>().playerID)
+        else if (playerNumber == Rogue.GetComponent<rogueInput>().playerID)
         {
             CurHealth = Rogue.GetComponent<rogueInput>().curHealth;
             MaxHealth = Rogue.GetComponent<rogueInput>().maxHealth;
@@ -79,9 +89,9 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = roguePic;
             abilityImage1.GetComponent<Image>().sprite = Caltrops;
             abilityImage2.GetComponent<Image>().sprite = landMine;
+            //print("Player " + playerNumber + "is assigned Rogue.");
         }
-
-        if (playerNumber == Engineer.GetComponent<TechnicianInput>().playerID)
+        else if (playerNumber == Engineer.GetComponent<TechnicianInput>().playerID)
         {
             CurHealth = Engineer.GetComponent<TechnicianInput>().curHealth;
             MaxHealth = Engineer.GetComponent<TechnicianInput>().maxHealth;
@@ -90,12 +100,13 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = engineerPic;
             abilityImage1.GetComponent<Image>().sprite = turretImage;
             abilityImage2.GetComponent<Image>().sprite = repairImage;
+            //print("Player " + playerNumber + "is assigned Technician.");
         }
+        else
+            this.gameObject.SetActive(false);
 
         health.SetFloat("_Fillpercentage", CurHealth / MaxHealth);
-        
     }
-
     // Update is called once per frame
     void Update()
     {

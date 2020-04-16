@@ -67,6 +67,7 @@ public class TechnicianInput : Player
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             playerID = player.id;
+            print("Tech was assigned "+ playerID);
         }
         else
         {
@@ -119,10 +120,11 @@ public class TechnicianInput : Player
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
-            gunFlash.Play();
+            //gunFlash.Play();
 
             //curAmmo--;
             base.curClip--;
+            
         }
 
         if (player.GetButtonDown("Melee"))
