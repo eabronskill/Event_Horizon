@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  gunFlash: {fileID: 0}
 --- !u!54 &369004735184827854
 Rigidbody:
   m_ObjectHideFlags: 0

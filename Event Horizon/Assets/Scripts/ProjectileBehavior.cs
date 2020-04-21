@@ -7,6 +7,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     public float speed = 2f;
     private Vector3 movementVec;
+    public ParticleSystem gunFlash;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision coll)
     {
+        gunFlash.Play();
         Destroy(this.gameObject);
     }
 

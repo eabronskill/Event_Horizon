@@ -293,6 +293,7 @@ public class Enemy : MonoBehaviour
     
     private void die()
     {
+        Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
         Destroy(this.gameObject);
     }
 

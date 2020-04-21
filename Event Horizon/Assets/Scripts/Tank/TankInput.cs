@@ -126,6 +126,15 @@ public class TankInput : Player
 
     }
 
+    public void tankRepaired() //repaired by engineer
+    {
+        base.curHealth += base.maxHealth * .3f;
+        if (base.curHealth > base.maxHealth)
+        {
+            base.curHealth = base.maxHealth;
+        }
+    }
+
     new private void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);

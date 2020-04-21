@@ -67,6 +67,8 @@ public class TechnicianAbilities : MonoBehaviour
     {
         canRepair = false;
         lastRepairTime = Time.time;
+
+        SendMessage("tankRepaired");
         Invoke("resetRepair", repairCD);
 
         //TODO: REPAIR TURRET OR TANK
