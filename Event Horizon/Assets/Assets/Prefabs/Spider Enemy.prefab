@@ -65,7 +65,7 @@ Animator:
   m_GameObject: {fileID: 4167106793585707726}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 97d29d3ead15afc4bae74ebe968ba3ba, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5df9dbaadf895e4c824db2236ef47a1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   rangedAttackTime: 4
   attackPoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  enemyAnimator: {fileID: 0}
   changeTargetTime: 5
   canBeStunned: 1
 --- !u!195 &4167106792907074876

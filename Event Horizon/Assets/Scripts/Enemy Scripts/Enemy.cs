@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
                         attackTimer = Time.time + meleeAttackTime;
 
                         //TODO: impliment correctly
-                        //enemyAnimator.SetBool("Attack", true);
+                        enemyAnimator.SetBool("Attack", true);
                     }
                     else if (ranged) ;
                     {
