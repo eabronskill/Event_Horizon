@@ -11,7 +11,7 @@ public class ChS_Controller : MonoBehaviour
 {
     public GameObject player1Hover, player2Hover, player3Hover, player4Hover, tankIcon, soldierIcon, 
         rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1
-        , upButton2, upButton3, upButton4, downButton1, downButton2, downButton3, downButton4, playButton;
+        , upButton2, upButton3, upButton4, downButton1, downButton2, downButton3, downButton4, playButton, group1, group2, group3, group4;
 
     /// <summary>
     /// Maps the player number to the Rewired Player.
@@ -25,7 +25,9 @@ public class ChS_Controller : MonoBehaviour
 
     private ChS_Model model;
     private ChS_View view;
-    
+
+    private int connectedControllers;
+
     void Awake()
     {
         // Inilialize model and view.
@@ -61,38 +63,115 @@ public class ChS_Controller : MonoBehaviour
             downButton4 = downButton4
         };
         view.initialize();
+
+        // Subscribe to events
+        ReInput.ControllerConnectedEvent += OnControllerConnected;
+        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
+        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
     }
 
     void Start()
     {
-        playerIDToPlayer.Add(1, ReInput.players.GetPlayer(0));
-        playerIDToPlayer.Add(2, ReInput.players.GetPlayer(1));
-        playerIDToPlayer.Add(3, ReInput.players.GetPlayer(2));
-        playerIDToPlayer.Add(4, ReInput.players.GetPlayer(3));
+        // Grab all the joysticks and assign players to them.
+        foreach (Joystick cont in ReInput.controllers.Joysticks)
+        {
+            print("Controller (" + cont.id + ") found.");
+            playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
+        }
+        view.toggleGroupOn(group1);
+        view.toggleGroupOn(group2);
+        view.toggleGroupOn(group3);
+        view.toggleGroupOn(group4);
+        // Subscribe to events
+        ReInput.ControllerConnectedEvent += OnControllerConnected;
+        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
+        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
     }
 
     void Update()
     {
+        print(connectedControllers);
+
         //Player 1 Logic
-        if (playerIDToPlayer[1].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(0) && playerIDToPlayer[0].controllers.Joysticks.Count > 0)
         {
-            getInput(1);
+            view.toggleGroupOn(group1);
+            print("Player1");
+            getInput(0);
+        }
+        else
+        {
+            view.toggleGroupOff(group1);
         }
         //Player 2 Logic
-        if (playerIDToPlayer[2].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(1) && playerIDToPlayer[1].controllers.Joysticks.Count > 0)
         {
-            getInput(2);
+            view.toggleGroupOn(group2);
+            print("Player2");
+            getInput(1);
+        }
+        else
+        {
+            view.toggleGroupOff(group2);
         }
         //Player 3 Logic
-        if (playerIDToPlayer[3].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(2) && playerIDToPlayer[2].controllers.Joysticks.Count > 0)
         {
-            getInput(3);
+            view.toggleGroupOn(group3); 
+            print("Player3");
+            getInput(2);
+        }
+        else
+        {
+            view.toggleGroupOff(group3);
         }
         //Player 4 Logic
-        if (playerIDToPlayer[4].controllers.Joysticks.Count > 0)
+        if (playerIDToPlayer.ContainsKey(3) && playerIDToPlayer[3].controllers.Joysticks.Count > 0)
         {
-            getInput(4);
+            view.toggleGroupOn(group4);
+            print("Player4");
+            getInput(3);
         }
+        else
+        {
+            view.toggleGroupOff(group4);
+        }
+    }
+
+    void LateUpdate()
+    {
+        connectedControllers = ReInput.controllers.Joysticks.Count;
+    }
+
+    // This function will be called when a controller is connected
+    // You can get information about the controller that was connected via the args parameter
+    void OnControllerConnected(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+
+        if (args.controllerType == ControllerType.Joystick)
+        {
+            playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
+        }
+    }
+    
+    // This function will be called when a controller is fully disconnected
+    // You can get information about the controller that was disconnected via the args parameter
+    void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+        if (args.controllerType == ControllerType.Joystick)
+        {
+            playerIDToPlayer.Remove(args.controllerId);
+        }
+    }
+
+    // This function will be called when a controller is about to be disconnected
+    // You can get information about the controller that is being disconnected via the args parameter
+    // You can use this event to save the controller's maps before it's disconnected
+    void OnControllerPreDisconnect(ControllerStatusChangedEventArgs args)
+    {
+        Debug.Log("A controller is being disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
     }
 
     /// <summary>
@@ -104,17 +183,17 @@ public class ChS_Controller : MonoBehaviour
         if (playerIDToPlayer[playerID].GetButtonDown("Select"))
         {
             print("Select" + playerID);
-            selectButtonClick(playerID);
+            selectButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Up"))
         {
             print("Up" + playerID);
-            upButtonClick(playerID);
+            upButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Down"))
         {
             print("Down" + playerID);
-            downButtonClick(playerID);
+            downButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Play"))
         {
@@ -168,19 +247,29 @@ public class ChS_Controller : MonoBehaviour
     /// </summary>
     public void playButtonClick()
     {
+        int numNeeded = 0;
         // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
         foreach (int cID in model.getCIDtoC().Keys)
         {
-            if (model.getCIDtoC()[cID].selected == false)
+            if (model.getCIDtoC()[cID].selected)
             {
-                return;
+                numNeeded++;
             }
+        }
+        print("NumNeeded: " + numNeeded);
+        if (numNeeded != connectedControllers || connectedControllers == 0)
+        {
+            return;
         }
 
         // Finalize the selections
         for (int i = 1; i <= 4; i++)
         {
-            finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, i - 1);
+            print("i: " + i);
+            if (model.getCIDtoC()[model.getPIDtoCID()[i]].selected && (model.getCIDtoC()[model.getPIDtoCID()[i]].playerID == i))//!finalSelection.ContainsKey(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name))
+            {
+                finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, model.getCIDtoC()[model.getPIDtoCID()[i]].playerID -1);
+            }
         }
 
         // TODO: Load the first level.

@@ -18,7 +18,7 @@ public class SoldierInput : Player
     private float strapTimer = 0;
     public float fireRate;
     public Sword sword;
-
+    
     // Ability vars
     [HideInInspector]
     public float baseFireRate;
@@ -28,6 +28,7 @@ public class SoldierInput : Player
     public bool canUseGrenade = true;
     [HideInInspector]
     public bool canUseRF = true;
+    private float grenadeTimer = 0.65f;
 
     // For Brett
     public float rapidFireCD;
@@ -35,29 +36,45 @@ public class SoldierInput : Player
 
     void Awake()
     {
+        
+
         // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
+        //try
+        //{
+        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+        //    print("try");
+        //}
+        //catch
+        //{
+        //    player = ReInput.players.GetPlayer(0);
+        //    testing = true;
+        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;
         curMoveSpeed = movementSpeed;
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
+        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        playerID = player.id;
+        
+        
     }
 
     // Update is called once per frame
@@ -67,7 +84,7 @@ public class SoldierInput : Player
         grenadeCD = abilities.grenadeTimeRemaining;
         // Call the Player FixedUpdate method.
         base.Update();
-        
+
         // Shooting
         if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
@@ -87,18 +104,18 @@ public class SoldierInput : Player
             base.curMoveSpeed = movementSpeed;
         }
 
-        // Melee
-        /*if (player.GetButton("Melee") && Time.time >= hammerTimer)
+        //melee
+        if (player.GetButtonDown("Melee")) //&& Time.time >= hammertimer)
         {
-            hammerTimer = Time.time + 1f;
-            melee.soldierMelee();
-        }*/
-
-
-        if (player.GetButtonDown("Melee"))
-        {
-            sword.SwordAttack();
+            //hammertimer = time.time + 1f;
+            //melee.soldiermelee();
+            playerAnimator.SetTrigger("Melee");
         }
+
+        //if (player.GetButtonDown("Melee"))
+        //{
+        //    sword.SwordAttack();
+        //}
 
         // Ability 1: Rapid Fire
         if (player.GetButton("Ability1") && canUseRF)
@@ -108,17 +125,18 @@ public class SoldierInput : Player
         }
 
         // Ability 2: Grenade 
-        if (player.GetButton("Ability2") && canUseGrenade)
+        if (player.GetButtonDown("Ability2") && Time.time > grenadeTimer)
         {
             // Call TankAbilities Script
-            abilities.grenadeToss();
+            playerAnimator.SetTrigger("Grenade");
+            grenadeTimer = Time.time + grenadeCD;
+            abilities.Invoke("grenadeToss", 0.65f);
+            //abilities.grenadeToss();
         }
-        
     }
 
     new void OnTriggerStay(Collider other)
     {
-
         base.OnTriggerStay(other);
     }
 

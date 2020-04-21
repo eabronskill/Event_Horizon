@@ -33,25 +33,25 @@ public class LockedDoor : MonoBehaviour
 
             if (col.gameObject.tag == "Player")
             {
-                if (col.gameObject.name.Equals("Tank Controller"))
-                {
-                    player = col.GetComponent<TankInput>().player;
-                    if (player.GetButtonDown("Interact"))
-                    {
-                        open = true;
-                    }
-                }
-                if (col.gameObject.name.Equals("Soldier Controller"))
-                {
-                    player = col.GetComponent<SoldierInput>().player;
-                    if (player.GetButtonDown("Interact"))
-                    {
-                        open = true;
-                    }
-                }
+                //if (col.gameObject.name.Equals("Tank Controller"))
+                //{
+                //    player = col.GetComponent<TankInput>().player;
+                //    if (player.GetButtonDown("Interact"))
+                //    {
+                //        open = true;
+                //    }
+                //}
+                //if (col.gameObject.name.Equals("Soldier Controller"))
+                //{
+                //    player = col.GetComponent<SoldierInput>().player;
+                //    if (player.GetButtonDown("Interact"))
+                //    {
+                //        open = true;
+                //    }
+                //}
                 //if (col.gameObject.name.Equals("Engineer Controller"))
                 //{
-                //    player = col.GetComponent<EngineerInput>().player;
+                //    player = col.GetComponent<TechnicianInput>().player;
                 //    if (player.GetButtonDown("Interact"))
                 //    {
                 //        open = true;
@@ -59,12 +59,13 @@ public class LockedDoor : MonoBehaviour
                 //}
                 //if (col.gameObject.name.Equals("Rogue Controller"))
                 //{
-                //    player = col.GetComponent<RogueInput>().player;
+                //    player = col.GetComponent<rogueInput>().player;
                 //    if (player.GetButtonDown("Interact"))
                 //    {
                 //        open = true;
                 //    }
                 //}
+                open = true;
             }
         }
     }

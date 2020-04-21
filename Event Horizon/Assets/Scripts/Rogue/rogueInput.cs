@@ -41,16 +41,18 @@ public class rogueInput : Player
 
     void Awake()
     {
+        
         // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
+        //try
+        //{
+        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
+        //}
+        //catch
+        //{
+        //    //player = ReInput.players.GetPlayer(0);
+        //    //testing = true;
+        //    this.gameObject.SetActive(false);
+        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;
@@ -60,11 +62,22 @@ public class rogueInput : Player
     // Start is called before the first frame update
     void Start()
     {
+        if (ChS_Controller.finalSelection.ContainsKey("Rogue Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
         //GetComponent<Rigidbody>().freezeRotation = true;
-        gameObject.SetActive(true);
+        
 
         canJump = true;
-        playerID = player.id;
+        
 
         strapTimer = 0f;
         swordTimer = 0f;

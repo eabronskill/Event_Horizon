@@ -41,16 +41,18 @@ public class TechnicianInput : Player
 
     void Awake()
     {
+        
         // TRY CATCH FOR TESTING.
-        try
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
-        }
-        catch
-        {
-            player = ReInput.players.GetPlayer(0);
-            testing = true;
-        }
+        //try
+        //{
+        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
+        //}
+        //catch
+        //{
+        //    //player = ReInput.players.GetPlayer(0);
+        //    //testing = true;
+        //    this.gameObject.SetActive(false);
+        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;
@@ -60,12 +62,24 @@ public class TechnicianInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(true);
+        if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
+        {
+            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+            playerID = player.id;
+            print("Tech was assigned "+ playerID);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+
+        
 
         GetComponent<Rigidbody>().freezeRotation = true;
 
         canJump = true;
-        playerID = player.id;
+        
 
         strapTimer = 0f;
         swordTimer = 0f;
@@ -106,10 +120,11 @@ public class TechnicianInput : Player
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
-            gunFlash.Play();
+            //gunFlash.Play();
 
             //curAmmo--;
             base.curClip--;
+            
         }
 
         if (player.GetButtonDown("Melee"))

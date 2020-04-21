@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float maxAmmo;
     private float dif;
     public bool dead = false;
+    //animation for player
+    public Animator playerAnimator;
 
     // Aiming vars
     private Plane mousePlane;
@@ -36,20 +38,49 @@ public class Player : MonoBehaviour
     private bool cantUse = false;
 
     public bool testing = false;
+
+    private CharacterController controller;
+
+    public void Start()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
+    public void FixedUpdate()
+    {
+        // Movement
+        //Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+        //controller.Move(movementVec * Time.deltaTime * curMoveSpeed);
+        //print(movementVec * curMoveSpeed * Time.deltaTime);
+    }
     
     public void Update()
     {
         if (!testing)
         {
-            // Movement
+            //// Movement
             Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
-            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
 
             // Rotation
             Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
             if (player.GetAxis("Rotate Horizontal") != 0 || player.GetAxis("Rotate Vertical") != 0)
             {
                 transform.eulerAngles = rotateVec;
+
+                // blending anims:
+                // if (left l-stick)a - run left; within r-stick -75 to 14*
+                //wasd
+                // if (up l-stick)w - run forward; within r-stick -15 to 15*
+                //wasd
+                // if (right l-stick)d - run right; within r-stick 16 to 75*
+                //wasd
+                // if (down l-stick)s - backwards; within r-stick 76 - 180*
+                //wasd
+
+                //abilities stuff
+
             }
 
             // Reloading
@@ -78,7 +109,7 @@ public class Player : MonoBehaviour
             else if (hasAmmo && player.GetButtonDown("DropItem"))
             {
                 ammoItem.gameObject.SetActive(true);
-                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 ammoItem.player = null;
                 ammoItem = null;
                 hasAmmo = false;
@@ -91,7 +122,7 @@ public class Player : MonoBehaviour
             else if (hasHealing && player.GetButtonDown("DropItem"))
             {
                 healingItem.gameObject.SetActive(true);
-                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 healingItem.player = null;
                 healingItem = null;
                 hasHealing = false;
@@ -105,9 +136,28 @@ public class Player : MonoBehaviour
         }
         else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. 
         {
-            // Movement
-            Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed);
+            //// Movement
+            //Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+            //print(movementVec * curMoveSpeed * Time.deltaTime);
+
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                playerAnimator.SetBool("Running", true);
+                print("running true");
+                //playerAnimator.SetBool("Idle", false);
+
+            }
+            else
+            {
+                playerAnimator.SetBool("Running", false);
+                print("running false");
+                //playerAnimator.SetBool("Idle", true);
+            }
+
+
+
+
 
             // Aiming 
             cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);

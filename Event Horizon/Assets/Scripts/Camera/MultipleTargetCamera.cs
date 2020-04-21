@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultipleTargetCamera : MonoBehaviour
 {
-    public List<GameObject> targets;
+    public static List<GameObject> targets;
     public Vector3 offset;
     public float smoothTime = 0.5f;
     private Vector3 velocity;
@@ -12,7 +12,11 @@ public class MultipleTargetCamera : MonoBehaviour
     public float maxZoom = 80f;
     public float zoomLimiter = 1;
     private Camera cam;
-    
+
+    private void Awake()
+    {
+        targets = new List<GameObject>();
+    }
     void Start()
     {
         cam = GetComponent<Camera>();

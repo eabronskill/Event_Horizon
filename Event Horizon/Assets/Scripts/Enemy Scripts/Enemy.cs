@@ -35,6 +35,9 @@ public class Enemy : MonoBehaviour
     public Transform attackPoint;
     public GameObject bulletPrefab;
 
+    // Animation Declairation
+    public Animator enemyAnimator;
+
     // Target change vars
     private float changeTargetTimer = 0f;
     public float changeTargetTime = 5f;
@@ -140,6 +143,9 @@ public class Enemy : MonoBehaviour
                     if (melee)
                     {
                         attackTimer = Time.time + meleeAttackTime;
+
+                        //TODO: impliment correctly
+                        enemyAnimator.SetBool("Attack", true);
                     }
                     else if (ranged) ;
                     {
@@ -202,14 +208,14 @@ public class Enemy : MonoBehaviour
                     {
                         player.GetComponent<SoldierInput>().takeDamage(damage);
                     }
-                    //if (player.gameObject.name.Equals("Engineer Controller"))
-                    //{
-                    //    player.GetComponent<EngineerInput>().takeDamage(damage);
-                    //}
-                    //if (player.gameObject.name.Equals("Rogue Controller"))
-                    //{
-                    //    player.GetComponent<RogueInput>().takeDamage(damage);
-                    //}
+                    if (player.gameObject.name.Equals("Engineer Controller"))
+                    {
+                        player.GetComponent<TechnicianInput>().takeDamage(damage);
+                    }
+                    if (player.gameObject.name.Equals("Rogue Controller"))
+                    {
+                        player.GetComponent<rogueInput>().takeDamage(damage);
+                    }
                 }
             }
         }
