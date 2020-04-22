@@ -197,6 +197,7 @@ MonoBehaviour:
   speed: 2
   gunFlash: {fileID: 5407555443234934960, guid: df15322de4b464e4cb337e2f60436669,
     type: 3}
+  bloodEffect: {fileID: 0}
 --- !u!54 &369004735184827854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -304,12 +305,6 @@ PrefabInstance:
 --- !u!4 &2410221950492992182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4658679807483574201, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
-    type: 3}
-  m_PrefabInstance: {fileID: 7049295060326421775}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &2410221950492992168 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4658679807483574183, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
     type: 3}
   m_PrefabInstance: {fileID: 7049295060326421775}
   m_PrefabAsset: {fileID: 0}

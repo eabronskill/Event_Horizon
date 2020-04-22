@@ -40,7 +40,7 @@ public class LockedDoor : MonoBehaviour
         {
             foreach (GameObject o in killList)
             {
-                if (!o.activeSelf)
+                if (o == null) //&& !o.activeSelf)
                 {
                     numAlive--;
                 }
