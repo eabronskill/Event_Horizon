@@ -7,19 +7,25 @@ public class EnemyTrigger : MonoBehaviour
     public List<GameObject> enemies;
     public GameObject parent;
     private bool activate = false;
+    private bool triggered = false;
 
     void Start()
     {
-        foreach (GameObject o in parent.GetComponentsInChildren<GameObject>())
+        if (parent != null)
         {
-            enemies.Add(o);
+            foreach (Enemy o in parent.GetComponentsInChildren<Enemy>())
+            {
+                enemies.Add(o.gameObject);
+            }
         }
+        
     }
 
     void Update()
     {
-        if (activate)
+        if (activate && !triggered)
         {
+            triggered = true;
             foreach(GameObject enemy in enemies)
             {
                 enemy.gameObject.GetComponent<Enemy>().active = true;

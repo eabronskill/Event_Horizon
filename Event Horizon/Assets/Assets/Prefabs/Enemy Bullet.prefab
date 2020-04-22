@@ -179,6 +179,7 @@ MonoBehaviour:
   speed: 0.5
   gunFlash: {fileID: 0}
   bloodEffect: {fileID: 0}
+  isEnemy: 1
 --- !u!54 &6447813885559527496
 Rigidbody:
   m_ObjectHideFlags: 0

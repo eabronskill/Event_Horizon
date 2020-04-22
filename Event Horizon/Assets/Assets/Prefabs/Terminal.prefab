@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lockedDoor: {fileID: 0}
   light: {fileID: 780124873618784385}
-  directions: {fileID: 0}
+  directions: {fileID: 5858250681293972270}
 --- !u!65 &1871528438917121377
 BoxCollider:
   m_ObjectHideFlags: 0

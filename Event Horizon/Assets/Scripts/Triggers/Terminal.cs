@@ -12,6 +12,10 @@ public class Terminal : MonoBehaviour
 
     public GameObject directions;
 
+    private void Start()
+    {
+        directions.SetActive(false);
+    }
 
     void OnTriggerStay(Collider col)
     {
@@ -23,7 +27,7 @@ public class Terminal : MonoBehaviour
             if (col.gameObject.name.Equals("Tank Controller"))
             {
                 player = col.GetComponent<TankInput>().player;
-                if (player.GetButtonDown("Interact") && !activated)
+                if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
@@ -33,7 +37,7 @@ public class Terminal : MonoBehaviour
             if (col.gameObject.name.Equals("Soldier Controller"))
             {
                 player = col.GetComponent<SoldierInput>().player;
-                if (player.GetButtonDown("Interact") && !activated)
+                if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
@@ -43,7 +47,7 @@ public class Terminal : MonoBehaviour
             if (col.gameObject.name.Equals("Engineer Controller"))
             {
                 player = col.GetComponent<TechnicianInput>().player;
-                if (player.GetButtonDown("Interact") && !activated)
+                if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
@@ -53,7 +57,7 @@ public class Terminal : MonoBehaviour
             if (col.gameObject.name.Equals("Rogue Controller"))
             {
                 player = col.GetComponent<rogueInput>().player;
-                if (player.GetButtonDown("Interact") && !activated)
+                if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;

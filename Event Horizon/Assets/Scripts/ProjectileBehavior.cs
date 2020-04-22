@@ -9,6 +9,8 @@ public class ProjectileBehavior : MonoBehaviour
     private Vector3 movementVec;
     public ParticleSystem gunFlash;
     public ParticleSystem bloodEffect;
+    public bool isEnemy = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +29,20 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (coll.collider.tag == "Enemy")
         {
-            bloodEffect = Instantiate(gunFlash, transform.position, transform.rotation);
-            bloodEffect.Play();
+            if(gunFlash != null && !isEnemy)
+            {
+                bloodEffect = Instantiate(gunFlash, transform.position, transform.rotation);
+                bloodEffect.Play();
+            }
+
+            
+        }
+        else
+        {
+            destroyProjectile();
         }
         // Destroy(blood)
-        Destroy(this.gameObject.GetComponent<Collider>());    
+        //Destroy(this.gameObject.GetComponent<Collider>());    
     }
 
     public void destroyProjectile()

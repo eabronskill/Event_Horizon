@@ -22,19 +22,23 @@ public class LockedDoor : MonoBehaviour
 
     void Start()
     {
-        numAlive = killList.Count;
-        numStart = killList.Count;
+        
         if (parent != null)
         {
-            foreach (GameObject o in parent.GetComponentsInChildren<GameObject>())
+            foreach (Enemy o in parent.GetComponentsInChildren<Enemy>())
             {
-                killList.Add(o);
+                killList.Add(o.gameObject);
             }
+            
+            print("Kill List:" + killList.Count);
         }
+        numAlive = killList.Count;
+        numStart = killList.Count;
     }
     
     void Update()
     {
+        print("NumAlive:" + numAlive);
         if (open)
         {
             left.transform.position = Vector3.Lerp(left.transform.position, leftDest.position, 0.01f);
