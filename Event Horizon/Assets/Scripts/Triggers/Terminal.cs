@@ -9,11 +9,16 @@ public class Terminal : MonoBehaviour
     public GameObject lockedDoor;
     public Light light;
     private bool activated = false;
+    public GameObject directions;
+
 
     void OnTriggerStay(Collider col)
     {
         if (col.gameObject.tag == "Player")
         {
+
+            directions.SetActive(true);
+
             if (col.gameObject.name.Equals("Tank Controller"))
             {
                 player = col.GetComponent<TankInput>().player;

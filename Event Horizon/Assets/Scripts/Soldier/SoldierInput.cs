@@ -112,10 +112,10 @@ public class SoldierInput : Player
             playerAnimator.SetTrigger("Melee");
         }
 
-        //if (player.GetButtonDown("Melee"))
-        //{
-        //    sword.SwordAttack();
-        //}
+        if (player.GetButtonDown("Melee"))
+        {
+            sword.SwordAttack();
+        }
 
         // Ability 1: Rapid Fire
         if (player.GetButton("Ability1") && canUseRF)
