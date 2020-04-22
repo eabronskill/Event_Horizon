@@ -236,6 +236,10 @@ public class HUDController : MonoBehaviour
 
         health.SetFloat("_Fillpercentage", CurHealth / MaxHealth);
        
+        if(CurHealth == 0)
+        {
+            this.gameObject.SetActive(false);
+        }
         
     }
 }
