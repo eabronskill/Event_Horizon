@@ -7,7 +7,7 @@ using Rewired;
 
 public class UIEventCOntroller : MonoBehaviour
 {
-    public GameObject PauseMenu, playerOne, playerTwo, playerThree, playerFour, gameOver;
+    public GameObject PauseMenu, playerOne, playerTwo, playerThree, playerFour, gameOver, missionSuccess;
     Rewired.Player player1;
     // Start is called before the first frame update
     void Start()
@@ -45,5 +45,11 @@ public class UIEventCOntroller : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameOver.SetActive(true);
+    }
+
+    public void MissionSuccess()
+    {
+        Time.timeScale = 0f;
+        missionSuccess.SetActive(true);
     }
 }
