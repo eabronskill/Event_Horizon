@@ -8,12 +8,13 @@ public class ProjectileBehavior : MonoBehaviour
     public float speed = 2f;
     private Vector3 movementVec;
     public ParticleSystem gunFlash;
+    public ParticleSystem bloodEffect;
 
     // Start is called before the first frame update
     void Start()
     {
         movementVec = transform.forward * speed;
-        Invoke("destroyProjectile", 3f);
+        Invoke("destroyProjectile", 5f);
     }
 
     // Update is called once per frame
@@ -24,12 +25,18 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision coll)
     {
-        gunFlash.Play();
-        Destroy(this.gameObject);
+        if (coll.collider.tag == "Enemy")
+        {
+            bloodEffect = Instantiate(gunFlash, transform.position, transform.rotation);
+            bloodEffect.Play();
+        }
+        // Destroy(blood)
+        Destroy(this.gameObject.GetComponent<Collider>());    
     }
 
-    private void destroyProjectile()
+    public void destroyProjectile()
     {
         Destroy(this.gameObject);
     }
+
 }

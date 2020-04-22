@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7716763585553895908}
   - component: {fileID: 5407555443234934960}
   - component: {fileID: 2442260225627750485}
+  - component: {fileID: 3268413549097112345}
   m_Layer: 9
   m_Name: ParticleEnemyHit
   m_TagString: Untagged
@@ -4754,3 +4755,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3268413549097112345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832105743827009711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafd732716e336642a819e40af5b9400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

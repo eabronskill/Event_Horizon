@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     private GameObject[] players;
     private GameObject target;
     private NavMeshAgent nav;
-
     /// <summary>
     /// Set in Inspecter to true if you want this enemy to be moving on start. Or, use triggers to make this
     /// enemy active.
@@ -132,7 +131,7 @@ public class Enemy : MonoBehaviour
                 {
                     nav.isStopped = false;
                     nav.SetDestination(target.transform.position);
-                    print("Walking");
+                    //print("Walking");
                 }
                 // This enemy has reached its destination.
                 else if (nav.remainingDistance - nav.stoppingDistance <= 0 && Time.time > attackTimer)
@@ -240,6 +239,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     private void OnCollisionEnter(Collision coll)
     {
         if (coll.gameObject.tag == "Bullet")
@@ -265,6 +265,7 @@ public class Enemy : MonoBehaviour
 
                 deathTimer = Time.time + 1f;
                 dead = true;
+                Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
                 Invoke("die", 1f);
             }
             
@@ -299,7 +300,7 @@ public class Enemy : MonoBehaviour
     
     private void die()
     {
-        Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
+       
         Destroy(this.gameObject);
     }
 
