@@ -13,7 +13,7 @@ public class SoldierAbilities : MonoBehaviour
     public float rfFireRate;
 
     public float rapidFireCD;
-    private float rapidFireTimer = 0f;
+    private float rapidFireTimer = 60f;
     public float rapidFireTimeRemaining = 0f;
 
     // Grenade vars
@@ -23,7 +23,7 @@ public class SoldierAbilities : MonoBehaviour
     public float grenadeCD;
     public float throwForce;
 
-    private float grenadeTimer = 0f;
+    private float grenadeTimer = 30f;
     public float grenadeTimeRemaining = 0f;
     private bool canUseGrenade = true;
 
