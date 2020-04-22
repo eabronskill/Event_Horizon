@@ -7,6 +7,7 @@ public class LockedDoor : MonoBehaviour
 {
     public bool killDoor = false;
     public List<GameObject> killList = new List<GameObject>();
+    public GameObject parent;
     private bool allDead = false;
     private float numAlive;
     private float numStart;
@@ -23,6 +24,13 @@ public class LockedDoor : MonoBehaviour
     {
         numAlive = killList.Count;
         numStart = killList.Count;
+        if (parent != null)
+        {
+            foreach (GameObject o in parent.GetComponentsInChildren<GameObject>())
+            {
+                killList.Add(o);
+            }
+        }
     }
     
     void Update()

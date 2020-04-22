@@ -5,7 +5,16 @@ using UnityEngine;
 public class EnemyTrigger : MonoBehaviour
 {
     public List<GameObject> enemies;
+    public GameObject parent;
     private bool activate = false;
+
+    void Start()
+    {
+        foreach (GameObject o in parent.GetComponentsInChildren<GameObject>())
+        {
+            enemies.Add(o);
+        }
+    }
 
     void Update()
     {
