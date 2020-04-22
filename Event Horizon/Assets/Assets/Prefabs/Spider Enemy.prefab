@@ -100,7 +100,7 @@ MonoBehaviour:
   rangedAttackTime: 4
   attackPoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
-  enemyAnimator: {fileID: 0}
+  enemyAnimator: {fileID: 4167106793578330478}
   changeTargetTime: 5
   canBeStunned: 1
 --- !u!195 &4167106792907074876
