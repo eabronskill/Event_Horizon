@@ -9,6 +9,7 @@ public class Terminal : MonoBehaviour
     public GameObject lockedDoor;
     public Light light;
     private bool activated = false;
+
     public GameObject directions;
 
 
@@ -59,6 +60,14 @@ public class Terminal : MonoBehaviour
                     light.color = Color.green;
                 }
             }
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            directions.SetActive(false);
         }
     }
 }

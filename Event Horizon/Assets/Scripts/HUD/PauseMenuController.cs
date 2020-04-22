@@ -12,10 +12,9 @@ public class PauseMenuController : MonoBehaviour
 
     private GameObject[] buttons = new GameObject[3];
     private int iter = 0;
-    private void Awake()
-    {
-        
-    }
+
+    public static bool active = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +81,7 @@ public class PauseMenuController : MonoBehaviour
     {
         Time.timeScale = 1f;
         this.gameObject.SetActive(false);
+        active = false;
     }
 
     private void controls()

@@ -41,6 +41,11 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
 
+    // Canvas Vars
+    public GameObject gameOverCanvas;
+    public GameObject pauseMenu;
+    public GameObject victoryCanvas;
+
     public void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -133,6 +138,17 @@ public class Player : MonoBehaviour
             {
                 this.gameObject.SetActive(false);
             }
+
+            // Menu
+            //if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
+            //{
+            //    pauseMenu.SetActive(true);
+            //    pauseMenu.GetComponent<PauseMenuController>();
+            //}
+            //else if(player.GetButtonDown("Menu") && pauseMenu.activeSelf)
+            //{
+            //    pauseMenu.SetActive(false);
+            //}
         }
         else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. 
         {

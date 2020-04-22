@@ -84,7 +84,7 @@ public class ElevatorScript : MonoBehaviour
                     player1 = col.GetComponent<TankInput>().player;
                     if (player1.GetButtonDown("Interact"))
                     {
-                        SceneManager.LoadScene("End Level 1");
+                        SceneManager.LoadScene("Level2");
                     }
                 }
                 if (col.gameObject.name.Equals("Soldier Controller"))
@@ -93,7 +93,7 @@ public class ElevatorScript : MonoBehaviour
                     player2 = col.GetComponent<SoldierInput>().player;
                     if (player2.GetButtonDown("Interact"))
                     {
-                        SceneManager.LoadScene("End Level 1");
+                        SceneManager.LoadScene("Level2");
                     }
                 }
                 if (col.gameObject.name.Equals("Engineer Controller"))
@@ -102,7 +102,7 @@ public class ElevatorScript : MonoBehaviour
                     player3 = col.GetComponent<TechnicianInput>().player;
                     if (player3.GetButtonDown("Interact"))
                     {
-                        SceneManager.LoadScene("End Level 1");
+                        SceneManager.LoadScene("Level2");
                     }
                 }
                 if (col.gameObject.name.Equals("Rogue Controller"))
@@ -111,7 +111,7 @@ public class ElevatorScript : MonoBehaviour
                     player4 = col.GetComponent<rogueInput>().player;
                     if (player4.GetButtonDown("Interact"))
                     {
-                        SceneManager.LoadScene("End Level 1");
+                        SceneManager.LoadScene("Level2");
                     }
                 }
             }
