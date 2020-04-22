@@ -36,19 +36,6 @@ public class SoldierInput : Player
 
     void Awake()
     {
-        
-
-        // TRY CATCH FOR TESTING.
-        //try
-        //{
-        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
-        //    print("try");
-        //}
-        //catch
-        //{
-        //    player = ReInput.players.GetPlayer(0);
-        //    testing = true;
-        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;

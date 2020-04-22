@@ -8,7 +8,7 @@ using Rewired;
 public class PauseMenuController : MonoBehaviour
 {
     public GameObject ControlsMenu, selectButton, controlsButton, quitButton;
-    Rewired.Player player1;
+    public static Rewired.Player player1;
 
     private GameObject[] buttons = new GameObject[3];
     private int iter = 0;
@@ -26,6 +26,14 @@ public class PauseMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.gameObject.activeSelf)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
         if (player1.controllers.Joysticks.Count > 0)
         {
             if (player1.GetButtonDown("Select"))
@@ -92,5 +100,15 @@ public class PauseMenuController : MonoBehaviour
     private void exitGame()
     {
         Application.Quit();
+    }
+
+    public Rewired.Player getPlayer()
+    {
+        return player1;
+    }
+
+    public void setPlayer(Rewired.Player player)
+    {
+        player1 = player;
     }
 }

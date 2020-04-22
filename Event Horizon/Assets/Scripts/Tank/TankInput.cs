@@ -31,18 +31,6 @@ public class TankInput : Player
 
     void Awake()
     {
-        
-        // TRY CATCH FOR TESTING.
-        //try
-        //{
-        //    player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
-        //}
-        //catch
-        //{
-        //    //player = ReInput.players.GetPlayer(0);
-        //    //testing = true;
-        //    this.gameObject.SetActive(false);
-        //}
         curAmmo = maxAmmo;
         curClip = maxClip;
         curHealth = maxHealth;

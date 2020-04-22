@@ -45,6 +45,18 @@ public class Player : MonoBehaviour
     public GameObject gameOverCanvas;
     public GameObject pauseMenu;
     public GameObject victoryCanvas;
+    private static bool paused = false;
+
+    public void setPaused(bool b)
+    {
+        paused = b;
+    }
+
+    public bool getPaused()
+    {
+        return paused;
+    }
+    
 
     public void Start()
     {
@@ -62,9 +74,9 @@ public class Player : MonoBehaviour
     
     public void Update()
     {
-        if (!testing)
+        if (!paused)
         {
-            //// Movement
+            // Movement
             Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
 
@@ -138,109 +150,23 @@ public class Player : MonoBehaviour
             {
                 this.gameObject.SetActive(false);
             }
-
-            // Menu
-            //if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
-            //{
-            //    pauseMenu.SetActive(true);
-            //    pauseMenu.GetComponent<PauseMenuController>();
-            //}
-            //else if(player.GetButtonDown("Menu") && pauseMenu.activeSelf)
-            //{
-            //    pauseMenu.SetActive(false);
-            //}
         }
-        else //FOR TESTING PURPOSES. ALLOWS USE OF KEYBOARD AND MOUSE. 
+
+        // HUD
+        if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
         {
-            //// Movement
-            //Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
-            //print(movementVec * curMoveSpeed * Time.deltaTime);
-
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            {
-                playerAnimator.SetBool("Running", true);
-                print("running true");
-                //playerAnimator.SetBool("Idle", false);
-
-            }
-            else
-            {
-                playerAnimator.SetBool("Running", false);
-                print("running false");
-                //playerAnimator.SetBool("Idle", true);
-            }
-
-
-
-
-
-            // Aiming 
-            cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            mousePlane.SetNormalAndPosition(Vector3.up, transform.position);
-            if (mousePlane.Raycast(cameraRay, out intersectionDistance))
-            {
-                Vector3 hitPoint = cameraRay.GetPoint(intersectionDistance);
-                transform.LookAt(hitPoint);
-            }
-
-            // Reloading
-            if (curClip != maxClip && Input.GetKeyDown(KeyCode.R))
-            {
-                print("reloading");
-                float dif;
-                if (maxClip < curAmmo)
-                {
-                    dif = maxClip - curClip;
-                    curClip = maxClip;
-                }
-                else
-                {
-                    dif = curAmmo - curClip;
-                    curClip = curAmmo;
-                }
-
-                curAmmo -= dif;
-            }
-
-            if (!cantUse)
-            {
-                // Items
-                if (hasAmmo && Input.GetKeyDown(KeyCode.E))
-                {
-                    ammoItem.use();
-                    hasAmmo = false;
-                }
-                else if (hasAmmo && Input.GetKeyDown(KeyCode.F))
-                {
-                    ammoItem.gameObject.SetActive(true);
-                    ammoItem.transform.position = new Vector3(transform.position.x, transform.localPosition.y + 1f, transform.position.z);
-                    ammoItem.player = null;
-                    ammoItem = null;
-                    hasAmmo = false;
-                }
-                if (hasHealing && Input.GetKeyDown(KeyCode.E))
-                {
-                    healingItem.use();
-                    hasHealing = false;
-                }
-                else if (hasHealing && Input.GetKeyDown(KeyCode.F))
-                {
-                    healingItem.gameObject.SetActive(true);
-                    healingItem.transform.position = new Vector3(transform.position.x, transform.localPosition.y + 1f, transform.position.z);
-                    healingItem.player = null;
-                    healingItem = null;
-                    hasHealing = false;
-                }
-            }
-            
-
-            // Death
-            if (curHealth <= 0)
-            {
-                this.gameObject.SetActive(false);
-            }
+            pauseMenu.SetActive(true);
+            setPaused(true);
+            pauseMenu.GetComponent<PauseMenuController>().setPlayer(this.player);
         }
+        else if (player.GetButtonDown("Menu") && pauseMenu.activeSelf)
+        {
+            pauseMenu.SetActive(false);
+            pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
+            setPaused(false);
+        }
+        
+        
     }
 
     public void OnTriggerStay(Collider other)

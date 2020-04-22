@@ -13,9 +13,9 @@ public class GameOverController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (player1.GetButtonDown("Play"))
-        //{
-        //    SceneManager.LoadScene("MainMenu");
-        //}
+        if (player1.GetButtonDown("Play"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }
