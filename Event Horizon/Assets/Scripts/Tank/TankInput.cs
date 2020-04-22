@@ -45,7 +45,11 @@ public class TankInput : Player
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             playerID = player.id;
-            print("Tank was assigned:" + playerID);
+            if(UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Tank", this.gameObject);
+            }
+            
         }
         else
         {

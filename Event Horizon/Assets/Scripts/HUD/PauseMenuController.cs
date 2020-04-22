@@ -30,13 +30,10 @@ public class PauseMenuController : MonoBehaviour
         {
             Time.timeScale = 0;
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        
         if (player1.controllers.Joysticks.Count > 0)
         {
-            if (player1.GetButtonDown("Select"))
+            if (player1.GetButtonDown("Interact"))
             {
                 if (iter == 0)
                 {
@@ -81,6 +78,11 @@ public class PauseMenuController : MonoBehaviour
             if (ControlsMenu.activeSelf && player1.GetButtonDown("Back"))
             {
                 ControlsMenu.SetActive(false);
+            }
+            else if (player1.GetButtonDown("Back"))
+            {
+                Time.timeScale = 1;
+                this.gameObject.SetActive(false);
             }
         }
     }

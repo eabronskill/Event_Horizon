@@ -15,7 +15,7 @@ public class EndSceneTrigger : MonoBehaviour
                 player = col.GetComponent<TankInput>().player;
                 if (player.GetButton("Interact"))
                 {
-                    SceneManager.LoadScene("MainMenu");
+                    col.GetComponent<TankInput>().victoryCanvas.SetActive(true);
                 }
             }
             if (col.gameObject.name.Equals("Soldier Controller"))
@@ -23,7 +23,7 @@ public class EndSceneTrigger : MonoBehaviour
                 player = col.GetComponent<SoldierInput>().player;
                 if (player.GetButton("Interact"))
                 {
-                    SceneManager.LoadScene("MainMenu");
+                    col.GetComponent<SoldierInput>().victoryCanvas.SetActive(true);
                 }
             }
             if (col.gameObject.name.Equals("Engineer Controller"))
@@ -31,7 +31,7 @@ public class EndSceneTrigger : MonoBehaviour
                 player = col.GetComponent<TechnicianInput>().player;
                 if (player.GetButton("Interact"))
                 {
-                    SceneManager.LoadScene("MainMenu");
+                    col.GetComponent<TechnicianInput>().victoryCanvas.SetActive(true);
                 }
             }
             if (col.gameObject.name.Equals("Rogue Controller"))
@@ -39,7 +39,7 @@ public class EndSceneTrigger : MonoBehaviour
                 player = col.GetComponent<rogueInput>().player;
                 if (player.GetButton("Interact"))
                 {
-                    SceneManager.LoadScene("MainMenu");
+                    col.GetComponent<rogueInput>().victoryCanvas.SetActive(true);
                 }
             }
         }

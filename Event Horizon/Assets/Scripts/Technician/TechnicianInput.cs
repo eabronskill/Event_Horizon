@@ -55,14 +55,19 @@ public class TechnicianInput : Player
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             playerID = player.id;
-            print("Tech was assigned "+ playerID);
+
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Technician", this.gameObject);
+            }
         }
         else
         {
             this.gameObject.SetActive(false);
         }
-
         
+
+
 
         GetComponent<Rigidbody>().freezeRotation = true;
 

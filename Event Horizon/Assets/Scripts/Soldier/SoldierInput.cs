@@ -50,6 +50,10 @@ public class SoldierInput : Player
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             playerID = player.id;
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Soldier", this.gameObject);
+            }
 
         }
         else
@@ -60,7 +64,7 @@ public class SoldierInput : Player
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
         melee = this.gameObject.GetComponent<Melee>();
-        
+
         
     }
 

@@ -9,10 +9,11 @@ public class UIEventCOntroller : MonoBehaviour
 {
     public GameObject PauseMenu, playerOne, playerTwo, playerThree, playerFour, gameOver, missionSuccess;
     Rewired.Player player1;
+    public static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1; 
     }
 
     // Update is called once per frame
@@ -27,6 +28,12 @@ public class UIEventCOntroller : MonoBehaviour
         {
             GameOver();  
         }
+
+        if (missionSuccess.activeSelf)
+        {
+            MissionSuccess();
+        }
+        
     }
 
     public void Pause()
@@ -43,13 +50,21 @@ public class UIEventCOntroller : MonoBehaviour
 
     public void GameOver()
     {
-        Time.timeScale = 0f;
+        foreach (GameObject o in players.Values)
+        {
+            o.gameObject.SetActive(true);
+        }
         gameOver.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void MissionSuccess()
     {
-        Time.timeScale = 0f;
-        missionSuccess.SetActive(true);
+        foreach (GameObject o in players.Values)
+        {
+            o.gameObject.SetActive(true);
+        }
+        //missionSuccess.SetActive(true);
+        Time.timeScale = 0;
     }
 }

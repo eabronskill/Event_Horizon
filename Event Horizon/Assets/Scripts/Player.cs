@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Rewired;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject victoryCanvas;
     private static bool paused = false;
+    private bool gameOver = false;
+    private bool levelOne = true;
 
     public void setPaused(bool b)
     {
@@ -60,21 +63,15 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
+        
         controller = GetComponent<CharacterController>();
     }
 
-    public void FixedUpdate()
-    {
-        // Movement
-        //Vector3 movementVec = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
-        //controller.Move(movementVec * Time.deltaTime * curMoveSpeed);
-        //print(movementVec * curMoveSpeed * Time.deltaTime);
-    }
+    
     
     public void Update()
     {
-        if (!paused)
+        if (Time.timeScale == 1)
         {
             // Movement
             Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
@@ -153,17 +150,58 @@ public class Player : MonoBehaviour
         }
 
         // HUD
-        if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
+        if (!gameOver)
         {
-            pauseMenu.SetActive(true);
-            setPaused(true);
-            pauseMenu.GetComponent<PauseMenuController>().setPlayer(this.player);
+            if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
+            {
+                pauseMenu.SetActive(true);
+
+                pauseMenu.GetComponent<PauseMenuController>().setPlayer(this.player);
+            }
+            else if (player.GetButtonDown("Menu") && pauseMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+                pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
+
+            }
         }
-        else if (player.GetButtonDown("Menu") && pauseMenu.activeSelf)
+        
+        if (gameOverCanvas.activeSelf && player.controllers.joystickCount >= 1)
         {
-            pauseMenu.SetActive(false);
-            pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
-            setPaused(false);
+            
+            gameOver = true;
+        }
+        if (player.GetButtonDown("Interact") && gameOverCanvas.activeSelf && player.controllers.joystickCount >= 1)
+        {
+            
+            MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+            ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+            ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+            UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+            Time.timeScale = 1;
+            SceneManager.LoadScene("MainMenu");
+            
+        }
+        if (player.GetButtonDown("Interact") && victoryCanvas.activeSelf && player.controllers.joystickCount >= 1)
+        {
+            Time.timeScale = 1;
+            if (SceneManager.GetActiveScene().name.Equals("Level1"))
+            {
+                
+                levelOne = false;
+                SceneManager.LoadScene("Level2");
+            }
+            else
+            {
+                UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+                MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+                ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+                ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+                
+                SceneManager.LoadScene("MainMenu");
+            }
+            
         }
         
         
