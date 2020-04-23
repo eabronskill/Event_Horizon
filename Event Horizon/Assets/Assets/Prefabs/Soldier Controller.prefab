@@ -197,6 +197,7 @@ MonoBehaviour:
   grenadeCD: 15
   throwForce: 30
   grenadeTimeRemaining: 0
+  canUseGrenade: 1
 --- !u!136 &512554164
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -352,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: soldier_mixamo_t-pose
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a5632f20953df5f46aa5d59997ef7c6d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5632f20953df5f46aa5d59997ef7c6d, type: 3}
@@ -541,7 +547,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: ba71dc7575b1be146bd4dd9f18d5ba21,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba71dc7575b1be146bd4dd9f18d5ba21, type: 3}

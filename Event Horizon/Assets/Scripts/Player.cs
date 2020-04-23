@@ -76,6 +76,16 @@ public class Player : MonoBehaviour
             // Movement
             Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
             GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+            if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.z >= 0.3f || movementVec.z <= -0.3f)
+            {
+                playerAnimator.SetFloat("Blend", 1.0f);
+                playerAnimator.SetBool("Running", true);
+            }
+            else
+            {
+                playerAnimator.SetFloat("Blend", 0.0f);
+                playerAnimator.SetBool("Running", false);
+            }
 
             // Rotation
             Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
