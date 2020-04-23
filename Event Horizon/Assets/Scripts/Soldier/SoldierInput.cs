@@ -116,13 +116,13 @@ public class SoldierInput : Player
         }
 
         // Ability 2: Grenade 
-        if (player.GetButtonDown("Ability2") && Time.time > grenadeTimer)
+        if (player.GetButtonDown("Ability2") && abilities.canUseGrenade)
         {
             // Call TankAbilities Script
             playerAnimator.SetTrigger("Grenade");
-            grenadeTimer = Time.time + grenadeCD;
-            abilities.Invoke("grenadeToss", 0.65f);
-            //abilities.grenadeToss();
+           // grenadeTimer = Time.time + grenadeCD;
+            //abilities.Invoke("grenadeToss", 0.65f);
+            abilities.grenadeToss();
         }
     }
 

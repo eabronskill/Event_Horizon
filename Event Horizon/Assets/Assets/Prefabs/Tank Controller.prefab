@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 500
+  movementSpeed: 400
   curHealth: 0
   maxHealth: 200
   curClip: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   fireRate: 0.25
   canPound: 1
   shieldCD: 0
-  groundPoundCD: 0
+  groundPoundCD: 20
   shieldDown: 0
 --- !u!114 &7114397070673391989
 MonoBehaviour:
@@ -342,7 +342,7 @@ MonoBehaviour:
   shieldTimeRemaining: 0
   shieldDown: 0
   stunSprite: {fileID: 7114397071310746249}
-  groundPoundCD: 60
+  groundPoundCD: 20
   groundPoundTimer: 0
   groundPoundTimeRemaining: 0
 --- !u!114 &261708168

@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 500
+  movementSpeed: 400
   curHealth: 0
   maxHealth: 100
   curClip: 0
@@ -173,8 +173,8 @@ MonoBehaviour:
   cnsmAmmo: 1
   canUseGrenade: 1
   canUseRF: 1
-  rapidFireCD: 0
-  grenadeCD: 0
+  rapidFireCD: 20
+  grenadeCD: 15
 --- !u!114 &8064502178942012885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,12 +189,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rapidFireDuration: 5
   rfFireRate: 0.08
-  rapidFireCD: 120
+  rapidFireCD: 20
   rapidFireTimeRemaining: 0
   grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
     type: 3}
   grenadeStart: {fileID: 8064502180463576899}
-  grenadeCD: 45
+  grenadeCD: 15
   throwForce: 30
   grenadeTimeRemaining: 0
 --- !u!136 &512554164

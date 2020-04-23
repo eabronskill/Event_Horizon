@@ -25,7 +25,7 @@ public class SoldierAbilities : MonoBehaviour
 
     private float grenadeTimer = 30f;
     public float grenadeTimeRemaining = 0f;
-    private bool canUseGrenade = true;
+    public bool canUseGrenade = true;
 
     //public GameObject stunSprite;
     private float spriteTimer = 0f;
@@ -56,7 +56,7 @@ public class SoldierAbilities : MonoBehaviour
         }
         if (Time.time > grenadeTimer)
         {
-            soldier.canUseGrenade = true;
+            canUseGrenade = true;
         }
         if (Time.time > rapidFireTimer)
         {
@@ -99,7 +99,7 @@ public class SoldierAbilities : MonoBehaviour
         rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
 
         // Set timers
-        //grenadeTimer = Time.time + grenadeCD;
-        //soldier.canUseGrenade = false;
+        grenadeTimer = Time.time + grenadeCD;
+        canUseGrenade = false;
     }
 }

@@ -5863,10 +5863,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSetSpikes: 0
-  spikeCD: 30
+  spikeCD: 10
   canSetMine: 0
   mineSet: 0
-  mineCD: 60
+  mineCD: 20
   mineTimeRemaining: 0
   spikeTimeRemaining: 0
   spikes: {fileID: 4234290519466868736, guid: c2d24e70f7373b143b8a928e28fb161d, type: 3}
@@ -5885,7 +5885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 500
+  movementSpeed: 400
   curHealth: 0
   maxHealth: 100
   curClip: 0

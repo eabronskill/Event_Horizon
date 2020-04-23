@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public class ElevatorScript : MonoBehaviour
 {
@@ -29,23 +29,21 @@ public class ElevatorScript : MonoBehaviour
     {
         if (phase2)
         {
-            bool done = false;
+            bool done = true;
             foreach (GameObject enemy in enemies)
             {
-                if (enemy == null)
-                {
-                    done = true;
-                }
-                else
+                if (enemy != null)
                 {
                     done = false;
                 }
+
             }
             if (done)
             {
+                print("done!");
                 phase2 = false;
                 phase3 = true;
-                text.GetComponent<TextMesh>().text = "Press 'A' to Activate Elevator";
+                text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
                 front.gameObject.SetActive(true);
                 inside.color = Color.green;
             }

@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 500
+  movementSpeed: 400
   curHealth: 0
   maxHealth: 100
   curClip: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSetTurret: 0
-  turretCD: 120
+  turretCD: 30
   turretSet: 0
   canRepair: 0
   repairCD: 60
