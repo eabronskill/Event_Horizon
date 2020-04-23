@@ -9,6 +9,8 @@ public class MainMenuController : MonoBehaviour
 {
     public GameObject ControlsMenu, selectButton, controlsButton, quitButton;
 
+    public AudioSource buttonSwitch;
+
     /// <summary>
     /// Maps the player number to the Rewired Player.
     /// </summary>
@@ -55,12 +57,13 @@ public class MainMenuController : MonoBehaviour
 
     void Update()
     {
-        print(controllerIDToPlayerID.Count);
-        if (player1.controllers.Joysticks.Count > 0)
+        if (player1 != null && player1.controllers.Joysticks.Count > 0)
         {
             if (player1.GetButtonDown("Select"))
             {
-                if(iter == 0)
+                buttonSwitch.pitch = 1;
+                buttonSwitch.Play();
+                if (iter == 0)
                 {
                     playGame();
                 }
@@ -75,6 +78,8 @@ public class MainMenuController : MonoBehaviour
             }
             if (player1.GetButtonDown("Up"))
             {
+                buttonSwitch.pitch = 2;
+                buttonSwitch.Play();
                 buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
                 if (iter == 0)
                 {
@@ -88,6 +93,8 @@ public class MainMenuController : MonoBehaviour
             }
             if (player1.GetButtonDown("Down"))
             {
+                buttonSwitch.pitch = 2;
+                buttonSwitch.Play();
                 buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
                 
                 if (iter == 2)
@@ -102,6 +109,8 @@ public class MainMenuController : MonoBehaviour
             }
             if (ControlsMenu.activeSelf && player1.GetButtonDown("Back"))
             {
+                buttonSwitch.pitch = 1;
+                buttonSwitch.Play();
                 ControlsMenu.SetActive(false);
             }
         }

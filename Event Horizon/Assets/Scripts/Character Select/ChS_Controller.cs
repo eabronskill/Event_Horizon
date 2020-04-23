@@ -26,6 +26,8 @@ public class ChS_Controller : MonoBehaviour
     private ChS_Model model;
     private ChS_View view;
 
+    public AudioSource buttonClickSound;
+
     private int connectedControllers;
 
     void Awake()
@@ -182,16 +184,22 @@ public class ChS_Controller : MonoBehaviour
     {
         if (playerIDToPlayer[playerID].GetButtonDown("Select"))
         {
+            buttonClickSound.pitch = 1;
+            buttonClickSound.Play();
             print("Select" + playerID);
             selectButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Up"))
         {
+            buttonClickSound.pitch = 2;
+            buttonClickSound.Play();
             print("Up" + playerID);
             upButtonClick(playerID+1);
         }
         if (playerIDToPlayer[playerID].GetButtonDown("Down"))
         {
+            buttonClickSound.pitch = 2;
+            buttonClickSound.Play();
             print("Down" + playerID);
             downButtonClick(playerID+1);
         }
@@ -271,7 +279,8 @@ public class ChS_Controller : MonoBehaviour
                 finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, model.getCIDtoC()[model.getPIDtoCID()[i]].playerID -1);
             }
         }
-
+        buttonClickSound.pitch = 1;
+        buttonClickSound.Play();
         // TODO: Load the first level.
         SceneManager.LoadScene("Level1");
         

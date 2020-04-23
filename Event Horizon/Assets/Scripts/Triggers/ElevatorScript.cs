@@ -12,6 +12,7 @@ public class ElevatorScript : MonoBehaviour
     private bool tank, soldier, rogue, engineer;
    
     public List<GameObject> enemies;
+    public GameObject text;
 
     private bool phase1 = true;
     private bool phase2 = false;
@@ -20,6 +21,7 @@ public class ElevatorScript : MonoBehaviour
     void Start()
     {
         inside.gameObject.SetActive(false);
+        text.SetActive(false);
     }
     
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class ElevatorScript : MonoBehaviour
             {
                 phase2 = false;
                 phase3 = true;
-
+                text.GetComponent<TextMesh>().text = "Press 'A' to Activate Elevator";
                 front.gameObject.SetActive(true);
                 inside.color = Color.green;
             }
@@ -58,7 +60,8 @@ public class ElevatorScript : MonoBehaviour
             {
                 front.gameObject.SetActive(false);
                 inside.gameObject.SetActive(true);
-
+                text.SetActive(true);
+               
                 // Activate all the enemies
                 foreach (GameObject enemy in enemies)
                 {
