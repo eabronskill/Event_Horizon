@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Rewired;
 
+
 public class PauseMenuController : MonoBehaviour
 {
     public GameObject ControlsMenu, selectButton, controlsButton, quitButton;
@@ -101,7 +102,11 @@ public class PauseMenuController : MonoBehaviour
 
     private void exitGame()
     {
-        Application.Quit();
+        MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+        ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+        ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+        UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public Rewired.Player getPlayer()
