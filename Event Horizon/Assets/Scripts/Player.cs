@@ -38,44 +38,53 @@ public class Player : MonoBehaviour
     private float bufferTimer = 0.5f;
     private bool cantUse = false;
 
-    public bool testing = false;
-
-    private CharacterController controller;
-
     // Canvas Vars
     public GameObject gameOverCanvas;
     public GameObject pauseMenu;
     public GameObject victoryCanvas;
-    private static bool paused = false;
     private bool gameOver = false;
-    private bool levelOne = true;
 
-    public void setPaused(bool b)
-    {
-        paused = b;
-    }
-
-    public bool getPaused()
-    {
-        return paused;
-    }
-    
+    //Movement Vars
+    private CharacterController controller;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public float gravity = -9.81f;
+    public LayerMask groundMask;
+    Vector3 velocity;
+    bool isGrounded;
 
     public void Start()
     {
-        
         controller = GetComponent<CharacterController>();
     }
 
-    
-    
     public void Update()
     {
         if (Time.timeScale == 1)
         {
-            // Movement
-            Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
-            GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+            // Old Movement
+            //Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
+            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
+
+            // Test Movement
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f;
+            }
+
+            float x = player.GetAxis("Move Horizontal");
+            float z = player.GetAxis("Move Vertical");
+
+            Vector3 movementVec = transform.right * x + transform.forward * z;
+
+            controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
+
+            velocity.y += gravity * Time.deltaTime;
+
+            controller.Move(velocity * Time.deltaTime);
+
+            // Movement Anims
             if (playerAnimator != null)
             {
                 if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.z >= 0.3f || movementVec.z <= -0.3f)
