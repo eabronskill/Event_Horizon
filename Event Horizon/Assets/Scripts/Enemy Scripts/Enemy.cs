@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
                 {
                     nav.isStopped = false;
                     nav.SetDestination(target.transform.position);
-                    //print("Walking");
+                    enemyAnimator.SetBool("Walking", true);
                 }
                 // This enemy has reached its destination.
                 else if (nav.remainingDistance - nav.stoppingDistance <= 0 && Time.time > attackTimer)
@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour
                         attackTimer = Time.time + meleeAttackTime;
 
                         //TODO: impliment correctly
-                        enemyAnimator.SetBool("Attack", true);
+                        enemyAnimator.SetTrigger("Attack");
                     }
                     else if (ranged) ;
                     {
