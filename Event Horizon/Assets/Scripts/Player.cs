@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     public float maxAmmo;
     private float dif;
     public bool dead = false;
-    //animation for player
+
+    // Animation Vars
     public Animator playerAnimator;
 
     // Aiming vars
@@ -52,6 +53,10 @@ public class Player : MonoBehaviour
     public LayerMask groundMask;
     Vector3 velocity;
     bool isGrounded;
+
+    // Tutorial Vars
+    [HideInInspector]
+    public bool moved, shot, meleed, usedAbility1, usedAbility2;
 
     public void Start()
     {

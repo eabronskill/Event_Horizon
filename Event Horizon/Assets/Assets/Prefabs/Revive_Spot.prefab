@@ -112,7 +112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Revive Zone.
+  m_text: Press 'A' to Revive Teammates.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 15a015398ab17254289d3a1e6a246dda, type: 2}
   m_sharedMaterial: {fileID: 6144451061922703157, guid: 15a015398ab17254289d3a1e6a246dda,
@@ -182,10 +182,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 4.0460663, w: 0}
   m_textInfo:
     textComponent: {fileID: 2101443412}
-    characterCount: 12
+    characterCount: 30
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 4
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -343,6 +343,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -5.11
       objectReference: {fileID: 0}
+    - target: {fileID: 296408932396824907, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.03
+      objectReference: {fileID: 0}
     - target: {fileID: 296408932883424209, guid: f12801d0a72fe554d899310d49b8baa8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -403,6 +408,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3836556
       objectReference: {fileID: 0}
+    - target: {fileID: 296408932883424212, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: characters.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 296408932883424213, guid: f12801d0a72fe554d899310d49b8baa8,
         type: 3}
       propertyPath: m_Name
@@ -413,15 +423,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 7.32
       objectReference: {fileID: 0}
+    - target: {fileID: 296408933664552943, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.03
+      objectReference: {fileID: 0}
     - target: {fileID: 296408934043788479, guid: f12801d0a72fe554d899310d49b8baa8,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 17.14
       objectReference: {fileID: 0}
+    - target: {fileID: 296408934043788479, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.03
+      objectReference: {fileID: 0}
     - target: {fileID: 296408934308163535, guid: f12801d0a72fe554d899310d49b8baa8,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -15.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 296408934308163535, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f12801d0a72fe554d899310d49b8baa8, type: 3}

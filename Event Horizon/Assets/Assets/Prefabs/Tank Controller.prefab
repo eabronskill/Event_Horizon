@@ -61,25 +61,6 @@ Transform:
   m_Father: {fileID: 7114397070673391986}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &199794111
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8296172667498796750}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 961876ef4a9ea0943b82fdbcff4b5d2b, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7114397070408039665
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,9 +372,12 @@ MonoBehaviour:
   healingItem: {fileID: 0}
   hasAmmo: 0
   hasHealing: 0
-  gameOverCanvas: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  victoryCanvas: {fileID: 0}
+  gameOverCanvas: {fileID: 2858052021976494544, guid: d311968ee295f1548a6c6100692902fd,
+    type: 3}
+  pauseMenu: {fileID: 2858052021262351356, guid: d311968ee295f1548a6c6100692902fd,
+    type: 3}
+  victoryCanvas: {fileID: 8697885428403208125, guid: d311968ee295f1548a6c6100692902fd,
+    type: 3}
   groundCheck: {fileID: 1570902809}
   groundDistance: 0.4
   gravity: -9.81
@@ -406,7 +390,7 @@ MonoBehaviour:
   fireRate: 0.25
   canPound: 1
   shieldCD: 0
-  groundPoundCD: 20
+  groundPoundCD: 0
   shieldDown: 0
 --- !u!114 &7114397070673391989
 MonoBehaviour:
@@ -420,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35738a8c47488da418a86a76068fec06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 0}
+  shield: {fileID: 3175624780337017392, guid: d311968ee295f1548a6c6100692902fd, type: 3}
   shoulderShield: {fileID: 3478612432537916565}
   shieldPosition: {fileID: 7114397072066280198}
   shieldLookatPos: {fileID: 7114397071988646612}
@@ -474,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7114397071234738604
 Transform:
   m_ObjectHideFlags: 0
@@ -483,7 +467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7114397071234738605}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 31.57, z: 0}
+  m_LocalPosition: {x: 0, y: 5.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7114397070673391986}
@@ -503,8 +487,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.65
   m_Range: 100
-  m_SpotAngle: 55.3
-  m_InnerSpotAngle: 41.267975
+  m_SpotAngle: 34
+  m_InnerSpotAngle: 7
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -566,7 +550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7114397071310746251
 Transform:
   m_ObjectHideFlags: 0
@@ -722,6 +706,25 @@ Transform:
   m_Father: {fileID: 7114397070408039664}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &199794111
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172667498796750}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 961876ef4a9ea0943b82fdbcff4b5d2b, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1738362823
 PrefabInstance:
   m_ObjectHideFlags: 0

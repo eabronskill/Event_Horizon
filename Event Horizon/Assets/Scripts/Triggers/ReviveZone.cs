@@ -7,21 +7,23 @@ public class ReviveZone : MonoBehaviour
     public List<Transform> spawns;
     public List<GameObject> characters;
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerStay(Collider col)
     {
         if (col.gameObject.tag == "Player")
         {
             print("Entereed");
-            for (int i = 0; i < characters.Count; i++)
+            if (col.gameObject.GetComponent<Player>().player.GetButtonDown("Interact"))
             {
-                if (characters[i].gameObject.activeSelf == false)
+                for (int i = 0; i < characters.Count; i++)
                 {
-                    print(characters[i].gameObject.name);
-                    characters[i].gameObject.SetActive(true);
-                    characters[i].gameObject.transform.position = spawns[i].position;
+                    if (characters[i].gameObject.activeSelf == false)
+                    {
+                        print(characters[i].gameObject.name);
+                        characters[i].gameObject.SetActive(true);
+                        characters[i].gameObject.transform.position = spawns[i].position;
+                    }
                 }
             }
-            Destroy(gameObject);
         }
     }
 }

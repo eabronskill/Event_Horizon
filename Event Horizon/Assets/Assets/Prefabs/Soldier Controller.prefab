@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2923163325092267011
 Transform:
   m_ObjectHideFlags: 0
@@ -365,8 +365,8 @@ MonoBehaviour:
   cnsmAmmo: 1
   canUseGrenade: 1
   canUseRF: 1
-  rapidFireCD: 20
-  grenadeCD: 15
+  rapidFireCD: 0
+  grenadeCD: 0
 --- !u!114 &8064502178942012885
 MonoBehaviour:
   m_ObjectHideFlags: 0

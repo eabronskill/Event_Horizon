@@ -49,6 +49,7 @@ public class SoldierInput : Player
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
+            Tutotrial.players.Add(this.gameObject);
             playerID = player.id;
             if (UIEventCOntroller.players.Count == 0)
             {
