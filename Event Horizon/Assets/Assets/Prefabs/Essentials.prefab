@@ -101,35 +101,6 @@ MonoBehaviour:
   minZoom: 70
   maxZoom: 40
   zoomLimiter: 20
---- !u!65 &2858052021251412461
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3175624780337017392}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8.31, y: 5, z: 1}
-  m_Center: {x: 0, y: 0, z: 0.3}
---- !u!208 &2858052021251412463
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3175624780337017392}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 3.825, y: 2.645, z: 0.305}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0.28}
-  m_TimeToStationary: 0.5
 --- !u!1 &2858052022041243138
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +172,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2858052021251412461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175624780337017392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.31, y: 5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.3}
+--- !u!208 &2858052021251412463
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175624780337017392}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.825, y: 2.645, z: 0.305}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.28}
+  m_TimeToStationary: 0.5
 --- !u!1001 &2858052020376512739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ PrefabInstance:
     - target: {fileID: 845483493688506866, guid: 903b2bd0101904741a76807185d9376b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 845483495165635465, guid: 903b2bd0101904741a76807185d9376b,
         type: 3}

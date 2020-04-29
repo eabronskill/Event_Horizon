@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
         // HUD
         if (!gameOver)
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
             {
                 pauseMenu.SetActive(true);
