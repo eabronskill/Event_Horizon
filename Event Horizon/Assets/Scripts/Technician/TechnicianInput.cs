@@ -56,6 +56,7 @@ public class TechnicianInput : Player
             MultipleTargetCamera.targets.Add(this.gameObject);
             Tutotrial.players.Add(this.gameObject);
             playerID = player.id;
+            controller = GetComponent<CharacterController>();
 
             if (UIEventCOntroller.players.Count == 0)
             {

@@ -45,12 +45,14 @@ public class SoldierInput : Player
     // Start is called before the first frame update
     void Start()
     {
+        this.gameObject.SetActive(true);
         if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             Tutotrial.players.Add(this.gameObject);
             playerID = player.id;
+            controller = GetComponent<CharacterController>();
             if (UIEventCOntroller.players.Count == 0)
             {
                 UIEventCOntroller.players.Add("Soldier", this.gameObject);

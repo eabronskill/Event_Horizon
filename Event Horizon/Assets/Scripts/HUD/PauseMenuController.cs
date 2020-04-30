@@ -22,6 +22,7 @@ public class PauseMenuController : MonoBehaviour
         buttons[0] = (selectButton);
         buttons[1] = (controlsButton);
         buttons[2] = (quitButton);
+        buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
     }
 
     // Update is called once per frame

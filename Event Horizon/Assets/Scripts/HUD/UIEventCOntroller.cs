@@ -26,6 +26,7 @@ public class UIEventCOntroller : MonoBehaviour
 
         if (playerOne.activeSelf == false && playerTwo.activeSelf == false && playerThree.activeSelf == false && playerFour.activeSelf == false)
         {
+            print("Game Over");
             GameOver();  
         }
 
