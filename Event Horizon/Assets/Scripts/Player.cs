@@ -123,36 +123,19 @@ public class Player : MonoBehaviour
             }
 
             // Reloading
-            if ((curClip != maxClip || curAmmo == 0) && player.GetButtonDown("Reload"))
+            if ((curClip != maxClip || curAmmo != 0) && player.GetButtonDown("Reload"))
             {
-                if (maxClip < curAmmo)
-                {
-                    dif = maxClip - curClip;
-                    curClip = maxClip;
-                    curAmmo -= dif;
-                }
-                else if (curAmmo < curClip)
+                if (curAmmo < (maxClip - curClip))
                 {
                     curClip += curAmmo;
-                    
-                    if (curClip > maxClip)
-                    {
-                        curClip = maxClip;
-                        curAmmo = curAmmo - (maxClip - curAmmo);
-                    }
-                    else
-                    {
-                        curAmmo = 0;
-                    }
+                    curAmmo = 0;
                 }
                 else
                 {
-                    dif = curAmmo - curClip;
-                    curClip = curAmmo;
-                    curAmmo -= dif;
+                    curAmmo -= (maxClip - curClip);
+                    curClip = maxClip;
                 }
-
-                
+  
             }
 
             // Items
