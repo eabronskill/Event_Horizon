@@ -15,12 +15,25 @@ public class Tutotrial : MonoBehaviour
     private bool open = false;
     [HideInInspector]
     public static List<GameObject> players;
-    public GameObject enemies;
+    public GameObject parent;
     private bool phase1, phase2, phase3 = true;
+    private List<GameObject> enemies;
 
-    private void Start()
+    private void Awake()
     {
         light.color = Color.red;
+        players = new List<GameObject>();
+        enemies = new List<GameObject>();
+        if (parent != null)
+        {
+            foreach (Enemy o in parent.GetComponentsInChildren<Enemy>())
+            {
+                enemies.Add(o.gameObject);
+                print("Enemies added to list.");
+            }
+
+            
+        }
     }
 
     void Update()
@@ -67,7 +80,7 @@ public class Tutotrial : MonoBehaviour
         else if (phase3)
         {
             bool trigger = true;
-            foreach (GameObject p in enemies.GetComponentsInChildren<GameObject>())
+            foreach (GameObject p in enemies)
             {
                 if (p != null)
                 {

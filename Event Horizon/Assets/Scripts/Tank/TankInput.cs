@@ -46,7 +46,8 @@ public class TankInput : Player
             MultipleTargetCamera.targets.Add(this.gameObject);
             Tutotrial.players.Add(this.gameObject);
             playerID = player.id;
-            if(UIEventCOntroller.players.Count == 0)
+            controller = GetComponent<CharacterController>();
+            if (UIEventCOntroller.players.Count == 0)
             {
                 UIEventCOntroller.players.Add("Tank", this.gameObject);
             }

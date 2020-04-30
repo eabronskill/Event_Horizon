@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private bool gameOver = false;
 
     //Movement Vars
-    private CharacterController controller;
+    protected CharacterController controller;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public float gravity = -9.81f;
@@ -58,10 +58,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool moved, shot, meleed, usedAbility1, usedAbility2;
 
-    public void Start()
-    {
-        controller = GetComponent<CharacterController>();
-    }
+   
 
     public void Update()
     {
@@ -81,13 +78,13 @@ public class Player : MonoBehaviour
             float x = player.GetAxis("Move Horizontal");
             float z = player.GetAxis("Move Vertical");
 
-            Vector3 movementVec = transform.right * x + transform.forward * z;
+            Vector3 movementVec = new Vector3(x,0f,z);
 
             controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
 
-            velocity.y += gravity * Time.deltaTime;
+            //velocity.y += gravity * Time.deltaTime;
 
-            controller.Move(velocity * Time.deltaTime);
+            //controller.Move(velocity * Time.deltaTime);
 
             // Movement Anims
             if (playerAnimator != null)
@@ -126,20 +123,36 @@ public class Player : MonoBehaviour
             }
 
             // Reloading
-            if (curClip != maxClip && player.GetButtonDown("Reload"))
+            if ((curClip != maxClip || curAmmo == 0) && player.GetButtonDown("Reload"))
             {
                 if (maxClip < curAmmo)
                 {
                     dif = maxClip - curClip;
                     curClip = maxClip;
+                    curAmmo -= dif;
+                }
+                else if (curAmmo < curClip)
+                {
+                    curClip += curAmmo;
+                    
+                    if (curClip > maxClip)
+                    {
+                        curClip = maxClip;
+                        curAmmo = curAmmo - (maxClip - curAmmo);
+                    }
+                    else
+                    {
+                        curAmmo = 0;
+                    }
                 }
                 else
                 {
                     dif = curAmmo - curClip;
                     curClip = curAmmo;
+                    curAmmo -= dif;
                 }
 
-                curAmmo -= dif;
+                
             }
 
             // Items
@@ -176,13 +189,14 @@ public class Player : MonoBehaviour
                 this.gameObject.SetActive(false);
             }
         }
-
+        print("Gameover: " + gameOver);
         // HUD
         if (!gameOver)
         {
-            //Time.timeScale = 1;
+            
             if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
             {
+                print("PAUSE");
                 pauseMenu.SetActive(true);
 
                 pauseMenu.GetComponent<PauseMenuController>().setPlayer(this.player);
