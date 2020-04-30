@@ -40,7 +40,7 @@ Animator:
   m_GameObject: {fileID: 1482333267347081989}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 114c5db127a17f94b9d52b408102edbf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 961876ef4a9ea0943b82fdbcff4b5d2b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -356,6 +356,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8192
+  moved: 0
+  shot: 0
+  meleed: 0
+  usedAbility1: 0
+  usedAbility2: 0
   playerID: -1
   attackPoint: {fileID: 2923163325037765492}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
