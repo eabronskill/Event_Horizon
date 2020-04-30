@@ -29,6 +29,8 @@ public class TankInput : Player
     public float groundPoundCD;
     public bool shieldDown;
 
+    public ParticleSystem particleGroundPound;
+
     void Awake()
     {
         curAmmo = maxAmmo;
@@ -108,6 +110,7 @@ public class TankInput : Player
         {
             // Call TankAbilities Script
             abilities.groundPound();
+            particleGroundPound.Play();
         }
         
     }

@@ -384,6 +384,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8192
+  moved: 0
+  shot: 0
+  meleed: 0
+  usedAbility1: 0
+  usedAbility2: 0
   playerID: -1
   attackPoint: {fileID: 7114397071417290695}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
@@ -392,6 +397,8 @@ MonoBehaviour:
   shieldCD: 0
   groundPoundCD: 0
   shieldDown: 0
+  particleGroundPound: {fileID: 981339226339032013, guid: f93b4f987bc605045b0362fd47f8b5a3,
+    type: 3}
 --- !u!114 &7114397070673391989
 MonoBehaviour:
   m_ObjectHideFlags: 0
