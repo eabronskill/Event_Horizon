@@ -4618,6 +4618,21 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 21306460940504845, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
+    - target: {fileID: 625425278990608458, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
+    - target: {fileID: 1747700978882762485, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
     - target: {fileID: 1753864267852310664, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4633,16 +4648,46 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3660940923340369848, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
+    - target: {fileID: 3739468795755904610, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
+    - target: {fileID: 4108854218776871644, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
+    - target: {fileID: 4924885211805252623, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 703760df47348c54aabff7252202b37a, type: 2}
     - target: {fileID: 5056108261947355025, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -5.93
       objectReference: {fileID: 0}
+    - target: {fileID: 5652560614405902329, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
     - target: {fileID: 7484779425535428889, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7721434770349911825, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
     - target: {fileID: 8064502178942012882, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4713,6 +4758,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier Controller (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8504103577006496514, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7953f73aa89778f409ac37680cc778f5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ed4ddeb22030e840b0d5cba0e34ea7e, type: 3}
 --- !u!1 &1887485123

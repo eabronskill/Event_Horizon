@@ -29,6 +29,10 @@ public class ChS_Controller : MonoBehaviour
     public AudioSource buttonClickSound;
 
     private int connectedControllers;
+    private bool canPlay;
+
+    public GameObject readytoPlay;
+    public GameObject waitingforPlayers;
 
     void Awake()
     {
@@ -88,6 +92,9 @@ public class ChS_Controller : MonoBehaviour
         ReInput.ControllerConnectedEvent += OnControllerConnected;
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
         ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
+        playButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        readytoPlay.SetActive(false);
+        waitingforPlayers.SetActive(true);
     }
 
     void Update()
@@ -137,6 +144,31 @@ public class ChS_Controller : MonoBehaviour
         else
         {
             view.toggleGroupOff(group4);
+        }
+
+        int numNeeded = 0;
+        // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
+        foreach (int cID in model.getCIDtoC().Keys)
+        {
+            if (model.getCIDtoC()[cID].selected)
+            {
+                numNeeded++;
+            }
+        }
+        print("NumNeeded: " + numNeeded);
+        if (numNeeded == connectedControllers && connectedControllers != 0)
+        {
+            canPlay = true;
+            playButton.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+            readytoPlay.SetActive(true);
+            waitingforPlayers.SetActive(false);
+        }
+        else
+        {
+            canPlay = false;
+            playButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            readytoPlay.SetActive(false);
+            waitingforPlayers.SetActive(true);
         }
     }
 
@@ -255,17 +287,7 @@ public class ChS_Controller : MonoBehaviour
     /// </summary>
     public void playButtonClick()
     {
-        int numNeeded = 0;
-        // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
-        foreach (int cID in model.getCIDtoC().Keys)
-        {
-            if (model.getCIDtoC()[cID].selected)
-            {
-                numNeeded++;
-            }
-        }
-        print("NumNeeded: " + numNeeded);
-        if (numNeeded != connectedControllers || connectedControllers == 0)
+        if (!canPlay)
         {
             return;
         }

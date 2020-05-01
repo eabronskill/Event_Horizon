@@ -112,7 +112,7 @@ public class rogueInput : Player
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
-            gunFlash.Play();
+            //gunFlash.Play();
 
             base.curClip--;
         }
