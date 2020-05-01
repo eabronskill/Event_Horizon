@@ -17,6 +17,7 @@ TagManager:
   - Shield
   - Enemy Bullet
   - Enemy
+  - melee
   layers:
   - Default
   - TransparentFX
