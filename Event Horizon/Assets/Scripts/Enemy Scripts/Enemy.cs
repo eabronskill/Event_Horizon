@@ -271,6 +271,35 @@ public class Enemy : MonoBehaviour
             
         }
 
+        if (coll.gameObject.tag == "high_damage_bullet")
+        {
+            currHP = currHP - 50;
+            if (currHP <= 0)
+            {
+                bulletImpact = coll.transform.position;
+
+                deathLoc = transform.position;
+                initRot = transform.localRotation;
+                fallRot = initRot;
+
+                if (bulletImpact.x > 0)
+                    fallRot.x -= .5f;
+                else
+                    fallRot.x += .5f;
+
+                if (bulletImpact.z > 0)
+                    fallRot.z -= .5f;
+                else
+                    fallRot.z += .5f;
+
+                deathTimer = Time.time + 1f;
+                dead = true;
+                Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
+                Invoke("die", 1f);
+            }
+
+        }
+
         if (coll.gameObject.tag == "Spike")
         {
             nav.speed = 2.5f;

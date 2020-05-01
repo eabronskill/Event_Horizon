@@ -17,6 +17,7 @@ TagManager:
   - Shield
   - Enemy Bullet
   - Enemy
+  - high_damage_bullet
   layers:
   - Default
   - TransparentFX

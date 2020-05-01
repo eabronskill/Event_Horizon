@@ -318,9 +318,15 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8192
+  moved: 0
+  shot: 0
+  meleed: 0
+  usedAbility1: 0
+  usedAbility2: 0
   strap: {fileID: 9083772714145124234}
   sword: {fileID: 1672306328722245746}
-  projectile: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
+  projectile: {fileID: 6492026996740156527, guid: edb71ecbb31dee14ba9d3cd8903836a3,
+    type: 3}
   attackPoint: {fileID: 64533964}
   strapRot: {x: 0, y: 0, z: 0, w: 0}
   finalRot: {x: 0, y: 0, z: 0, w: 0}
