@@ -66,6 +66,7 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = tankPic;
             abilityImage1.GetComponent<Image>().sprite = shieldImage;
             abilityImage2.GetComponent<Image>().sprite = groundPound;
+            classImage.GetComponent<Image>().color = new Color(0f, 1f, 0.98f);
             //print("Player " + playerNumber + "is assigned Tank.");
 
         }
@@ -78,6 +79,7 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = soldierPic;
             abilityImage1.GetComponent<Image>().sprite = rapidFire;
             abilityImage2.GetComponent<Image>().sprite = Grenade;
+            classImage.GetComponent<Image>().color = new Color(0f, 1f, 0.2f);
             //print("Player " + playerNumber + "is assigned Soldier.");
         }
         else if (playerNumber == Rogue.GetComponent<rogueInput>().playerID)
@@ -89,6 +91,7 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = roguePic;
             abilityImage1.GetComponent<Image>().sprite = Caltrops;
             abilityImage2.GetComponent<Image>().sprite = landMine;
+            classImage.GetComponent<Image>().color = new Color(0.986f, 0f, 1f);
             //print("Player " + playerNumber + "is assigned Rogue.");
         }
         else if (playerNumber == Engineer.GetComponent<TechnicianInput>().playerID)
@@ -100,6 +103,7 @@ public class HUDController : MonoBehaviour
             classImage.GetComponent<Image>().sprite = engineerPic;
             abilityImage1.GetComponent<Image>().sprite = turretImage;
             abilityImage2.GetComponent<Image>().sprite = repairImage;
+            classImage.GetComponent<Image>().color = new Color(1f, 0.1529f, 0f);
             //print("Player " + playerNumber + "is assigned Technician.");
         }
         else
@@ -118,8 +122,8 @@ public class HUDController : MonoBehaviour
             CurAmmo = Tank.GetComponent<TankInput>().curClip;
             MaxAmmo = Tank.GetComponent<TankInput>().curAmmo;
             AbilityOne.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().shieldCD);
-            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().groundPoundCD / Tank.GetComponent<TankAbilities>().groundPoundCD); 
-
+            AbilityTwo.SetFloat("_Fillpercentage", Tank.GetComponent<TankInput>().groundPoundCD / Tank.GetComponent<TankAbilities>().groundPoundCD);
+            
             if (Tank.GetComponent<TankInput>().hasAmmo ^ Tank.GetComponent<TankInput>().hasHealing)
             {
                 if (Tank.GetComponent<TankInput>().hasAmmo)
@@ -149,7 +153,7 @@ public class HUDController : MonoBehaviour
             MaxAmmo = Soldier.GetComponent<SoldierInput>().curAmmo;
             AbilityOne.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().rapidFireCD / Soldier.GetComponent<SoldierAbilities>().rapidFireCD);
             AbilityTwo.SetFloat("_Fillpercentage", Soldier.GetComponent<SoldierInput>().grenadeCD / Soldier.GetComponent<SoldierAbilities>().grenadeCD);
-
+            
             if (Soldier.GetComponent<SoldierInput>().hasAmmo ^ Soldier.GetComponent<SoldierInput>().hasHealing)
             {
                 if (Soldier.GetComponent<SoldierInput>().hasAmmo)
@@ -179,7 +183,7 @@ public class HUDController : MonoBehaviour
             MaxAmmo = Rogue.GetComponent<rogueInput>().curAmmo;
             AbilityOne.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().spikeTimeRemaining / Rogue.GetComponent<RogueAbilities>().spikeCD);
             AbilityTwo.SetFloat("_Fillpercentage", Rogue.GetComponent<RogueAbilities>().mineTimeRemaining / Rogue.GetComponent<RogueAbilities>().mineCD);
-
+            
             if (Rogue.GetComponent<rogueInput>().hasAmmo ^ Rogue.GetComponent<rogueInput>().hasHealing)
             {
                 if (Rogue.GetComponent<rogueInput>().hasAmmo)
