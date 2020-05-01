@@ -10,7 +10,7 @@ public class ElevatorScript : MonoBehaviour
     public Light front, inside;
     Rewired.Player player1, player2, player3, player4;
     private bool tank, soldier, rogue, engineer;
-   
+
     public List<GameObject> enemies;
     public GameObject text;
 
@@ -18,18 +18,55 @@ public class ElevatorScript : MonoBehaviour
     private bool phase2 = false;
     private bool phase3 = false;
 
+    //final horde functionality
+    private float timer = 20f;
+
+    public GameObject spawn1;
+    public GameObject spawn2;
+    public GameObject spawn3;
+    public GameObject spawn4;
+
+    public GameObject enemy;
+
     void Start()
     {
         inside.gameObject.SetActive(false);
         text.SetActive(false);
     }
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if (phase2)
         {
-            bool done = true;
+            timer += Time.time;
+            int offset = 1; //use to stagger spawn rates
+            while (Time.time < timer)
+            {
+                if (offset == 1)
+                    Instantiate(enemy, spawn1.transform);
+                else if (offset == 2)
+                    Instantiate(enemy, spawn2.transform);
+                else if (offset == 3)
+                    Instantiate(enemy, spawn3.transform);
+                else if (offset == 4)
+                    Instantiate(enemy, spawn4.transform);
+
+                if (offset > 20)
+                    offset = 0;
+                else
+                    offset++;
+            }
+
+            inside.gameObject.SetActive(false);
+            text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
+            front.gameObject.SetActive(true);
+            inside.color = Color.green;
+            phase2 = false;
+            phase3 = true;
+
+
+            /*bool done = true;
             foreach (GameObject enemy in enemies)
             {
                 if (enemy != null)
@@ -46,7 +83,7 @@ public class ElevatorScript : MonoBehaviour
                 text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
                 front.gameObject.SetActive(true);
                 inside.color = Color.green;
-            }
+            }*/
         }
     }
 
@@ -59,18 +96,18 @@ public class ElevatorScript : MonoBehaviour
                 front.gameObject.SetActive(false);
                 inside.gameObject.SetActive(true);
                 text.SetActive(true);
-               
+
                 // Activate all the enemies
-                foreach (GameObject enemy in enemies)
+                /*foreach (GameObject enemy in enemies)
                 {
                     enemy.GetComponent<Enemy>().active = true;
-                }
+                }*/
 
                 phase1 = false;
                 phase2 = true;
             }
         }
-        
+
     }
 
     void OnTriggerStay(Collider col)
@@ -117,6 +154,6 @@ public class ElevatorScript : MonoBehaviour
                 }
             }
         }
-        
+
     }
 }
