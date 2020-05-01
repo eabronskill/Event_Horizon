@@ -18,6 +18,7 @@ TagManager:
   - Enemy Bullet
   - Enemy
   - high_damage_bullet
+  - melee
   layers:
   - Default
   - TransparentFX
