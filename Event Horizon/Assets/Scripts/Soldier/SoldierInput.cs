@@ -83,15 +83,18 @@ public class SoldierInput : Player
         if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
         {
             strapTimer = Time.time + fireRate;
+            shot = true;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             if (cnsmAmmo)
             {
                 base.curClip--;
+                
             }
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
         {
             base.curMoveSpeed = movementSpeed * 0.5f;
+            
         }
         else
         {
@@ -111,6 +114,7 @@ public class SoldierInput : Player
         {
             // Call SoldierAbilities Script
             abilities.rapidFire();
+            usedAbility1 = true;
         }
 
         // Ability 2: Grenade 
@@ -121,6 +125,7 @@ public class SoldierInput : Player
            // grenadeTimer = Time.time + grenadeCD;
             //abilities.Invoke("grenadeToss", 0.65f);
             abilities.grenadeToss();
+            usedAbility2 = true;
         }
     }
 

@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     bool isGrounded;
 
     // Tutorial Vars
-    [HideInInspector]
+    //[HideInInspector]
     public bool moved, shot, meleed, usedAbility1, usedAbility2;
 
    
@@ -79,10 +79,13 @@ public class Player : MonoBehaviour
             float z = player.GetAxis("Move Vertical");
 
             Vector3 movementVec = new Vector3(x,0f,z);
-            
+            if  (x !=0 && z != 0)
+            {
+                moved = true;
+            }
 
             controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
-            print("MoveVec times MoveSpeed:" + (movementVec * curMoveSpeed));
+            
 
             //velocity.y += gravity * Time.deltaTime;
 
@@ -146,6 +149,7 @@ public class Player : MonoBehaviour
                 //hammertimer = time.time + 1f;
                 //melee.soldiermelee();
                 playerAnimator.SetTrigger("Melee");
+                meleed = true;
             }
 
             // Items

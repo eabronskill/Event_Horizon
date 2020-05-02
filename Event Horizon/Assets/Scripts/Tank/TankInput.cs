@@ -81,6 +81,7 @@ public class TankInput : Player
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             base.curClip--;
+            shot = true;
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
         {
@@ -99,6 +100,7 @@ public class TankInput : Player
             // Call TankAbilities Script
             abilities.shieldPlant();
             canPlaceShield = false;
+            usedAbility1 = true;
         }
 
         // Ability 2: Ground Pound
@@ -107,6 +109,7 @@ public class TankInput : Player
             // Call TankAbilities Script
             abilities.groundPound();
             particleGroundPound.Play();
+            usedAbility2 = true;
         }
         
     }

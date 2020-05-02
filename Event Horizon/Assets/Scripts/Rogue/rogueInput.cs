@@ -97,10 +97,12 @@ public class rogueInput : Player
         if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)
         {
             abilities.setSpikes();
+            usedAbility1 = true;
         }
         if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
             abilities.setMine();
+            usedAbility2 = true;
         }
         else if (player.GetButtonDown("Ability2") && abilities.mineSet)
         {
@@ -113,7 +115,7 @@ public class rogueInput : Player
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             //gunFlash.Play();
-
+            shot = true;
             base.curClip--;
         }
 

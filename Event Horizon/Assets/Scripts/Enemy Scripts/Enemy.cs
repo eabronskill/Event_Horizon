@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject[] players;
+    private List<GameObject> players;
     private GameObject target;
     private NavMeshAgent nav;
     /// <summary>
@@ -66,7 +66,15 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
+        players = new List<GameObject>();
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (p.activeSelf)
+            {
+                players.Add(p);
+            }
+        }
+        print("Players assigned to enemy." + players.Count);
         
         nav = GetComponent<NavMeshAgent>();
         if (melee)
@@ -182,6 +190,7 @@ public class Enemy : MonoBehaviour
         }
         changeTargetTimer = Time.time + changeTargetTime;
         nav.SetDestination(target.transform.position);
+        print(target.name);
     }
 
     /// <summary>

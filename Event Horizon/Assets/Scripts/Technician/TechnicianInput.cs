@@ -103,10 +103,12 @@ public class TechnicianInput : Player
         if (player.GetButtonDown("Ability1") && abilities.canSetTurret)
         {
             abilities.setTurret();
+            usedAbility1 = true;
         }
         if (player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
         {
             abilities.repair();
+            usedAbility2 = true;
         }
         
 
@@ -116,7 +118,7 @@ public class TechnicianInput : Player
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             //gunFlash.Play();
-
+            shot = true;
             //curAmmo--;
             base.curClip--;
             
