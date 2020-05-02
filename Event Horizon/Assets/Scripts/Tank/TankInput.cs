@@ -94,6 +94,7 @@ public class TankInput : Player
         // Melee
         if (player.GetButtonDown("Melee") && Time.time >= hammerTimer)
         {
+            playerAnimator.SetTrigger("Melee");
             hammerTimer = Time.time + 1f;
             //melee.tankMelee();
         }

@@ -124,7 +124,8 @@ public class TechnicianInput : Player
 
         if (player.GetButtonDown("Melee"))
         {
-            sword.SwordAttack();
+            playerAnimator.SetTrigger("Melee");
+            //sword.SwordAttack();
         }
 
         if (strapTimer > Time.time) //gun movement
