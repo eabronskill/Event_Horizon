@@ -11,7 +11,7 @@ public class ElevatorScript : MonoBehaviour
     Rewired.Player player1, player2, player3, player4;
     private bool tank, soldier, rogue, engineer;
    
-    public List<GameObject> enemies;
+    
     public GameObject text;
 
     private bool phase1 = true;
@@ -77,24 +77,7 @@ public class ElevatorScript : MonoBehaviour
             
 
 
-            bool done = true;
-            foreach (GameObject enemy in enemies)
-            {
-                if (enemy != null)
-                {
-                    done = false;
-                }
-
-            }
-            if (done)
-            {
-                print("done!");
-                phase2 = false;
-                phase3 = true;
-                text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
-                front.gameObject.SetActive(true);
-                inside.color = Color.green;
-            }
+            
         }
     }
 
@@ -108,11 +91,7 @@ public class ElevatorScript : MonoBehaviour
                 inside.gameObject.SetActive(true);
                 text.SetActive(true);
                
-                // Activate all the enemies
-                foreach (GameObject enemy in enemies)
-                {
-                    enemy.GetComponent<Enemy>().active = true;
-                }
+
 
                 phase1 = false;
                 phase2 = true;
