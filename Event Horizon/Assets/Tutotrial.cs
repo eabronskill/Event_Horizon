@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tutotrial : MonoBehaviour
 {
@@ -16,14 +17,20 @@ public class Tutotrial : MonoBehaviour
     [HideInInspector]
     public static List<GameObject> players;
     public GameObject parent;
-    private bool phase1, phase2, phase3 = true;
+    private bool phase1, phase2, phase3 ;
     private List<GameObject> enemies;
+    private bool activated = false;
+    public GameObject textParent;
+    public GameObject text;
+    public GameObject health1, health2, health3, health4, ammo1, ammo2, ammo3, ammo4;
+    private bool itemSpawn = false;
 
     private void Awake()
     {
         light.color = Color.red;
         players = new List<GameObject>();
         enemies = new List<GameObject>();
+        phase1 = phase2 = phase3 = true;
         if (parent != null)
         {
             foreach (Enemy o in parent.GetComponentsInChildren<Enemy>())
@@ -40,8 +47,25 @@ public class Tutotrial : MonoBehaviour
     {
         if (open)
         {
+            textParent.SetActive(false);
             left.transform.position = Vector3.Lerp(left.transform.position, leftDest.position, 0.01f);
             right.transform.position = Vector3.Lerp(right.transform.position, rightDest.position, 0.01f);
+        }
+        if (!phase3)
+        {
+            if (!itemSpawn) {
+                health1.SetActive(true);
+                health2.SetActive(true);
+                health3.SetActive(true);
+                health4.SetActive(true);
+                ammo1.SetActive(true);
+                ammo2.SetActive(true);
+                ammo3.SetActive(true);
+                ammo4.SetActive(true);
+                itemSpawn = true;
+            }
+           
+            text.GetComponent<Text>().text = "Use A to pick up Items, Press A again to Use, and B to Drop an Equipped Item";
         }
         else if (phase1)
         {
@@ -62,6 +86,8 @@ public class Tutotrial : MonoBehaviour
         }
         else if (phase2)
         {
+            text.GetComponent<Text>().fontSize = 70;
+            text.GetComponent<Text>().text = "Use RT to Shoot, LT to Melee, RB for Ability 1, and LB for Ability 2";
             bool trigger = true;
             Player pl;
             foreach (GameObject p in players)
@@ -79,6 +105,16 @@ public class Tutotrial : MonoBehaviour
         }
         else if (phase3)
         {
+            text.GetComponent<Text>().fontSize = 100;
+            text.GetComponent<Text>().text = "Eliminate all Enemies in Area";
+            if (!activated)
+            {
+                foreach (GameObject p in enemies)
+                {
+                    p.GetComponent<Enemy>().active = true;
+                }
+                activated = true;
+            }
             bool trigger = true;
             foreach (GameObject p in enemies)
             {

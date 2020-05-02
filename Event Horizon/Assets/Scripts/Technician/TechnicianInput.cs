@@ -121,7 +121,7 @@ public class TechnicianInput : Player
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             //gunFlash.Play();
-
+            shot = true;
             //curAmmo--;
             base.curClip--;
             

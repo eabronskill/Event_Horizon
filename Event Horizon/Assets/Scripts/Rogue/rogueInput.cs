@@ -119,7 +119,7 @@ public class rogueInput : Player
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             //gunFlash.Play();
-
+            shot = true;
             base.curClip--;
         }
 

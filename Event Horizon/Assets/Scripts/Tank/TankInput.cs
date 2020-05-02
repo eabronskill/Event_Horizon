@@ -86,6 +86,7 @@ public class TankInput : Player
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             gunshot.Play();
             base.curClip--;
+            shot = true;
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
         {
@@ -110,6 +111,7 @@ public class TankInput : Player
             abilities.shieldPlant();
             setItem.Play();
             canPlaceShield = false;
+            usedAbility1 = true;
         }
 
         // Ability 2: Ground Pound
@@ -119,6 +121,7 @@ public class TankInput : Player
             abilities.groundPound();
             groundpound.Play();
             particleGroundPound.Play();
+            usedAbility2 = true;
         }
         
     }

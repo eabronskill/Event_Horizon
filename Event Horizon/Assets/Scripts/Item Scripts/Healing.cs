@@ -7,6 +7,12 @@ public class Healing : MonoBehaviour
     [HideInInspector]
     public Player player;
     public float healingPercentage;
+    public GameObject text;
+
+    public void Start()
+    {
+        text.SetActive(false);
+    }
 
     public void use()
     {
@@ -16,5 +22,21 @@ public class Healing : MonoBehaviour
             player.curHealth = player.maxHealth;
         }
         Destroy(this.gameObject);
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            text.SetActive(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            text.SetActive(false);
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject[] players;
+    private List<GameObject> players;
     private GameObject target;
     private NavMeshAgent nav;
     /// <summary>
@@ -64,7 +64,15 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
+        players = new List<GameObject>();
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (p.activeSelf)
+            {
+                players.Add(p);
+            }
+        }
+        print("Players assigned to enemy." + players.Count);
         
         nav = GetComponent<NavMeshAgent>();
         if (melee)
@@ -182,6 +190,7 @@ public class Enemy : MonoBehaviour
         }
         changeTargetTimer = Time.time + changeTargetTime;
         nav.SetDestination(target.transform.position);
+        print(target.name);
     }
 
     /// <summary>
@@ -270,35 +279,6 @@ public class Enemy : MonoBehaviour
                 Invoke("die", 1f);
             }
             
-        }
-
-        if (coll.gameObject.tag == "high_damage_bullet")
-        {
-            currHP = currHP - 50;
-            if (currHP <= 0)
-            {
-                bulletImpact = coll.transform.position;
-
-                deathLoc = transform.position;
-                initRot = transform.localRotation;
-                fallRot = initRot;
-
-                if (bulletImpact.x > 0)
-                    fallRot.x -= .5f;
-                else
-                    fallRot.x += .5f;
-
-                if (bulletImpact.z > 0)
-                    fallRot.z -= .5f;
-                else
-                    fallRot.z += .5f;
-
-                deathTimer = Time.time + 1f;
-                dead = true;
-                Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
-                Invoke("die", 1f);
-            }
-
         }
 
         if (coll.gameObject.tag == "Spike")

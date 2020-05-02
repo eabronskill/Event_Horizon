@@ -485,3 +485,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   ammoPercentage: 0.2
+  text: {fileID: 895723526}
