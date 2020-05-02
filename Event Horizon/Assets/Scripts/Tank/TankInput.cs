@@ -84,9 +84,10 @@ public class TankInput : Player
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
+            shot = true;
             gunshot.Play();
             base.curClip--;
-            shot = true;
+            
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
         {
@@ -108,20 +109,22 @@ public class TankInput : Player
         if (canPlaceShield && player.GetButtonDown("Ability1"))
         {
             // Call TankAbilities Script
+            usedAbility1 = true;
             abilities.shieldPlant();
             setItem.Play();
             canPlaceShield = false;
-            usedAbility1 = true;
+            
         }
 
         // Ability 2: Ground Pound
         if (player.GetButtonDown("Ability2") && canPound)
         {
             // Call TankAbilities Script
+            usedAbility2 = true;
             abilities.groundPound();
             groundpound.Play();
             particleGroundPound.Play();
-            usedAbility2 = true;
+            
         }
         
     }

@@ -148,7 +148,8 @@ public class Player : MonoBehaviour
             {
                 //hammertimer = time.time + 1f;
                 //melee.soldiermelee();
-                playerAnimator.SetTrigger("Melee");
+                //playerAnimator.SetTrigger("Melee");
+
                 meleed = true;
             }
 

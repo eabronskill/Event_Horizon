@@ -98,16 +98,19 @@ public class rogueInput : Player
             dash();
         if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)
         {
+            usedAbility1 = true;
             abilities.setSpikes();
             setItem.Play();
         }
         if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
+            usedAbility2 = true;
             abilities.setMine();
             setItem.Play();
         }
         else if (player.GetButtonDown("Ability2") && abilities.mineSet)
         {
+            
             abilities.detonate();
             detonateMine.Play();
 
@@ -117,10 +120,11 @@ public class rogueInput : Player
         {
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
-            gunshot.Play();
-            //gunFlash.Play();
             shot = true;
             base.curClip--;
+            gunshot.Play();
+            //gunFlash.Play();
+            
         }
 
         if (player.GetButtonDown("Melee"))

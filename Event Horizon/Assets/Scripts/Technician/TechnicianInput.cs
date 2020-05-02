@@ -105,6 +105,7 @@ public class TechnicianInput : Player
 
         if (player.GetButtonDown("Ability1") && abilities.canSetTurret)
         {
+            usedAbility1 = true;
             abilities.setTurret();
             placeTurret.Play();
         }
@@ -120,9 +121,10 @@ public class TechnicianInput : Player
         {
             strapTimer = Time.time + .6f;
             Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
+            shot = true;
             gunshot.Play();
             //gunFlash.Play();
-            shot = true;
+            
             //curAmmo--;
             base.curClip--;
             

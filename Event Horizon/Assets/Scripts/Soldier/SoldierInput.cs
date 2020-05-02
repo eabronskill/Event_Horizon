@@ -115,9 +115,10 @@ public class SoldierInput : Player
         if (player.GetButton("Ability1") && canUseRF)
         {
             // Call SoldierAbilities Script
+            usedAbility1 = true;
             abilities.rapidFire();
             powerup.Play();
-            usedAbility1 = true;
+            
         }
 
         // Ability 2: Grenade 
