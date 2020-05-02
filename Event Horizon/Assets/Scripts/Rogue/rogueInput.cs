@@ -27,11 +27,13 @@ public class rogueInput : Player
     public Quaternion swordRot;
     public GameObject finalSwordRot;
 
-    public AudioSource gunshot;
-    public AudioSource music;
-
     public ParticleSystem gunFlash;
     public RogueAbilities abilities;
+
+    public AudioSource gunshot;
+    public AudioSource setItem;
+    public AudioSource detonateMine;
+    public AudioSource melee;
 
     /// <summary>
     /// ID of the player who is controlling this character.
@@ -97,16 +99,18 @@ public class rogueInput : Player
         if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)
         {
             abilities.setSpikes();
-            usedAbility1 = true;
+            setItem.Play();
         }
         if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
             abilities.setMine();
-            usedAbility2 = true;
+            setItem.Play();
         }
         else if (player.GetButtonDown("Ability2") && abilities.mineSet)
         {
             abilities.detonate();
+            detonateMine.Play();
+
         }
 
         if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
@@ -119,7 +123,11 @@ public class rogueInput : Player
             base.curClip--;
         }
 
-        
+        if (player.GetButtonDown("Melee"))
+        {
+            playerAnimator.SetTrigger("Melee");
+            melee.Play();
+        }
 
         if (strapTimer > Time.time) //gun movement
         {

@@ -92,7 +92,6 @@ public class ElevatorScript : MonoBehaviour
                 text.SetActive(true);
                
 
-
                 phase1 = false;
                 phase2 = true;
                 timer += Time.time;

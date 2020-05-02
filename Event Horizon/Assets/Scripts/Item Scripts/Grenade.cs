@@ -11,7 +11,10 @@ public class Grenade : MonoBehaviour
     private float countdown1;
     private float countdown2;
     private bool hasExploded = false;
-    
+
+    //sound
+    public AudioSource explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class Grenade : MonoBehaviour
         if (countdown1 <= 0f && !hasExploded)
         {
             explode();
+            explosion.Play();
             hasExploded = true;
         }
     }

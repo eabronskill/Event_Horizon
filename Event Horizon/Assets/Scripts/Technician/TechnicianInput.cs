@@ -27,11 +27,14 @@ public class TechnicianInput : Player
     public Quaternion swordRot;
     public GameObject finalSwordRot;
 
-    public AudioSource gunshot;
-    public AudioSource music;
-
     public ParticleSystem gunFlash;
     public TechnicianAbilities abilities;
+
+    //sounds
+    public AudioSource gunshot;
+    public AudioSource melee;
+    public AudioSource placeTurret;
+    public AudioSource healsound;
 
     /// <summary>
     /// ID of the player who is controlling this character.
@@ -103,13 +106,13 @@ public class TechnicianInput : Player
         if (player.GetButtonDown("Ability1") && abilities.canSetTurret)
         {
             abilities.setTurret();
-            usedAbility1 = true;
+            placeTurret.Play();
         }
         if (player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
         {
             usedAbility2 = true;
             abilities.repair();
-            
+            healsound.Play();
         }
         
 
@@ -128,7 +131,7 @@ public class TechnicianInput : Player
         if (player.GetButtonDown("Melee"))
         {
             playerAnimator.SetTrigger("Melee");
-            //sword.SwordAttack();
+            melee.Play();
         }
 
         if (strapTimer > Time.time) //gun movement
