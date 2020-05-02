@@ -16,9 +16,11 @@ public class LockedDoor : MonoBehaviour
     public Transform leftDest, rightDest;
     public GameObject left, right;
     public Light doorLight;
+    public AudioSource sound;
 
     private bool open = false;
     private Rewired.Player player;
+    private bool hasPlayed = false;
 
     void Start()
     {
@@ -43,6 +45,11 @@ public class LockedDoor : MonoBehaviour
         {
             left.transform.position = Vector3.Lerp(left.transform.position, leftDest.position, 0.01f);
             right.transform.position = Vector3.Lerp(right.transform.position, rightDest.position, 0.01f);
+            if (!sound.isPlaying && !hasPlayed)
+            {
+                sound.Play();
+                hasPlayed = true;
+            }
         }
         if ((!killDoor && activated >= requiredActivations) || allDead)
         {

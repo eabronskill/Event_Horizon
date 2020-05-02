@@ -37,10 +37,7 @@ public class ProjectileBehavior : MonoBehaviour
 
             
         }
-        else
-        {
-            destroyProjectile();
-        }
+        destroyProjectile();
         // Destroy(blood)
         //Destroy(this.gameObject.GetComponent<Collider>());    
     }

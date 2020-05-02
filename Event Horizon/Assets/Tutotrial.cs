@@ -24,6 +24,8 @@ public class Tutotrial : MonoBehaviour
     public GameObject text;
     public GameObject health1, health2, health3, health4, ammo1, ammo2, ammo3, ammo4;
     private bool itemSpawn = false;
+    public AudioSource sound;
+    private bool hasPlayed = false;
 
     private void Awake()
     {
@@ -50,6 +52,11 @@ public class Tutotrial : MonoBehaviour
             textParent.SetActive(false);
             left.transform.position = Vector3.Lerp(left.transform.position, leftDest.position, 0.01f);
             right.transform.position = Vector3.Lerp(right.transform.position, rightDest.position, 0.01f);
+            if (!sound.isPlaying && !hasPlayed)
+            {
+                sound.Play();
+                hasPlayed = true;
+            }
         }
         if (!phase3)
         {

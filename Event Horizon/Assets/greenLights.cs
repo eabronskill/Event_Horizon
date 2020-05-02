@@ -7,10 +7,18 @@ public class greenLights : MonoBehaviour
 
     public List<Light> roomLights;
     public List<GameObject> enemies;
+    public GameObject parent;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (parent != null)
+        {
+            foreach (Enemy e in parent.GetComponentsInChildren<Enemy>())
+            {
+                enemies.Add(e.gameObject);
+            }
+        }
+       
     }
 
     // Update is called once per frame
@@ -24,7 +32,13 @@ public class greenLights : MonoBehaviour
         }
 
         if (donezo)
+        {
             foreach (Light light in roomLights)
+            {
                 light.color = Color.white;
+            }
+                
+        }
+            
     }
 }

@@ -151,7 +151,11 @@ public class Enemy : MonoBehaviour
 
                         //TODO: impliment correctly
                         enemyAnimator.SetTrigger("Attack");
-                        attacknoise.Play();
+                        if (!attacknoise.isPlaying)
+                        {
+                            attacknoise.Play();
+                        }
+                        
                     }
                     else if (ranged)
                     {
@@ -230,6 +234,10 @@ public class Enemy : MonoBehaviour
         else if (ranged)
         {
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
+            if (!rangedAttack.isPlaying)
+            {
+                rangedAttack.Play();
+            }
         }
         nav.SetDestination(target.transform.position);
     }
@@ -253,7 +261,11 @@ public class Enemy : MonoBehaviour
     {
         if (coll.gameObject.tag == "Bullet")
         {
+         
+           
             bulletHit.Play();
+            
+            
             currHP = currHP - 10;
             if (currHP <= 0)
             {

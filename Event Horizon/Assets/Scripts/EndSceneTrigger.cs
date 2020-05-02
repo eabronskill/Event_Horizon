@@ -10,6 +10,7 @@ public class EndSceneTrigger : MonoBehaviour
     public List<Light> lights;
     public List<GameObject> enemies;
     public GameObject text;
+    public GameObject parent;
 
     private bool phaseBefore = true;
     private bool phaseAfter = false;
@@ -17,6 +18,13 @@ public class EndSceneTrigger : MonoBehaviour
     private void Start()
     {
         text.SetActive(false);
+        if (parent != null)
+        {
+            foreach (Enemy e in parent.GetComponentsInChildren<Enemy>())
+            {
+                enemies.Add(e.gameObject);
+            }
+        }
     }
 
 
@@ -55,6 +63,7 @@ public class EndSceneTrigger : MonoBehaviour
         {
             if (col.gameObject.tag == "Player")
             {
+                text.SetActive(true);
                 if (col.gameObject.name.Equals("Tank Controller"))
                 {
                     player = col.GetComponent<TankInput>().player;
@@ -88,6 +97,13 @@ public class EndSceneTrigger : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            text.SetActive(false);
         }
     }
 }
