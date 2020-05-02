@@ -2740,10 +2740,13 @@ MonoBehaviour:
   finalRot: {x: 0, y: 0, z: 0, w: 0}
   swordRot: {x: 0, y: 0, z: 0, w: 0}
   finalSwordRot: {fileID: 0}
-  gunshot: {fileID: 74001605}
-  music: {fileID: 0}
   gunFlash: {fileID: 0}
   abilities: {fileID: 0}
+  gunshot: {fileID: 74001605}
+  setItem: {fileID: 4543459729778685161, guid: 454d136b87095b643bef43fdd33370a4, type: 3}
+  detonateMine: {fileID: 6390390713501859772, guid: 0d674bd46fff41e41b82367baa954a23,
+    type: 3}
+  melee: {fileID: 2102316091515255587, guid: fa992f81f95b3724093cba9b61a3f97c, type: 3}
   playerID: -1
 --- !u!114 &111121729
 MonoBehaviour:

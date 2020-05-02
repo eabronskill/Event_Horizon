@@ -1450,10 +1450,14 @@ MonoBehaviour:
   finalRot: {x: 0, y: 0, z: 0, w: 0}
   swordRot: {x: 0, y: 0, z: 0, w: 0}
   finalSwordRot: {fileID: 0}
-  gunshot: {fileID: 0}
-  music: {fileID: 0}
   gunFlash: {fileID: 0}
   abilities: {fileID: 0}
+  gunshot: {fileID: 0}
+  melee: {fileID: 2102316091515255587, guid: fa992f81f95b3724093cba9b61a3f97c, type: 3}
+  placeTurret: {fileID: 4543459729778685161, guid: 454d136b87095b643bef43fdd33370a4,
+    type: 3}
+  healsound: {fileID: 3731645645667668062, guid: bbe558e9571ce7441a65919d510d2b9a,
+    type: 3}
   playerID: -1
 --- !u!114 &5087981238401012163
 MonoBehaviour:

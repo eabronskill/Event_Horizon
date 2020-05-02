@@ -104,6 +104,12 @@ MonoBehaviour:
   enemyAnimator: {fileID: 2972649415541519108}
   changeTargetTime: 5
   canBeStunned: 1
+  attacknoise: {fileID: 2657004916311474650, guid: 6732c7a629414984ab312df8e6c8af2e,
+    type: 3}
+  bulletHit: {fileID: 831128342928244563, guid: d78b360b9c183474b8d57069fc73f973,
+    type: 3}
+  rangedAttack: {fileID: 4468235830703166206, guid: 267e026eba99cad468000b8db11b2560,
+    type: 3}
 --- !u!195 &4167106792907074876
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -2143,6 +2143,11 @@ MonoBehaviour:
   shieldDown: 0
   particleGroundPound: {fileID: 981339226339032013, guid: f93b4f987bc605045b0362fd47f8b5a3,
     type: 3}
+  gunshot: {fileID: 6431712983429657752, guid: e0c09a47c3957834194f1736526d5a87, type: 3}
+  groundpound: {fileID: 2812827751477157047, guid: d0d5436c954494245b6d86aea1f6a740,
+    type: 3}
+  setItem: {fileID: 4543459729778685161, guid: 454d136b87095b643bef43fdd33370a4, type: 3}
+  melee: {fileID: 2102316091515255587, guid: fa992f81f95b3724093cba9b61a3f97c, type: 3}
 --- !u!114 &7114397070673391989
 MonoBehaviour:
   m_ObjectHideFlags: 0
