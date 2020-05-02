@@ -69,22 +69,25 @@ public class Player : MonoBehaviour
             //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
 
             // Test Movement
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-            if (isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-            }
+            //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            //if (isGrounded && velocity.y < 0)
+            //{
+            //    velocity.y = -2f;
+            //}
 
             float x = player.GetAxis("Move Horizontal");
             float z = player.GetAxis("Move Vertical");
 
             Vector3 movementVec = new Vector3(x,0f,z);
+            
 
             controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
+            print("MoveVec times MoveSpeed:" + (movementVec * curMoveSpeed));
 
-            //velocity.y += gravity * Time.deltaTime;
-
-            //controller.Move(velocity * Time.deltaTime);
+            if(x != 0 && z != 0)
+            {
+                moved = true;
+            }
 
             // Movement Anims
             if (playerAnimator != null)

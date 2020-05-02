@@ -113,7 +113,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '''A'''
+  m_text: '''A'':
+
+    Healing
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 15a015398ab17254289d3a1e6a246dda, type: 2}
   m_sharedMaterial: {fileID: 6144451061922703157, guid: 15a015398ab17254289d3a1e6a246dda,
@@ -183,12 +187,12 @@ MonoBehaviour:
   m_margin: {x: 7, y: 2, z: 7, w: 2.5}
   m_textInfo:
     textComponent: {fileID: 1199348842919573607}
-    characterCount: 3
+    characterCount: 13
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
