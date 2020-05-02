@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
             }
 
             // Reloading
-            if ((curClip != maxClip || curAmmo != 0) && player.GetButtonDown("Reload"))
+            if ((curClip != maxClip && curAmmo != 0) && player.GetButtonDown("Reload"))
             {
                 if (curAmmo < (maxClip - curClip))
                 {
@@ -139,6 +139,14 @@ public class Player : MonoBehaviour
                     curClip = maxClip;
                 }
   
+            }
+
+            //melee
+            if (player.GetButtonDown("Melee")) //&& Time.time >= hammertimer)
+            {
+                //hammertimer = time.time + 1f;
+                //melee.soldiermelee();
+                playerAnimator.SetTrigger("Melee");
             }
 
             // Items

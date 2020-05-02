@@ -19,7 +19,7 @@ public class ElevatorScript : MonoBehaviour
     private bool phase3 = false;
 
     //final horde functionality
-    private float timer = 20f;
+    public float timer = 31f;
 
     public GameObject spawn1;
     public GameObject spawn2;
@@ -27,11 +27,16 @@ public class ElevatorScript : MonoBehaviour
     public GameObject spawn4;
 
     public GameObject enemy;
+    int offset;
+    private float enemyTimer = 2f;
+    private float UITimer;
+    private int countdown;
 
     void Start()
     {
         inside.gameObject.SetActive(false);
         text.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -39,31 +44,37 @@ public class ElevatorScript : MonoBehaviour
     {
         if (phase2)
         {
-            timer += Time.time;
-            int offset = 1; //use to stagger spawn rates
-            while (Time.time < timer)
+            
+             
+            if (Time.time < timer)
             {
-                if (offset == 1)
+                countdown = (int)(timer - Time.time);
+                text.GetComponent<TextMeshPro>().text = "Defend: " + countdown + " Seconds";
+                if (Time.time >= enemyTimer)
+                {
                     Instantiate(enemy, spawn1.transform);
-                else if (offset == 2)
+
                     Instantiate(enemy, spawn2.transform);
-                else if (offset == 3)
+
                     Instantiate(enemy, spawn3.transform);
-                else if (offset == 4)
+
                     Instantiate(enemy, spawn4.transform);
+                    enemyTimer = Time.time + 2f;
+                }
+                  
 
-                if (offset > 20)
-                    offset = 0;
-                else
-                    offset++;
+                
             }
-
-            inside.gameObject.SetActive(false);
-            text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
-            front.gameObject.SetActive(true);
-            inside.color = Color.green;
-            phase2 = false;
-            phase3 = true;
+            else
+            {
+                inside.gameObject.SetActive(false);
+                text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
+                front.gameObject.SetActive(true);
+                inside.color = Color.green;
+                phase2 = false;
+                phase3 = true;
+            }
+            
 
 
             /*bool done = true;
@@ -105,6 +116,8 @@ public class ElevatorScript : MonoBehaviour
 
                 phase1 = false;
                 phase2 = true;
+                timer += Time.time;
+                enemyTimer += Time.time;
             }
         }
 

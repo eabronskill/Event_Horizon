@@ -99,12 +99,7 @@ public class SoldierInput : Player
         }
 
         //melee
-        if (player.GetButtonDown("Melee")) //&& Time.time >= hammertimer)
-        {
-            //hammertimer = time.time + 1f;
-            //melee.soldiermelee();
-            playerAnimator.SetTrigger("Melee");
-        }
+        
 
         if (player.GetButtonDown("Melee"))
         {

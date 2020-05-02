@@ -117,10 +117,7 @@ public class rogueInput : Player
             base.curClip--;
         }
 
-        if (player.GetButtonDown("Melee"))
-        {
-            sword.SwordAttack();
-        }
+        
 
         if (strapTimer > Time.time) //gun movement
         {

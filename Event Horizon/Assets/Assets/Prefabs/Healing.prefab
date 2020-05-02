@@ -377,7 +377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  healingPercentage: 0.2
+  healingPercentage: 0.75
+  text: {fileID: 838831870825541304}
 --- !u!54 &7402908729391438924
 Rigidbody:
   m_ObjectHideFlags: 0

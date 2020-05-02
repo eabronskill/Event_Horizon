@@ -91,12 +91,7 @@ public class TankInput : Player
             base.curMoveSpeed = movementSpeed;
         }
 
-        // Melee
-        if (player.GetButtonDown("Melee") && Time.time >= hammerTimer)
-        {
-            hammerTimer = Time.time + 1f;
-            //melee.tankMelee();
-        }
+       
 
         // Ability 1: Shield Plant
         if (canPlaceShield && player.GetButtonDown("Ability1"))
