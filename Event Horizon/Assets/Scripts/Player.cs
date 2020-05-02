@@ -84,10 +84,9 @@ public class Player : MonoBehaviour
             controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
             print("MoveVec times MoveSpeed:" + (movementVec * curMoveSpeed));
 
-            if(x != 0 && z != 0)
-            {
-                moved = true;
-            }
+            //velocity.y += gravity * Time.deltaTime;
+
+            //controller.Move(velocity * Time.deltaTime);
 
             // Movement Anims
             if (playerAnimator != null)
