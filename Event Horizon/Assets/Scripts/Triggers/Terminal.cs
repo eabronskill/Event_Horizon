@@ -11,7 +11,7 @@ public class Terminal : MonoBehaviour
     private bool activated = false;
 
     public GameObject directions;
-
+    public AudioSource open;
     private void Start()
     {
         directions.SetActive(false);
@@ -32,6 +32,7 @@ public class Terminal : MonoBehaviour
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
                     light.color = Color.green;
+                    open.Play();
                 }
             }
             if (col.gameObject.name.Equals("Soldier Controller"))
@@ -42,6 +43,7 @@ public class Terminal : MonoBehaviour
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
                     light.color = Color.green;
+                    open.Play();
                 }
             }
             if (col.gameObject.name.Equals("Engineer Controller"))
@@ -52,6 +54,7 @@ public class Terminal : MonoBehaviour
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
                     light.color = Color.green;
+                    open.Play();
                 }
             }
             if (col.gameObject.name.Equals("Rogue Controller"))
@@ -62,6 +65,7 @@ public class Terminal : MonoBehaviour
                     lockedDoor.GetComponent<LockedDoor>().activated++;
                     activated = true;
                     light.color = Color.green;
+                    open.Play();
                 }
             }
         }

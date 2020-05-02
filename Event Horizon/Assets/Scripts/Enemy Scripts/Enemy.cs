@@ -53,15 +53,13 @@ public class Enemy : MonoBehaviour
 
     public bool canBeStunned = true;
     
-    // declare delegate 
-    //public delegate void MineHit();
-
-    //declare event of type delegate
-    //public event MineHit mineExplosionEvent;
-
-
     bool dead = false;
     float deathTimer = 0f;
+
+    //sounds
+    public AudioSource attacknoise;
+    public AudioSource bulletHit;
+    public AudioSource rangedAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -145,9 +143,11 @@ public class Enemy : MonoBehaviour
 
                         //TODO: impliment correctly
                         enemyAnimator.SetTrigger("Attack");
+                        attacknoise.Play();
                     }
-                    else if (ranged) ;
+                    else if (ranged)
                     {
+                        rangedAttack.Play();
                         attackTimer = Time.time + rangedAttackTime;
                     }
                     
@@ -244,6 +244,7 @@ public class Enemy : MonoBehaviour
     {
         if (coll.gameObject.tag == "Bullet")
         {
+            bulletHit.Play();
             currHP = currHP - 10;
             if (currHP <= 0)
             {

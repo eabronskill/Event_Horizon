@@ -97,12 +97,6 @@ public class ElevatorScript : MonoBehaviour
                 inside.gameObject.SetActive(true);
                 text.SetActive(true);
 
-                // Activate all the enemies
-                /*foreach (GameObject enemy in enemies)
-                {
-                    enemy.GetComponent<Enemy>().active = true;
-                }*/
-
                 phase1 = false;
                 phase2 = true;
             }

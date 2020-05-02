@@ -4,7 +4,6 @@ using Rewired;
 public class TankInput : Player
 {
     private TankAbilities abilities;
-    private Melee melee;
 
     /// <summary>
     /// ID of the player who is controlling this character.
@@ -30,6 +29,12 @@ public class TankInput : Player
     public bool shieldDown;
 
     public ParticleSystem particleGroundPound;
+
+    //sounds
+    public AudioSource gunshot;
+    public AudioSource groundpound;
+    public AudioSource setItem;
+    public AudioSource melee;
 
     void Awake()
     {
@@ -61,7 +66,6 @@ public class TankInput : Player
         }
 
         abilities = this.gameObject.GetComponent<TankAbilities>();
-        melee = this.gameObject.GetComponent<Melee>();
         
     }
 
@@ -80,6 +84,7 @@ public class TankInput : Player
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
+            gunshot.Play();
             base.curClip--;
         }
         if (player.GetButton("Shoot") && base.curClip > 0)
@@ -94,8 +99,8 @@ public class TankInput : Player
         // Melee
         if (player.GetButtonDown("Melee") && Time.time >= hammerTimer)
         {
-            hammerTimer = Time.time + 1f;
-            //melee.tankMelee();
+            playerAnimator.SetTrigger("Melee");
+            melee.Play();
         }
 
         // Ability 1: Shield Plant
@@ -103,6 +108,7 @@ public class TankInput : Player
         {
             // Call TankAbilities Script
             abilities.shieldPlant();
+            setItem.Play();
             canPlaceShield = false;
         }
 
@@ -111,6 +117,7 @@ public class TankInput : Player
         {
             // Call TankAbilities Script
             abilities.groundPound();
+            groundpound.Play();
             particleGroundPound.Play();
         }
         
@@ -131,6 +138,7 @@ public class TankInput : Player
             {
                 canPlaceShield = true;
                 abilities.pickupShield();
+                setItem.Play();
             }
             
         }

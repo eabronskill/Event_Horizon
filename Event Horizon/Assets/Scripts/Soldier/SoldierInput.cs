@@ -4,7 +4,6 @@ using Rewired;
 public class SoldierInput : Player
 {
     private SoldierAbilities abilities;
-    private Melee melee;
 
     /// <summary>
     /// ID of the player who is controlling this character.
@@ -33,6 +32,11 @@ public class SoldierInput : Player
     // For Brett
     public float rapidFireCD;
     public float grenadeCD;
+
+    //sounds
+    public AudioSource gunshot;
+    public AudioSource powerup;
+    public AudioSource melee;
 
     void Awake()
     {
@@ -66,9 +70,6 @@ public class SoldierInput : Player
 
         baseFireRate = fireRate;
         abilities = this.gameObject.GetComponent<SoldierAbilities>();
-        melee = this.gameObject.GetComponent<Melee>();
-
-        
     }
 
     // Update is called once per frame
@@ -84,6 +85,8 @@ public class SoldierInput : Player
         {
             strapTimer = Time.time + fireRate;
             Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
+            gunshot.Play();
+
             if (cnsmAmmo)
             {
                 base.curClip--;
@@ -99,16 +102,10 @@ public class SoldierInput : Player
         }
 
         //melee
-        if (player.GetButtonDown("Melee")) //&& Time.time >= hammertimer)
+        if (player.GetButtonDown("Melee")) 
         {
-            //hammertimer = time.time + 1f;
-            //melee.soldiermelee();
             playerAnimator.SetTrigger("Melee");
-        }
-
-        if (player.GetButtonDown("Melee"))
-        {
-            sword.SwordAttack();
+            melee.Play();
         }
 
         // Ability 1: Rapid Fire
@@ -116,6 +113,7 @@ public class SoldierInput : Player
         {
             // Call SoldierAbilities Script
             abilities.rapidFire();
+            powerup.Play();
         }
 
         // Ability 2: Grenade 
