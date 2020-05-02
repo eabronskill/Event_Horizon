@@ -107,8 +107,9 @@ public class TechnicianInput : Player
         }
         if (player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
         {
-            abilities.repair();
             usedAbility2 = true;
+            abilities.repair();
+            
         }
         
 

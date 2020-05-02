@@ -56,6 +56,7 @@ public class TechnicianAbilities : MonoBehaviour
 
         turret = Instantiate(turret, turretLoc, transform.rotation); //TODO: TURRET LOGIC
         Invoke("resetTurret", turretCD);
+        turretSet = true;
     }
 
     private void resetTurret()
