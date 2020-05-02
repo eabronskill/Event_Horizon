@@ -304,7 +304,7 @@ public class ChS_Controller : MonoBehaviour
         buttonClickSound.pitch = 1;
         buttonClickSound.Play();
         // TODO: Load the first level.
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level2");
         
     }
 

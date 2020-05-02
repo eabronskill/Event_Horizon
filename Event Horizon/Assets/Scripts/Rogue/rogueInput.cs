@@ -56,12 +56,16 @@ public class rogueInput : Player
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
-            Tutotrial.players.Add(this.gameObject);
+            
             playerID = player.id;
             controller = GetComponent<CharacterController>();
             if (UIEventCOntroller.players.Count == 0)
             {
                 UIEventCOntroller.players.Add("Rogue", this.gameObject);
+            }
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                Tutotrial.players.Add(this.gameObject);
             }
 
         }
