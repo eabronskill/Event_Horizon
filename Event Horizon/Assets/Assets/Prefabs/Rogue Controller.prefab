@@ -181,7 +181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380645521}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.19, y: 3.279017, z: 2.3067794}
+  m_LocalPosition: {x: 0.089, y: 4.091, z: 0.406}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8651507844434414050}
@@ -2269,7 +2269,7 @@ GameObject:
   - component: {fileID: 4546795898852939774}
   m_Layer: 0
   m_Name: SoldierModel@Rifle Aiming Idle
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2606,13 +2606,14 @@ GameObject:
   - component: {fileID: 727064256}
   - component: {fileID: 727064258}
   - component: {fileID: 111121729}
+  - component: {fileID: 111121724}
   m_Layer: 9
   m_Name: Rogue Controller
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8651507844434414050
 Transform:
   m_ObjectHideFlags: 0
@@ -2646,7 +2647,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.69
+  m_Radius: 0.76
   m_Height: 4.423689
   m_Direction: 1
   m_Center: {x: 0, y: 2.55, z: -0.09}
@@ -2687,14 +2688,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSetSpikes: 0
-  spikeCD: 10
+  spikeCD: 30
   canSetMine: 0
   mineSet: 0
-  mineCD: 20
+  mineCD: 60
   mineTimeRemaining: 0
   spikeTimeRemaining: 0
   spikes: {fileID: 4234290519466868736, guid: c2d24e70f7373b143b8a928e28fb161d, type: 3}
-  mine: {fileID: -927199367670048503, guid: b991f8bcd42fee245ba2477e877262d1, type: 3}
+  minePrefab: {fileID: 3021328355752557052, guid: 687e910fc405d9346bd3dcd0e01aa2ff,
+    type: 3}
   grenade: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a, type: 3}
 --- !u!114 &727064258
 MonoBehaviour:
@@ -2709,7 +2711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curMoveSpeed: 0
-  movementSpeed: 400
+  movementSpeed: 7.5
   curHealth: 0
   maxHealth: 100
   curClip: 0
@@ -2718,6 +2720,7 @@ MonoBehaviour:
   maxAmmo: 120
   dead: 0
   playerAnimator: {fileID: 4546795898852939774}
+  rifle: {fileID: 1006397763725657983}
   ammoItem: {fileID: 0}
   healingItem: {fileID: 0}
   hasAmmo: 0
@@ -2736,9 +2739,11 @@ MonoBehaviour:
   meleed: 0
   usedAbility1: 0
   usedAbility2: 0
+  testing: 1
   strap: {fileID: 1380645521}
   sword: {fileID: 1304543148345225303}
-  projectile: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
+  projectile: {fileID: 7196980638786986980, guid: cacec3a032e32a14c9c5b5311378b224,
+    type: 3}
   attackPoint: {fileID: 1380645521}
   strapRot: {x: 0, y: 0, z: 0, w: 0}
   finalRot: {x: 0, y: 0, z: 0, w: 0}
@@ -2763,6 +2768,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a36b7bac7a02d4ba28e1cc09e52e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &111121724
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8651507844434414057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 4.37
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 2.25, z: 0}
 --- !u!1 &8833986452441943843
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,7 +3104,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: e862e42b4eb6dc648a27179b1b2fb99f,
         type: 3}
       propertyPath: m_TagString
-      value: Bullet
+      value: melee
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e862e42b4eb6dc648a27179b1b2fb99f, type: 3}
@@ -3171,15 +3194,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d674bd46fff41e41b82367baa954a23, type: 3}
---- !u!82 &7750594146428266712 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6390390713501859772, guid: 0d674bd46fff41e41b82367baa954a23,
-    type: 3}
-  m_PrefabInstance: {fileID: 3684118427778127716}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2484402570844644766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1250523818157191930, guid: 0d674bd46fff41e41b82367baa954a23,
+    type: 3}
+  m_PrefabInstance: {fileID: 3684118427778127716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7750594146428266712 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6390390713501859772, guid: 0d674bd46fff41e41b82367baa954a23,
     type: 3}
   m_PrefabInstance: {fileID: 3684118427778127716}
   m_PrefabAsset: {fileID: 0}

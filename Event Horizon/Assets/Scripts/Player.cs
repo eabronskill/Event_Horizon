@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float maxAmmo;
     private float dif;
     public bool dead = false;
+    protected bool canShooty = true;
 
     // Animation Vars
     public Animator playerAnimator;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private Plane mousePlane;
     private Ray cameraRay;
     private float intersectionDistance = 0f;
+    public Collider rifle;
 
     // Item vars
     [HideInInspector]
@@ -55,10 +57,10 @@ public class Player : MonoBehaviour
     bool isGrounded;
 
     // Tutorial Vars
-    //[HideInInspector]
+    [HideInInspector]
     public bool moved, shot, meleed, usedAbility1, usedAbility2;
 
-   
+    public bool testing = true;
 
     public void Update()
     {
@@ -94,7 +96,7 @@ public class Player : MonoBehaviour
             // Movement Anims
             if (playerAnimator != null)
             {
-                if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.z >= 0.3f || movementVec.z <= -0.3f)
+                if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.x >= 0.3f || movementVec.z <= -0.3f)
                 {
                     playerAnimator.SetFloat("Blend", 1.0f);
                     playerAnimator.SetBool("Running", true);
@@ -148,8 +150,10 @@ public class Player : MonoBehaviour
             {
                 //hammertimer = time.time + 1f;
                 //melee.soldiermelee();
-                //playerAnimator.SetTrigger("Melee");
-
+                playerAnimator.SetTrigger("Melee");
+                rifle.enabled = true;
+                canShooty = false;
+                Invoke("disableCol", 1.5f);
                 meleed = true;
             }
 
@@ -247,6 +251,12 @@ public class Player : MonoBehaviour
         }
         
         
+    }
+
+    private void disableCol()
+    {
+        rifle.enabled = false;
+        canShooty = true;
     }
 
     public void OnTriggerStay(Collider other)

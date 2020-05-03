@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5307c3d2a41494dae5de397b8721f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
+  mineExplodyPrefab: {fileID: 5575870840798606212, guid: 9c56cc5cc236443479a18d1ccdaf4147,
     type: 3}
 --- !u!1001 &8093896290283200663
 PrefabInstance:
@@ -87,17 +87,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.67118
+      value: 0.059925
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0903
+      value: 0.67361
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2785
+      value: 0.022584
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
@@ -142,17 +142,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 111.97102
+      value: 9.994198
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 251.34114
+      value: 22.433956
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 111.97102
+      value: 9.994198
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: b991f8bcd42fee245ba2477e877262d1,
         type: 3}

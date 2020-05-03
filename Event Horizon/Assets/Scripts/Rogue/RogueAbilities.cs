@@ -19,7 +19,8 @@ public class RogueAbilities : MonoBehaviour
     private float spikeSetTime;
 
     public GameObject spikes;
-    public GameObject mine;
+    private GameObject mine;
+    public GameObject minePrefab;
     public GameObject grenade;
     //Enemy enemy;
 
@@ -30,8 +31,6 @@ public class RogueAbilities : MonoBehaviour
         //enemy.mineExplosionEvent += detonate;
         canSetMine = true;
         mineSet = false;
-        spikeCD = 30f;
-        mineCD = 60f;
         
     }
 
@@ -40,19 +39,19 @@ public class RogueAbilities : MonoBehaviour
     {
         if (!canSetMine)
         {
-            mineTimeRemaining = mineSetTime + mineCD - Time.time;
+            mineTimeRemaining = mineSetTime - Time.time;
         }
 
         if (!canSetSpikes)
         {
-           spikeTimeRemaining = spikeSetTime + spikeCD - Time.time;
+           spikeTimeRemaining = spikeSetTime - Time.time;
         }
     }
 
     public void setSpikes()
     {
         canSetSpikes = false;
-        spikeSetTime = Time.time;
+        spikeSetTime = Time.time + spikeCD;
         Invoke("resetSpikes", spikeCD);
 
         //actually put in spikes
@@ -67,14 +66,14 @@ public class RogueAbilities : MonoBehaviour
     public void setMine()
     {
         canSetMine = false;
-        spikeSetTime = Time.time;
         Invoke("resetMine", mineCD);
         mineSet = true;
+
         //actually put in mine
         Vector3 mineLoc = transform.position;
         mineLoc.y += .3f;
         mineLoc += transform.forward * 2;
-        mine = Instantiate(mine, mineLoc, transform.rotation);
+        mine = Instantiate(minePrefab, mineLoc, transform.rotation);
     }
 
     public void detonate()
@@ -83,6 +82,7 @@ public class RogueAbilities : MonoBehaviour
         mine.SendMessage("explode");
         Destroy(mine);
         mineSet = false;
+        mineSetTime = Time.time + mineCD;
     }
 
     private void resetMine()

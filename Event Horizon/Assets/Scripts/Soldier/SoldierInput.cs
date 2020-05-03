@@ -50,8 +50,23 @@ public class SoldierInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.SetActive(true);
-        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
+        if (testing)
+        {
+            player = ReInput.players.GetPlayer(0);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+
+            playerID = 1;
+            controller = GetComponent<CharacterController>();
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Soldier", this.gameObject);
+            }
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                Tutotrial.players.Add(this.gameObject);
+            }
+        }
+        else if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
@@ -86,35 +101,31 @@ public class SoldierInput : Player
         base.Update();
 
         // Shooting
-        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+        if (canShooty)
         {
-            strapTimer = Time.time + fireRate;
-            shot = true;
-            Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            gunshot.Play();
-
-            if (cnsmAmmo)
+            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
             {
-                base.curClip--;
+                strapTimer = Time.time + fireRate;
+                shot = true;
+                Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
                 
+                if (cnsmAmmo)
+                {
+                    base.curClip--;
+                    gunshot.Play();
+                }
+            }
+            if (player.GetButton("Shoot") && base.curClip > 0)
+            {
+                base.curMoveSpeed = movementSpeed * 0.5f;
+
+            }
+            else
+            {
+                base.curMoveSpeed = movementSpeed;
             }
         }
-        if (player.GetButton("Shoot") && base.curClip > 0)
-        {
-            base.curMoveSpeed = movementSpeed * 0.5f;
-            
-        }
-        else
-        {
-            base.curMoveSpeed = movementSpeed;
-        }
-
-        //melee
-        if (player.GetButtonDown("Melee")) 
-        {
-            playerAnimator.SetTrigger("Melee");
-            melee.Play();
-        }
+        
 
         // Ability 1: Rapid Fire
         if (player.GetButton("Ability1") && canUseRF)

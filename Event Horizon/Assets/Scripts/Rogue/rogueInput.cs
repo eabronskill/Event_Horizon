@@ -52,7 +52,23 @@ public class rogueInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (ChS_Controller.finalSelection.ContainsKey("Rogue Icon"))
+        if (testing)
+        {
+            player = ReInput.players.GetPlayer(0);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+
+            playerID = 3;
+            controller = GetComponent<CharacterController>();
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Rogue", this.gameObject);
+            }
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                Tutotrial.players.Add(this.gameObject);
+            }
+        }
+        else if (ChS_Controller.finalSelection.ContainsKey("Rogue Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
@@ -120,30 +136,27 @@ public class rogueInput : Player
 
         }
 
-        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+        if (canShooty)
         {
-            strapTimer = Time.time + .6f;
-            Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
-            shot = true;
-            base.curClip--;
-            gunshot.Play();
-            //gunFlash.Play();
-            
-        }
+            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+            {
+                strapTimer = Time.time + .6f;
+                Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
+                shot = true;
+                base.curClip--;
+                gunshot.Play();
+                //gunFlash.Play();
 
-        if (player.GetButtonDown("Melee"))
-        {
-            playerAnimator.SetTrigger("Melee");
-            melee.Play();
-        }
+            }
+            if (strapTimer > Time.time) //gun movement
+            {
+                strapRecoil(strapRot, finalRot);
+            }
+            else if (strap.transform.localRotation.x != 0)
+            {
+                strapRotateBack(strap.transform.localRotation, strapRot);
+            }
 
-        if (strapTimer > Time.time) //gun movement
-        {
-            strapRecoil(strapRot, finalRot);
-        }
-        else if (strap.transform.localRotation.x != 0)
-        {
-            strapRotateBack(strap.transform.localRotation, strapRot);
         }
 
     }

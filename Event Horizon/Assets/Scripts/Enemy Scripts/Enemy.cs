@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
     //sounds
     public AudioSource attacknoise;
     public AudioSource bulletHit;
+    public AudioSource meleeHit;
     public AudioSource rangedAttack;
 
     // Start is called before the first frame update
@@ -101,7 +102,7 @@ public class Enemy : MonoBehaviour
             transform.position = deathLoc;
             transform.localRotation = Quaternion.Lerp(fallRot, transform.localRotation, deathTimer - Time.time);
         }
-        else
+        else 
         {
             
             if (Time.time > stunnedTimer && active)
@@ -150,16 +151,10 @@ public class Enemy : MonoBehaviour
                         attackTimer = Time.time + meleeAttackTime;
 
                         //TODO: impliment correctly
-                        enemyAnimator.SetTrigger("Attack");
-                        if (!attacknoise.isPlaying)
-                        {
-                            attacknoise.Play();
-                        }
-                        
+                        enemyAnimator.SetTrigger("Attack"); 
                     }
                     else if (ranged)
                     {
-                        rangedAttack.Play();
                         attackTimer = Time.time + rangedAttackTime;
                     }
                     
@@ -168,6 +163,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 nav.isStopped = true;
+                enemyAnimator.SetBool("Walking", false);
             }
         }
     }
@@ -202,9 +198,11 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void attack()
     {
+        
         // Melee attack logic
         if (melee)
         {
+            
             foreach (GameObject player in players)
             {
                 Vector3 playerDir = transform.position - player.transform.position;
@@ -212,6 +210,10 @@ public class Enemy : MonoBehaviour
 
                 if (angle < 45f && playerDir.magnitude <= attackRange)
                 {
+                    if (!attacknoise.isPlaying)
+                    {
+                        attacknoise.Play();
+                    }
                     if (player.gameObject.name.Equals("Tank Controller"))
                     {
                         player.GetComponent<TankInput>().takeDamage(damage);
@@ -251,8 +253,26 @@ public class Enemy : MonoBehaviour
         currHP = currHP - damage;
         if (currHP <= 0)
         {
+            int num = Random.Range(0, 3);
+
+            deathLoc = transform.position;
+            initRot = transform.localRotation;
+            fallRot = initRot;
+
+            if (num == 0)
+                fallRot.x -= .5f;
+            else
+                fallRot.x += .5f;
+
+            if (num == 1)
+                fallRot.z -= .5f;
+            else
+                fallRot.z += .5f;
+
+            deathTimer = Time.time + 1f;
             dead = true;
-            die();
+            Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
+            Invoke("die", 1f);
         }
     }
 
@@ -292,11 +312,72 @@ public class Enemy : MonoBehaviour
             }
             
         }
-
-        if (coll.gameObject.tag == "Spike")
+        if (coll.gameObject.tag == "melee")
         {
-            nav.speed = 2.5f;
-            Invoke("resetSpeed", 3f);
+
+            
+            meleeHit.Play();
+
+
+            currHP = currHP - 20;
+            if (currHP <= 0)
+            {
+                bulletImpact = coll.transform.position;
+
+                deathLoc = transform.position;
+                initRot = transform.localRotation;
+                fallRot = initRot;
+
+                if (bulletImpact.x > 0)
+                    fallRot.x -= .5f;
+                else
+                    fallRot.x += .5f;
+
+                if (bulletImpact.z > 0)
+                    fallRot.z -= .5f;
+                else
+                    fallRot.z += .5f;
+
+                deathTimer = Time.time + 1f;
+                dead = true;
+                Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
+                Invoke("die", 1f);
+            }
+
+        }
+
+        if (coll.gameObject.tag == "RogueShot")
+        {
+
+
+            bulletHit.Play();
+
+
+            currHP = currHP - 50;
+            if (currHP <= 0)
+            {
+                bulletImpact = coll.transform.position;
+
+                deathLoc = transform.position;
+                initRot = transform.localRotation;
+                fallRot = initRot;
+
+                if (bulletImpact.x > 0)
+                    fallRot.x -= .5f;
+                else
+                    fallRot.x += .5f;
+
+                if (bulletImpact.z > 0)
+                    fallRot.z -= .5f;
+                else
+                    fallRot.z += .5f;
+
+                deathTimer = Time.time + 1f;
+                dead = true;
+                Destroy(this.gameObject.GetComponent<Collider>()); //this should destroy the collider as well
+                Invoke("die", 1f);
+            }
+
         }
     }
     
@@ -304,8 +385,8 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "SlowField")
         {
-            this.gameObject.SetActive(false);
-            print("In here");
+            nav.speed = nav.speed = 2.5f;
+            Invoke("resetSpeed", 3f);
         }
 
        
@@ -331,8 +412,12 @@ public class Enemy : MonoBehaviour
         if (canBeStunned)
         {
             stunnedTimer = Time.time + 3;
+            enemyAnimator.SetBool("Walking", false);
+            takeDamage(20);
+            meleeHit.Play();
+
         }
-        
+
     }
 
 

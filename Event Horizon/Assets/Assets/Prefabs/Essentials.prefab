@@ -1255,6 +1255,11 @@ PrefabInstance:
       propertyPath: victoryCanvas
       value: 
       objectReference: {fileID: 8697885428403208125}
+    - target: {fileID: 8043524368910400615, guid: 8bdd6b10ea0c42345bbf7f215d6fccaa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8651507844434414050, guid: 8bdd6b10ea0c42345bbf7f215d6fccaa,
         type: 3}
       propertyPath: m_LocalPosition.x

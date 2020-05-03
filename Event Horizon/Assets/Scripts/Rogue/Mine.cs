@@ -4,25 +4,14 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
-    public GameObject grenadePrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public GameObject mineExplodyPrefab;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.gameObject.tag == "Enemy")
         {
             print("enemy detected");
-            GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
+            GameObject grenade = Instantiate(mineExplodyPrefab, transform.position, transform.rotation);
             Rigidbody rb = grenade.GetComponent<Rigidbody>();
             rb.AddForce(transform.up, ForceMode.VelocityChange);
         }
@@ -30,7 +19,7 @@ public class Mine : MonoBehaviour
 
     public void explode()
     {
-        GameObject grenadeObj = Instantiate(grenadePrefab, transform.position, transform.rotation);
+        GameObject grenadeObj = Instantiate(mineExplodyPrefab, transform.position, transform.rotation);
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
         Vector3 upwardForce = transform.up;
         upwardForce.y *= 15f;

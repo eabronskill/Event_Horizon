@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 2356442}
   - component: {fileID: 3370324}
   - component: {fileID: 11489952}
-  - component: {fileID: 11468384}
   - component: {fileID: 10825254}
   - component: {fileID: 6743743051408416145}
   - component: {fileID: 369004735184827854}
   - component: {fileID: 2613214293760474465}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: shot_prefab
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -32,10 +31,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 24.972}
-  m_LocalScale: {x: 0.010361139, y: 0.010361139, z: 0.010361139}
+  m_LocalPosition: {x: 0, y: 0, z: 25.112}
+  m_LocalScale: {x: 0.010361139, y: 0.010361139, z: 0.004786309}
   m_Children:
-  - {fileID: 7049295060326421304}
+  - {fileID: 2410221950492992182}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,22 +104,6 @@ MonoBehaviour:
   m_lineColor: {r: 0, g: 0.60062504, b: 1, a: 0}
   m_lineWidth: 66
   m_lightSaberFactor: 0.747
---- !u!114 &11468384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136330}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cb039d3a64491f4ebfc852d25b5ee70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  collisionExplosion: {fileID: 4658679807483574202, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
-    type: 3}
-  speed: 100
 --- !u!108 &10825254
 Light:
   m_ObjectHideFlags: 0
@@ -199,6 +182,7 @@ MonoBehaviour:
     type: 3}
   bloodEffect: {fileID: 0}
   isEnemy: 0
+  die: 5
 --- !u!54 &369004735184827854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -301,9 +285,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4658679807483574202, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d2b42cb456a7824e9ac6d023b3c6369, type: 3}
---- !u!4 &7049295060326421304 stripped
+--- !u!4 &2410221950492992182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4658679807483574201, guid: 3d2b42cb456a7824e9ac6d023b3c6369,
     type: 3}

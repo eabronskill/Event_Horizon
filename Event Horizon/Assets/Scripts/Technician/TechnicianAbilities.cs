@@ -18,7 +18,10 @@ public class TechnicianAbilities : MonoBehaviour
     private float turretDestroyedTime;
     private float lastRepairTime;
 
+    public float turretAliveTime;
+
     public GameObject turret;
+    public GameObject turretPrefab;
     //Enemy enemy;
 
     void Start()
@@ -26,39 +29,46 @@ public class TechnicianAbilities : MonoBehaviour
         canSetTurret = true;
         canRepair = true;
         turretSet = false;
-        turretCD = 120.0f;
-        repairCD = 90.0f;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!canSetTurret && !turretSet)
+        turretTimeRemaining = turretDestroyedTime - Time.time;
+        repairTimeRemaining = lastRepairTime - Time.time;
+        if (turretTimeRemaining < 0)
         {
-            turretTimeRemaining = turretDestroyedTime + turretCD - Time.time;
+            turretTimeRemaining = 0;
         }
 
-        if (!canRepair)
+        if (repairTimeRemaining < 0)
         {
-            repairTimeRemaining = lastRepairTime + repairCD - Time.time;
+            repairTimeRemaining = 0;
         }
     }
 
     public void setTurret()
     {
         canSetTurret = false;
+        turretDestroyedTime = Time.time + turretCD;
 
         //place turret in game
         Vector3 turretLoc = transform.position;
         turretLoc.y += .3f;
         turretLoc += transform.forward * 2;
 
-        turret = Instantiate(turret, turretLoc, transform.rotation); //TODO: TURRET LOGIC
+        turret = Instantiate(turretPrefab, turretLoc, transform.rotation); //TODO: TURRET LOGIC
+        turret.GetComponent<Turret>().aliveTimer = turretAliveTime;
         Invoke("resetTurret", turretCD);
+        Invoke("destroyTurret", turretAliveTime);
         turretSet = true;
     }
 
+    private void destroyTurret()
+    {
+        Destroy(turret);
+    }
     private void resetTurret()
     {
         canSetTurret = true;
@@ -67,10 +77,12 @@ public class TechnicianAbilities : MonoBehaviour
     public void repair()
     {
         canRepair = false;
-        lastRepairTime = Time.time;
+        lastRepairTime = Time.time + repairCD;
 
-        SendMessage("tankRepaired");
+        SendMessage("engineerHeal");
         Invoke("resetRepair", repairCD);
+        SendMessage("tankRepaired");
+        
 
         //TODO: REPAIR TURRET OR TANK
     }

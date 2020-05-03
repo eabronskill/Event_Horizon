@@ -13,7 +13,7 @@ public class Grenade : MonoBehaviour
     private bool hasExploded = false;
 
     //sound
-    public AudioSource explosion;
+    public AudioSource enemyhit;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,6 @@ public class Grenade : MonoBehaviour
         if (countdown1 <= 0f && !hasExploded)
         {
             explode();
-            explosion.Play();
             hasExploded = true;
         }
     }
@@ -45,7 +44,8 @@ public class Grenade : MonoBehaviour
         {
             if (hitColliders[i].tag == "Enemy")
             {
-                hitColliders[i].gameObject.GetComponent<Enemy>().takeDamage(20);
+                enemyhit.Play();
+                hitColliders[i].gameObject.GetComponent<Enemy>().takeDamage(50);
             }
             i++;
         }

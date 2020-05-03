@@ -95,7 +95,7 @@ public class TankAbilities : MonoBehaviour
     {
         // Animation
         // TODO
-        stunSprite.SetActive(true);
+        //stunSprite.SetActive(true);
         spriteTimer = Time.time + 0.5f;
 
         // Check if distance from Tank to Enemy is within range

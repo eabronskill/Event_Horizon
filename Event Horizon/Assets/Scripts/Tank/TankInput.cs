@@ -23,6 +23,7 @@ public class TankInput : Player
     private bool canPlaceShield = true;
     [HideInInspector]
     public bool canPound = true;
+    public GameObject shieldText;
 
     // For Brett
     public float shieldCD;
@@ -48,7 +49,23 @@ public class TankInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
+        if (testing)
+        {
+            player = ReInput.players.GetPlayer(0);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+
+            playerID = 0;
+            controller = GetComponent<CharacterController>();
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Tank", this.gameObject);
+            }
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                Tutotrial.players.Add(this.gameObject);
+            }
+        }
+        else if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
@@ -70,6 +87,7 @@ public class TankInput : Player
         }
 
         abilities = this.gameObject.GetComponent<TankAbilities>();
+        shieldText.SetActive(false);
         
     }
 
@@ -84,31 +102,27 @@ public class TankInput : Player
         base.Update();
 
         // Shooting
-        if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+        if (canShooty)
         {
-            strapTimer = Time.time + fireRate;
-            Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-            shot = true;
-            gunshot.Play();
-            base.curClip--;
-            
-        }
-        if (player.GetButton("Shoot") && base.curClip > 0)
-        {
-            base.curMoveSpeed = movementSpeed * 0.5f;
-        }
-        else
-        {
-            base.curMoveSpeed = movementSpeed;
-        }
+            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+            {
+                strapTimer = Time.time + fireRate;
+                Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
+                shot = true;
+                gunshot.Play();
+                base.curClip--;
 
-        // Melee
-        if (player.GetButtonDown("Melee") && Time.time >= hammerTimer)
-        {
-            playerAnimator.SetTrigger("Melee");
-            melee.Play();
+            }
+            if (player.GetButton("Shoot") && base.curClip > 0)
+            {
+                base.curMoveSpeed = movementSpeed * 0.5f;
+            }
+            else
+            {
+                base.curMoveSpeed = movementSpeed;
+            }
         }
-
+        
         // Ability 1: Shield Plant
         if (canPlaceShield && player.GetButtonDown("Ability1"))
         {
@@ -143,6 +157,7 @@ public class TankInput : Player
 
         if (other.gameObject.tag == "Shield")
         {
+            shieldText.SetActive(true);
             // Pickup the shield.
             if (player.GetButtonDown("Interact"))
             {
@@ -153,6 +168,15 @@ public class TankInput : Player
             
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Shield")
+        {
+            shieldText.SetActive(false);
+
+        }
     }
 
     public void tankRepaired() //repaired by engineer

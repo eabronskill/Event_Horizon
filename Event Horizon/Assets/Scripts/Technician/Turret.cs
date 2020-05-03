@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
@@ -9,11 +11,18 @@ public class Turret : MonoBehaviour
     public GameObject guns;
     public GameObject attackPoint;
     public GameObject projectile;
+    public GameObject text;
     private int itr;
     private int currHP;
     private int maxHP;
+    private float timer;
+    public float turretShotCD = 1;
 
-    private float timePlaced;
+    public float aliveTimer; // Gets set in the TechnicianAbilities script;
+
+    private float timeRemaining;
+
+    public AudioSource sound;
 
 
     // Start is called before the first frame update
@@ -25,21 +34,24 @@ public class Turret : MonoBehaviour
         itr = 0;
         maxHP = 100;
         currHP = maxHP;
-        timePlaced = Time.time;
+        timeRemaining = Time.time + aliveTimer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - timePlaced > 30f)
-            Destroy(this);
-
+        int i = (int)(timeRemaining - Time.time);
+        text.GetComponent<TextMeshPro>().text = "" + i;
+        if (text.GetComponent<Billboard>().cam == null)
+        {
+            text.GetComponent<Billboard>().cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        }
+        
         if (nearestEnemy != null)
             targetAlive = true;
         else
             targetAlive = false;
 
-        itr++;
         if (targetAlive)
         {
             /*Vector3 relativePos = nearestEnemy.transform.position - transform.position; ~~~~~~~~~~also worked
@@ -51,16 +63,25 @@ public class Turret : MonoBehaviour
 
             guns.transform.forward = rotatedVector;
 
-            if (itr == 60)
+            if (Time.time > timer)
             {
                 Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
-                itr = 0;
+                timer = Time.time + turretShotCD;
+                sound.Play();
             }
         }
 
         else
+        {
             nearestEnemy = GameObject.FindGameObjectWithTag("Enemy");
+            if (!nearestEnemy.GetComponent<Enemy>().active)
+            {
+                nearestEnemy = null;
+            }
+        }
     }
+
+           
 
     void repair()
     {

@@ -10,13 +10,14 @@ public class ProjectileBehavior : MonoBehaviour
     public ParticleSystem gunFlash;
     public ParticleSystem bloodEffect;
     public bool isEnemy = false;
+    public float die = 5f;
     
 
     // Start is called before the first frame update
     void Start()
     {
         movementVec = transform.forward * speed;
-        Invoke("destroyProjectile", 5f);
+        Invoke("destroyProjectile", die);
     }
 
     // Update is called once per frame
@@ -27,19 +28,38 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision coll)
     {
-        if (coll.collider.tag == "Enemy")
+        if (this.gameObject.tag == "Enemy Bullet")
         {
-            if(gunFlash != null && !isEnemy)
+            if (coll.collider.tag == "Enemy")
             {
-                bloodEffect = Instantiate(gunFlash, transform.position, transform.rotation);
-                bloodEffect.Play();
+                return;
+            }
+            else
+            {
+                destroyProjectile();
+            }
+        }
+        else
+        {
+            if (coll.collider.tag == "Enemy")
+            {
+                if (gunFlash != null && !isEnemy)
+                {
+                    bloodEffect = Instantiate(gunFlash, transform.position, transform.rotation);
+                    bloodEffect.Play();
+                }
+                destroyProjectile();
+            }
+            else if (coll.collider.tag == "Player")
+            {
+                return;
+            }
+            else
+            {
+                destroyProjectile();
             }
 
-            
         }
-        destroyProjectile();
-        // Destroy(blood)
-        //Destroy(this.gameObject.GetComponent<Collider>());    
     }
 
     public void destroyProjectile()

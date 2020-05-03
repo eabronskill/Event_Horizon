@@ -18,6 +18,8 @@ TagManager:
   - Enemy Bullet
   - Enemy
   - melee
+  - RogueShot
+  - GUN
   layers:
   - Default
   - TransparentFX
@@ -33,8 +35,8 @@ TagManager:
   - Enemy
   - Enemy Bullet
   - Ground
-  - 
-  - 
+  - Strip
+  - Friendly Bullet
   - 
   - 
   - 
