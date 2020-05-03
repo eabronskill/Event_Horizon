@@ -10,6 +10,7 @@ public class UIEventCOntroller : MonoBehaviour
     public GameObject PauseMenu, playerOne, playerTwo, playerThree, playerFour, gameOver, missionSuccess;
     Rewired.Player player1;
     public static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    public GameObject tut;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,11 @@ public class UIEventCOntroller : MonoBehaviour
         if (playerOne.activeSelf == false && playerTwo.activeSelf == false && playerThree.activeSelf == false && playerFour.activeSelf == false)
         {
             print("Game Over");
-            GameOver();  
+            GameOver();
+            if (tut)
+            {
+                tut.SetActive(false);
+            }
         }
 
         if (missionSuccess.activeSelf)
