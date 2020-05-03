@@ -1481,7 +1481,6 @@ MonoBehaviour:
   meleed: 0
   usedAbility1: 0
   usedAbility2: 0
-  testing: 1
   strap: {fileID: 64533964}
   sword: {fileID: 1350386741239768041}
   projectile: {fileID: 5216780853246038395, guid: 92c340b1ab1b15e44bc53c2c8a5f4df7,

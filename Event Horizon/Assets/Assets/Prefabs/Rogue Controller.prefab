@@ -2613,7 +2613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8651507844434414050
 Transform:
   m_ObjectHideFlags: 0
@@ -2739,7 +2739,6 @@ MonoBehaviour:
   meleed: 0
   usedAbility1: 0
   usedAbility2: 0
-  testing: 1
   strap: {fileID: 1380645521}
   sword: {fileID: 1304543148345225303}
   projectile: {fileID: 7196980638786986980, guid: cacec3a032e32a14c9c5b5311378b224,
@@ -2779,13 +2778,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 4.37
-  m_Radius: 0.5
+  m_Height: 3.67
+  m_Radius: 0.42
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2.25, z: 0}
+  m_Center: {x: 0, y: 2.21, z: 0}
 --- !u!1 &8833986452441943843
 GameObject:
   m_ObjectHideFlags: 0

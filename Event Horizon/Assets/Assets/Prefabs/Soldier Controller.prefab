@@ -2154,7 +2154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8064502178942012882
 Transform:
   m_ObjectHideFlags: 0
@@ -2232,7 +2232,6 @@ MonoBehaviour:
   meleed: 0
   usedAbility1: 0
   usedAbility2: 0
-  testing: 1
   playerID: -1
   attackPoint: {fileID: 2923163325037765492}
   bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
