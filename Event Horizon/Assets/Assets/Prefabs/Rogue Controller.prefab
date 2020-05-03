@@ -2688,7 +2688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSetSpikes: 0
-  spikeCD: 30
+  spikeCD: 20
   canSetMine: 0
   mineSet: 0
   mineCD: 60
@@ -2715,9 +2715,9 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 100
   curClip: 0
-  maxClip: 60
+  maxClip: 10
   curAmmo: 0
-  maxAmmo: 120
+  maxAmmo: 50
   dead: 0
   playerAnimator: {fileID: 4546795898852939774}
   rifle: {fileID: 1006397763725657983}

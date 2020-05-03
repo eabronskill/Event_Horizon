@@ -1457,9 +1457,9 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 100
   curClip: 0
-  maxClip: 60
+  maxClip: 30
   curAmmo: 0
-  maxAmmo: 120
+  maxAmmo: 90
   dead: 0
   playerAnimator: {fileID: 914611112046995819}
   rifle: {fileID: 705560047380870581}
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   repairCD: 60
   turretTimeRemaining: 0
   repairTimeRemaining: 0
-  turretAliveTime: 15
+  turretAliveTime: 16
   turret: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da, type: 3}
   turretPrefab: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da,
     type: 3}

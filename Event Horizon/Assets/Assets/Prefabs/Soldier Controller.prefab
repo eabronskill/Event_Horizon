@@ -2261,12 +2261,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rapidFireDuration: 5
   rfFireRate: 0.08
-  rapidFireCD: 20
+  rapidFireCD: 60
   rapidFireTimeRemaining: 0
   grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
     type: 3}
   grenadeStart: {fileID: 8064502180463576899}
-  grenadeCD: 15
+  grenadeCD: 45
   throwForce: 30
   grenadeTimeRemaining: 0
   canUseGrenade: 1

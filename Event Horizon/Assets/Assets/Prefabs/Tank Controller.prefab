@@ -2104,9 +2104,9 @@ MonoBehaviour:
   curHealth: 0
   maxHealth: 200
   curClip: 0
-  maxClip: 100
+  maxClip: 75
   curAmmo: 0
-  maxAmmo: 200
+  maxAmmo: 150
   dead: 0
   playerAnimator: {fileID: 4879439265862278239}
   rifle: {fileID: 6269706437938690316}
@@ -2164,7 +2164,7 @@ MonoBehaviour:
   shieldTimeRemaining: 0
   shieldDown: 0
   stunSprite: {fileID: 7114397071310746249}
-  groundPoundCD: 1
+  groundPoundCD: 30
   groundPoundTimer: 0
   groundPoundTimeRemaining: 0
 --- !u!114 &261708168

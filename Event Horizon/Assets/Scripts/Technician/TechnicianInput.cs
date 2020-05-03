@@ -153,9 +153,11 @@ public class TechnicianInput : Player
                     gunshot.Play();
                 }
 
-                //curAmmo--;
                 base.curClip -= 3;
-
+                if (base.curClip < 0)
+                {
+                    curClip = 0;
+                }
             }
 
             if (strapTimer > Time.time) //gun movement
