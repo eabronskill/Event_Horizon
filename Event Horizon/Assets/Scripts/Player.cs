@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool moved, shot, meleed, usedAbility1, usedAbility2;
 
-    public bool testing = true;
+    public bool testing = false;
 
     public void Update()
     {

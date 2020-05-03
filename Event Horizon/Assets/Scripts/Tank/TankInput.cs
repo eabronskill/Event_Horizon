@@ -49,23 +49,23 @@ public class TankInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (testing)
-        {
-            player = ReInput.players.GetPlayer(0);
-            MultipleTargetCamera.targets.Add(this.gameObject);
+        //if (testing)
+        //{
+        //    player = ReInput.players.GetPlayer(0);
+        //    MultipleTargetCamera.targets.Add(this.gameObject);
 
-            playerID = 0;
-            controller = GetComponent<CharacterController>();
-            if (UIEventCOntroller.players.Count == 0)
-            {
-                UIEventCOntroller.players.Add("Tank", this.gameObject);
-            }
-            if (SceneManager.GetActiveScene().name == "Level1")
-            {
-                Tutotrial.players.Add(this.gameObject);
-            }
-        }
-        else if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
+        //    playerID = 0;
+        //    controller = GetComponent<CharacterController>();
+        //    if (UIEventCOntroller.players.Count == 0)
+        //    {
+        //        UIEventCOntroller.players.Add("Tank", this.gameObject);
+        //    }
+        //    if (SceneManager.GetActiveScene().name == "Level1")
+        //    {
+        //        Tutotrial.players.Add(this.gameObject);
+        //    }
+        //}
+        if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);

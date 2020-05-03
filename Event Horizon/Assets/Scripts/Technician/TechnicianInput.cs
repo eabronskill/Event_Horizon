@@ -55,23 +55,23 @@ public class TechnicianInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (testing)
-        {
-            player = ReInput.players.GetPlayer(0);
-            MultipleTargetCamera.targets.Add(this.gameObject);
+        //if (testing)
+        //{
+        //    player = ReInput.players.GetPlayer(0);
+        //    MultipleTargetCamera.targets.Add(this.gameObject);
 
-            playerID = 2;
-            controller = GetComponent<CharacterController>();
-            if (UIEventCOntroller.players.Count == 0)
-            {
-                UIEventCOntroller.players.Add("Engineer", this.gameObject);
-            }
-            if (SceneManager.GetActiveScene().name == "Level1")
-            {
-                Tutotrial.players.Add(this.gameObject);
-            }
-        }
-        else if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
+        //    playerID = 2;
+        //    controller = GetComponent<CharacterController>();
+        //    if (UIEventCOntroller.players.Count == 0)
+        //    {
+        //        UIEventCOntroller.players.Add("Engineer", this.gameObject);
+        //    }
+        //    if (SceneManager.GetActiveScene().name == "Level1")
+        //    {
+        //        Tutotrial.players.Add(this.gameObject);
+        //    }
+        //}
+        if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
         {
             player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
