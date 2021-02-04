@@ -13,7 +13,7 @@ public class Ammo : MonoBehaviour
     public void Start()
     {
         text.SetActive(false);
-        if (ChS_Controller._singlePlayer) text.GetComponent<TextMeshPro>().text = "'E':\nHealing";
+        if (ChS_Controller._singlePlayer) text.GetComponent<TextMeshPro>().text = "'E':\nAmmo";
     }
     public void use()
     {

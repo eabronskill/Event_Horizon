@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using TMPro;
 
 public class Terminal : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Terminal : MonoBehaviour
     private void Start()
     {
         directions.SetActive(false);
+        if (ChS_Controller._singlePlayer) directions.GetComponent<TextMeshPro>().text = "Press 'E' to Activate.";
     }
 
     void OnTriggerStay(Collider col)
