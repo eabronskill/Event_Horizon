@@ -9,7 +9,6 @@ public class ElevatorScript : MonoBehaviour
 {
     public Light front, inside;
     Rewired.Player player1, player2, player3, player4;
-    private bool tank, soldier, rogue, engineer;
    
     
     public GameObject text;
@@ -36,11 +35,10 @@ public class ElevatorScript : MonoBehaviour
     {
         inside.gameObject.SetActive(false);
         text.SetActive(false);
-        
     }
     
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (phase2)
         {
@@ -63,7 +61,11 @@ public class ElevatorScript : MonoBehaviour
             else
             {
                 inside.gameObject.SetActive(false);
-                text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
+                if (ChS_Controller._singlePlayer)
+                {
+                    text.GetComponent<TextMeshPro>().text = "Press 'E' to Activate Elevator";
+                }
+                else text.GetComponent<TextMeshPro>().text = "Press 'A' to Activate Elevator";
                 front.gameObject.SetActive(true);
                 inside.color = Color.green;
                 phase2 = false;
@@ -100,7 +102,6 @@ public class ElevatorScript : MonoBehaviour
             {
                 if (col.gameObject.name.Equals("Tank Controller"))
                 {
-                    tank = true;
                     player1 = col.GetComponent<TankInput>()._player;
                     if (player1.GetButtonDown("Interact"))
                     {
@@ -110,7 +111,6 @@ public class ElevatorScript : MonoBehaviour
                 }
                 if (col.gameObject.name.Equals("Soldier Controller"))
                 {
-                    soldier = true;
                     player2 = col.GetComponent<SoldierInput>()._player;
                     if (player2.GetButtonDown("Interact"))
                     {
@@ -120,7 +120,6 @@ public class ElevatorScript : MonoBehaviour
                 }
                 if (col.gameObject.name.Equals("Engineer Controller"))
                 {
-                    engineer = true;
                     player3 = col.GetComponent<TechnicianInput>()._player;
                     if (player3.GetButtonDown("Interact"))
                     {
@@ -130,7 +129,6 @@ public class ElevatorScript : MonoBehaviour
                 }
                 if (col.gameObject.name.Equals("Rogue Controller"))
                 {
-                    rogue = true;
                     player4 = col.GetComponent<rogueInput>()._player;
                     if (player4.GetButtonDown("Interact"))
                     {

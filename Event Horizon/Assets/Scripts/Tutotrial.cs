@@ -41,6 +41,10 @@ public class Tutotrial : MonoBehaviour
                 enemies.Add(o.gameObject);
             }
         }
+        if (ChS_Controller._singlePlayer)
+        {
+            text.GetComponent<Text>().text = "Use WASD to move";
+        }
     }
 
     void Update()
