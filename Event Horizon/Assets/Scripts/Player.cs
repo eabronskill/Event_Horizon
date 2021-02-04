@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     public GameObject _gameOverCanvas;
     public GameObject _pauseMenu;
     public GameObject _victoryCanvas;
+    GameObject _controlsMenu;
     bool _gameOver = false;
 
     //Movement Vars
@@ -87,18 +88,27 @@ public class Player : MonoBehaviour
         // Game is Running
         if (!_gameOver)
         {
-            if (_player.GetButtonDown("Menu") && !_pauseMenu.activeSelf)
+            if (!_controlsMenu) _controlsMenu = _pauseMenu.GetComponent<PauseMenuController>().ControlsMenu;
+            if (_player.GetButtonDown("Menu"))
             {
-                Time.timeScale = 0;
-                _pauseMenu.SetActive(true);
-                _pauseMenu.GetComponent<PauseMenuController>().setPlayer(this._player);
-            }
-            else if (_player.GetButtonDown("Menu") && _pauseMenu.activeSelf)
-            {
-                Time.timeScale = 1;
-                _pauseMenu.SetActive(false);
-                _pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
+                if (_controlsMenu.activeSelf)
+                {
+                    _controlsMenu.SetActive(false);
+                    return;
+                }
 
+                if (_pauseMenu.activeSelf)
+                {
+                    Time.timeScale = 1;
+                    _pauseMenu.SetActive(false);
+                    _pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
+                }
+                else
+                {
+                    Time.timeScale = 0;
+                    _pauseMenu.SetActive(true);
+                    _pauseMenu.GetComponent<PauseMenuController>().setPlayer(_player);
+                }
             }
         }
 

@@ -22,90 +22,96 @@ public class PauseMenuController : MonoBehaviour
         buttons[0] = (selectButton);
         buttons[1] = (controlsButton);
         buttons[2] = (quitButton);
+        if (ChS_Controller._singlePlayer) return;
         buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.activeSelf)
-        {
-            Time.timeScale = 0;
-        }
-        
-        if (player1?.controllers.Joysticks.Count > 0)
-        {
-            if (player1.GetButtonDown("Interact"))
-            {
-                if (iter == 0)
-                {
-                    resumeGame();
-                }
-                else if (iter == 1)
-                {
-                    controls();
-                }
-                else
-                {
-                    exitGame();
-                }
-            }
-            if (player1.GetButtonDown("Up"))
-            {
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
-                if (iter == 0)
-                {
-                    iter = 2;
-                }
-                else
-                {
-                    iter--;
-                }
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
-            }
-            if (player1.GetButtonDown("Down"))
-            {
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
+        if (!gameObject.activeSelf) return;
+        else Time.timeScale = 0;
 
-                if (iter == 2)
-                {
-                    iter = 0;
-                }
-                else
-                {
-                    iter++;
-                }
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
-            }
-            if (ControlsMenu.activeSelf && player1.GetButtonDown("Back"))
+        print(ControlsMenu.activeSelf);
+
+        //if (ControlsMenu.activeSelf && (player1.GetButtonDown("Back") || Input.GetKeyDown(KeyCode.Escape)))
+        //{
+        //    print("A");
+        //    ControlsMenu.SetActive(false);
+        //}
+        //else if (player1.GetButtonDown("Back") || Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    print("B");
+        //    Time.timeScale = 1;
+        //    ControlsMenu.SetActive(false);
+        //    gameObject.SetActive(false);
+        //    return;
+        //}
+
+        if (ChS_Controller._singlePlayer) return;
+
+        if (player1.GetButtonDown("Interact"))
+        {
+            if (iter == 0)
             {
-                ControlsMenu.SetActive(false);
+                resumeGame();
             }
-            else if (player1.GetButtonDown("Back"))
+            else if (iter == 1)
             {
-                Time.timeScale = 1;
-                this.gameObject.SetActive(false);
+                controls();
             }
+            else
+            {
+                exitGame();
+            }
+        }
+        if (player1.GetButtonDown("Up"))
+        {
+            buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
+            if (iter == 0)
+            {
+                iter = 2;
+            }
+            else
+            {
+                iter--;
+            }
+            buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
+        }
+        if (player1.GetButtonDown("Down"))
+        {
+            buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
+
+            if (iter == 2)
+            {
+                iter = 0;
+            }
+            else
+            {
+                iter++;
+            }
+            buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
         }
     }
 
-    private void resumeGame()
+    public void resumeGame()
     {
         Time.timeScale = 1f;
         this.gameObject.SetActive(false);
         active = false;
     }
 
-    private void controls()
+    public void controls()
     {
         ControlsMenu.SetActive(true);
     }
 
-    private void exitGame()
+    public void exitGame()
     {
         MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
         ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
         ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+        ChS_Controller._singlePlayer = false;
         UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
         SceneManager.LoadScene("MainMenu");
     }
