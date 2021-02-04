@@ -2732,6 +2732,7 @@ MonoBehaviour:
   _healingItem: {fileID: 0}
   _hasAmmo: 0
   _hasHealing: 0
+  _cantUse: 0
   _gameOverCanvas: {fileID: 0}
   _pauseMenu: {fileID: 0}
   _victoryCanvas: {fileID: 0}

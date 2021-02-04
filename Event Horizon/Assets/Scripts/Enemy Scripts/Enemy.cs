@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
 
     public bool canBeStunned = true;
     
-    bool dead = false;
+    [HideInInspector] public bool dead = false;
     float deathTimer = 0f;
 
     //sounds
@@ -317,10 +317,7 @@ public class Enemy : MonoBehaviour
         }
         if (coll.gameObject.tag == "melee")
         {
-
-            
             meleeHit.Play();
-
 
             currHP = currHP - 20;
             if (currHP <= 0)
@@ -351,11 +348,7 @@ public class Enemy : MonoBehaviour
 
         if (coll.gameObject.tag == "RogueShot")
         {
-
-
             bulletHit.Play();
-
-
             currHP = currHP - 50;
             if (currHP <= 0)
             {

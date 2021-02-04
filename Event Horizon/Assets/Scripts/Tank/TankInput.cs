@@ -71,9 +71,9 @@ public class TankInput : Player
 
     void Initialize()
     {
-        if (ChS_Controller._finalSelection.ContainsKey("Tank Icon"))
+        if (CharacterSelectController._finalSelection.ContainsKey("Tank Icon"))
         {
-            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Tank Icon"]);
+            _player = ReInput.players.GetPlayer(CharacterSelectController._finalSelection["Tank Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
 
             _playerID = _player.id;

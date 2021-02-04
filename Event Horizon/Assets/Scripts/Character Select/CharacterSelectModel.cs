@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Handles all the back-end logic for Character Selection.
 /// </summary>
-public class ChS_Model
+public class CharacterSelectModel
 {
     public GameObject _tankIcon, _soldierIcon, _rogueIcon, _engineerIcon;
 

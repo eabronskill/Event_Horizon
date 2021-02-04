@@ -1,90 +1,96 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Controls the Engineer's Turret. Calculates a target and rotates towards that target. Shoots every {_turretShotCD} seconds. 
+/// </summary>
 public class Turret : MonoBehaviour
 {
-    private GameObject nearestEnemy;
-    private bool targetAlive;
-    public GameObject guns;
-    public GameObject attackPoint;
-    public GameObject projectile;
-    public GameObject text;
-    private int itr;
-    private int currHP;
-    private int maxHP;
-    private float timer;
-    public float turretShotCD = 1;
+    public GameObject _guns, _attackPoint, _projectile, _text;
+    GameObject[] _enemies;
+    GameObject _target;
 
-    public float aliveTimer; // Gets set in the TechnicianAbilities script;
+    public float _turretShotCD = 1;
+    public int _attackRange = 60;
 
-    private float timeRemaining;
+    public float _aliveTime; // Gets set in the TechnicianAbilities script;
+    float _shotTimer, _timeRemaining;
 
-    public AudioSource sound;
+    public AudioSource _sound;
 
+    Ray _ray;
+    RaycastHit _hit;
+    int _countdownNumber;
 
-    // Start is called before the first frame update
     void Start()
     {
-        targetAlive = false;
-
-        guns.transform.rotation.SetLookRotation(attackPoint.transform.forward);
-        itr = 0;
-        maxHP = 100;
-        currHP = maxHP;
-        timeRemaining = Time.time + aliveTimer;
+        _guns.transform.rotation.SetLookRotation(_attackPoint.transform.forward);
+        _timeRemaining = Time.time + _aliveTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        int i = (int)(timeRemaining - Time.time);
-        text.GetComponent<TextMeshPro>().text = "" + i;
-        if (text.GetComponent<Billboard>().cam == null)
-        {
-            text.GetComponent<Billboard>().cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        }
+        UpdateCountdownText();
         
-        if (nearestEnemy != null)
-            targetAlive = true;
-        else
-            targetAlive = false;
-
-        if (targetAlive)
+        if (_target)
         {
-            /*Vector3 relativePos = nearestEnemy.transform.position - transform.position; ~~~~~~~~~~also worked
-            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            guns.transform.rotation = rotation;*/
-            guns.transform.LookAt(nearestEnemy.transform.position);
-            //attackPoint.transform.LookAt(nearestEnemy.transform.position);
-            Vector3 rotatedVector = Quaternion.AngleAxis(-90, Vector3.up) * guns.transform.forward;
-
-            guns.transform.forward = rotatedVector;
-
-            if (Time.time > timer)
+            // Check if the Target is dead, out of range, or LOSed
+            _ray = new Ray(_attackPoint.transform.position, (_target.transform.position - transform.position));
+            if (Physics.Raycast(_ray, out _hit, _attackRange) && (_target.GetComponent<Enemy>().dead || _hit.collider.gameObject.CompareTag("Untagged")))
             {
-                Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
-                timer = Time.time + turretShotCD;
-                sound.Play();
+                _target = null;
+                return;
+            }
+
+            // Rotate the turret
+            _guns.transform.LookAt(_target.transform.position);
+            Vector3 rotatedVector = Quaternion.AngleAxis(-90, Vector3.up) * _guns.transform.forward;
+            _guns.transform.forward = rotatedVector;
+
+            // Shoot
+            if (Time.time > _shotTimer)
+            {
+                Instantiate(_projectile, _attackPoint.transform.position, _attackPoint.transform.rotation);
+                _shotTimer = Time.time + _turretShotCD;
+                _sound.Play();
             }
         }
-
         else
         {
-            nearestEnemy = GameObject.FindGameObjectWithTag("Enemy");
-            if (!nearestEnemy.GetComponent<Enemy>().active)
+            // Find the closest, valid enemy.
+            float closestSoFar = 10000000f;
+            float distance;
+            GameObject bestSoFar = null;
+            _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in _enemies)
             {
-                nearestEnemy = null;
+                _ray = new Ray(_attackPoint.transform.position, (enemy.transform.position - transform.position));
+                distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+                if (distance <= _attackRange)
+                {
+                    if (Physics.Raycast(_ray, out _hit, closestSoFar) && _hit.collider.gameObject.CompareTag("Enemy"))
+                    {
+                        bestSoFar = enemy;
+                        closestSoFar = distance;
+                    }
+                }
             }
+            _target = bestSoFar;
         }
     }
 
-           
-
-    void repair()
+    void UpdateCountdownText()
     {
-        currHP = maxHP;
+        _countdownNumber = (int)(_timeRemaining - Time.time);
+        _text.GetComponent<TextMeshPro>().text = "" + _countdownNumber;
+        if (_text.GetComponent<Billboard>().cam == null)
+        {
+            _text.GetComponent<Billboard>().cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        }
+    }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }

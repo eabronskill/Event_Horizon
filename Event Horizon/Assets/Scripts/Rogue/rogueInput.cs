@@ -47,9 +47,9 @@ public class rogueInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (ChS_Controller._finalSelection.ContainsKey("Rogue Icon"))
+        if (CharacterSelectController._finalSelection.ContainsKey("Rogue Icon"))
         {
-            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Rogue Icon"]);
+            _player = ReInput.players.GetPlayer(CharacterSelectController._finalSelection["Rogue Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             
             _playerID = _player.id;
@@ -89,20 +89,21 @@ public class rogueInput : Player
     // Update is called once per frame
     new void Update()
     {
-        if (Time.timeScale != 1) return;
+
         base.Update();
+        if (Time.timeScale != 1) return;
 
         if (Input.GetKeyDown("space") && canJump)
             jump();
-        if (Input.GetKeyDown("v") && canJump)
+        if (Input.GetKeyDown(KeyCode.V) && canJump)
             dash();
-        if (_player.GetButtonDown("Ability1") && abilities.canSetSpikes)
+        if (_player.GetButton("Ability1") && abilities.canSetSpikes)
         {
             _usedAbility1 = true;
             abilities.setSpikes();
             setItem.Play();
         }
-        if (_player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
+        if (_player.GetButton("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
             _usedAbility2 = true;
             abilities.setMine();
@@ -141,10 +142,7 @@ public class rogueInput : Player
         movementVec.x = Input.GetAxis("Horizontal");
         movementVec.z = Input.GetAxis("Vertical");
 
-        for (int i = 0; i < 6; i++)
-        {
-            GetComponent<Rigidbody>().AddForce(movementVec * 2);
-        }
+        print(_controller.attachedRigidbody);
     }
 
     private void jumpTimer()

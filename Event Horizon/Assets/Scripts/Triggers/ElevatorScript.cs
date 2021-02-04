@@ -61,7 +61,7 @@ public class ElevatorScript : MonoBehaviour
             else
             {
                 inside.gameObject.SetActive(false);
-                if (ChS_Controller._singlePlayer)
+                if (CharacterSelectController._singlePlayer)
                 {
                     text.GetComponent<TextMeshPro>().text = "Press 'E' to Activate Elevator";
                 }
@@ -102,37 +102,37 @@ public class ElevatorScript : MonoBehaviour
             {
                 if (col.gameObject.name.Equals("Tank Controller"))
                 {
-                    player1 = col.GetComponent<TankInput>()._player;
-                    if (player1.GetButtonDown("Interact"))
+                    player1 = col.gameObject.GetComponent<TankInput>()._player;
+                    if (player1.GetButton("Interact"))
                     {
-                        col.GetComponent<TankInput>()._victoryCanvas.SetActive(true);
+                        col.gameObject.GetComponent<TankInput>()._victoryCanvas.SetActive(true);
                         phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Soldier Controller"))
                 {
-                    player2 = col.GetComponent<SoldierInput>()._player;
-                    if (player2.GetButtonDown("Interact"))
+                    player2 = col.gameObject.GetComponent<SoldierInput>()._player;
+                    if (player2.GetButton("Interact"))
                     {
-                        col.GetComponent<SoldierInput>()._victoryCanvas.SetActive(true);
+                        col.gameObject.GetComponent<SoldierInput>()._victoryCanvas.SetActive(true);
                         phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Engineer Controller"))
                 {
-                    player3 = col.GetComponent<TechnicianInput>()._player;
-                    if (player3.GetButtonDown("Interact"))
+                    player3 = col.gameObject.GetComponent<TechnicianInput>()._player;
+                    if (player3.GetButton("Interact"))
                     {
-                        col.GetComponent<TechnicianInput>()._victoryCanvas.SetActive(true);
+                        col.gameObject.GetComponent<TechnicianInput>()._victoryCanvas.SetActive(true);
                         phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Rogue Controller"))
                 {
-                    player4 = col.GetComponent<rogueInput>()._player;
-                    if (player4.GetButtonDown("Interact"))
+                    player4 = col.gameObject.GetComponent<rogueInput>()._player;
+                    if (player4.GetButton("Interact"))
                     {
-                        col.GetComponent<rogueInput>()._victoryCanvas.SetActive(true);
+                        col.gameObject.GetComponent<rogueInput>()._victoryCanvas.SetActive(true);
                         phase3 = false;
                     }
                 }

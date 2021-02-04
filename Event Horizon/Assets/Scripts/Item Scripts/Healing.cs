@@ -13,7 +13,7 @@ public class Healing : MonoBehaviour
     public void Start()
     {
         text.SetActive(false);
-        if (ChS_Controller._singlePlayer) text.GetComponent<TextMeshPro>().text = "'E':\nHealing";
+        if (CharacterSelectController._singlePlayer) text.GetComponent<TextMeshPro>().text = "'E':\nHealing";
     }
 
     public void use()

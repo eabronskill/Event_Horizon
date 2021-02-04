@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Handles the updates to the visuals in the Character Select screen.
 /// </summary>
-public class ChS_View
+public class CharacterSelectView
 {
     public GameObject player1Hover, player2Hover, player3Hover, player4Hover, tankIcon, soldierIcon,
         rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1,
@@ -124,7 +124,7 @@ public class ChS_View
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="character"></param>
-    public void NextCharacter(int playerID, ChS_Model.Character character)
+    public void NextCharacter(int playerID, CharacterSelectModel.Character character)
     {
         // If the character has a playerID of -1, it means the player has selected this character, and the 
         // Up and Down buttons should do nothing. So, do nothing and return.

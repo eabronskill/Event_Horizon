@@ -58,10 +58,10 @@ public class TechnicianAbilities : MonoBehaviour
         turretLoc.y += .3f;
         turretLoc += transform.forward * 2;
 
-        if (turret) Destroy(turret);
+        if (turret) turret.GetComponent<Turret>().Kill();
 
         turret = Instantiate(turretPrefab, turretLoc, transform.rotation); //TODO: TURRET LOGIC
-        turret.GetComponent<Turret>().aliveTimer = turretAliveTime;
+        turret.GetComponent<Turret>()._aliveTime = turretAliveTime;
         Invoke("resetTurret", turretCD);
         Invoke("destroyTurret", turretAliveTime);
         turretSet = true;

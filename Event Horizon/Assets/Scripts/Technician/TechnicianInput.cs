@@ -50,9 +50,9 @@ public class TechnicianInput : Player
     // Start is called before the first frame update
     void Start()
     {
-        if (ChS_Controller._finalSelection.ContainsKey("Engineer Icon"))
+        if (CharacterSelectController._finalSelection.ContainsKey("Engineer Icon"))
         {
-            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Engineer Icon"]);
+            _player = ReInput.players.GetPlayer(CharacterSelectController._finalSelection["Engineer Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             
             _playerID = _player.id;
@@ -99,8 +99,9 @@ public class TechnicianInput : Player
     // Update is called once per frame
     new void Update()
     {
-        if (Time.timeScale != 1) return;
+
         base.Update();
+        if (Time.timeScale != 1) return;
 
         if (Input.GetKeyDown("space") && canJump)
             jump();
@@ -133,7 +134,7 @@ public class TechnicianInput : Player
                     gunshot.Play();
                 }
 
-                base._curClip -= 3;
+                base._curClip--;
                 if (base._curClip < 0)
                 {
                     _curClip = 0;

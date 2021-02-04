@@ -16,13 +16,14 @@ public class Terminal : MonoBehaviour
     private void Start()
     {
         directions.SetActive(false);
-        if (ChS_Controller._singlePlayer) directions.GetComponent<TextMeshPro>().text = "Press 'E' to Activate.";
+        if (CharacterSelectController._singlePlayer) directions.GetComponent<TextMeshPro>().text = "Press 'E' to Activate.";
     }
 
     void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && !activated)
         {
+            col.gameObject.GetComponent<Player>()._cantUse = true;
 
             directions.SetActive(true);
 
@@ -71,6 +72,10 @@ public class Terminal : MonoBehaviour
                 }
             }
         }
+        else if (col.gameObject.tag == "Player" && activated)
+        {
+            col.gameObject.GetComponent<Player>()._cantUse = false;
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -78,6 +83,7 @@ public class Terminal : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             directions.SetActive(false);
+            col.gameObject.GetComponent<Player>()._cantUse = false;
         }
     }
 }

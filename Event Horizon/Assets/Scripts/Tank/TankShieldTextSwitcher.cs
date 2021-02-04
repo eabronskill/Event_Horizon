@@ -9,6 +9,6 @@ public class TankShieldTextSwitcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (ChS_Controller._singlePlayer) text.text = "'E' to Pickup";
+        if (CharacterSelectController._singlePlayer) text.text = "'E' to Pickup";
     }
 }

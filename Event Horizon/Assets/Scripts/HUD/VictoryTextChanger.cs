@@ -9,6 +9,6 @@ public class VictoryTextChanger : MonoBehaviour
     public string newText;
     void Update()
     {
-        if (ChS_Controller._singlePlayer) text.GetComponent<Text>().text = newText;   
+        if (CharacterSelectController._singlePlayer) text.GetComponent<Text>().text = newText;   
     }
 }

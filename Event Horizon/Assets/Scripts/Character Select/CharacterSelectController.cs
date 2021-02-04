@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Rewired;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Rewired;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles the input from the players in the Character Select screen.
 /// </summary>
-public class ChS_Controller : MonoBehaviour
+public class CharacterSelectController : MonoBehaviour
 {
     public GameObject player1Hover, player2Hover, player3Hover, player4Hover, tankIcon, soldierIcon, 
         rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1
@@ -23,13 +23,13 @@ public class ChS_Controller : MonoBehaviour
     /// </summary>
     public static Dictionary<string, int> _finalSelection = new Dictionary<string, int>();
 
-    ChS_Model _model;
-    ChS_View _view;
+    CharacterSelectModel _model;
+    CharacterSelectView _view;
 
     public AudioSource _buttonClickSound;
 
-    public static bool _singlePlayer; // Used for singleplayer functionality in other classes.
-    int _connectedControllers; 
+    [HideInInspector] public static bool _singlePlayer; // Used for singleplayer functionality in other classes.
+    [HideInInspector] public int _connectedControllers; 
     int _charactersSelected;
     bool _canPlay;
 
@@ -39,7 +39,7 @@ public class ChS_Controller : MonoBehaviour
     void Awake()
     {
         // Inilialize model and view.
-        _model = new ChS_Model()
+        _model = new CharacterSelectModel()
         {
             _tankIcon = tankIcon,
             _soldierIcon = soldierIcon,
@@ -47,7 +47,7 @@ public class ChS_Controller : MonoBehaviour
             _engineerIcon = engineerIcon
         };
         _model.Intitialize();
-        _view = new ChS_View()
+        _view = new CharacterSelectView()
         {
             player1Hover = player1Hover,
             player2Hover = player2Hover,
@@ -90,11 +90,6 @@ public class ChS_Controller : MonoBehaviour
         _view.ToggleGroupOn(group3);
         _view.ToggleGroupOn(group4);
 
-        // Subscribe to events
-        ReInput.ControllerConnectedEvent += OnControllerConnected;
-        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
-        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
-
         playButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         _readytoPlay.SetActive(false);
         _waitingforPlayers.SetActive(true);
@@ -103,6 +98,16 @@ public class ChS_Controller : MonoBehaviour
     void Update()
     {
         ControllerInput();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+            CharacterSelectModel._idToCharacter = new System.Collections.Generic.Dictionary<int, CharacterSelectModel.Character>();
+            _finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+            _singlePlayer = false;
+            UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+            SceneManager.LoadScene("MainMenu");
+        }
 
         int numNeeded = 0;
         // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
@@ -147,7 +152,6 @@ public class ChS_Controller : MonoBehaviour
         if (_playerIDToPlayer.ContainsKey(1) && _playerIDToPlayer[1].controllers.Joysticks.Count > 0)
         {
             _view.ToggleGroupOn(group2);
-            print("Player2");
             GetInput(1);
         }
         else
@@ -158,7 +162,6 @@ public class ChS_Controller : MonoBehaviour
         if (_playerIDToPlayer.ContainsKey(2) && _playerIDToPlayer[2].controllers.Joysticks.Count > 0)
         {
             _view.ToggleGroupOn(group3);
-            print("Player3");
             GetInput(2);
         }
         else
@@ -169,7 +172,6 @@ public class ChS_Controller : MonoBehaviour
         if (_playerIDToPlayer.ContainsKey(3) && _playerIDToPlayer[3].controllers.Joysticks.Count > 0)
         {
             _view.ToggleGroupOn(group4);
-            print("Player4");
             GetInput(3);
         }
         else
@@ -219,27 +221,32 @@ public class ChS_Controller : MonoBehaviour
         {
             _buttonClickSound.pitch = 1;
             _buttonClickSound.Play();
-            print("Select" + playerID);
             SelectButtonClick(playerID+1);
         }
         if (_playerIDToPlayer[playerID].GetButtonDown("Up"))
         {
             _buttonClickSound.pitch = 2;
             _buttonClickSound.Play();
-            print("Up" + playerID);
             UpButtonClick(playerID+1);
         }
         if (_playerIDToPlayer[playerID].GetButtonDown("Down"))
         {
             _buttonClickSound.pitch = 2;
             _buttonClickSound.Play();
-            print("Down" + playerID);
             DownButtonClick(playerID+1);
         }
         if (_playerIDToPlayer[playerID].GetButtonDown("Play"))
         {
-            print("Play" + playerID);
             PlayButtonClick();
+        }
+        if (_playerIDToPlayer[playerID].GetButtonDown("Back"))
+        {
+            MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+            CharacterSelectModel._idToCharacter = new System.Collections.Generic.Dictionary<int, CharacterSelectModel.Character>();
+            _finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+            _singlePlayer = false;
+            UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

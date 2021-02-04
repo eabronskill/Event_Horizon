@@ -47,10 +47,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public Healing _healingItem;
     [HideInInspector] public bool _hasAmmo = false;
     [HideInInspector] public bool _hasHealing = false;
+    [HideInInspector] public bool _cantUse = false;
     float _itemBufferTimer;
     float _itemBufferCD = 0.5f;
-    bool _cantUse = false;
-
+    
     // Canvas Vars
     public GameObject _gameOverCanvas;
     public GameObject _pauseMenu;
@@ -113,15 +113,15 @@ public class Player : MonoBehaviour
         }
 
         // Players Lost
-        if (_gameOverCanvas.activeSelf) // && player.controllers.joystickCount >= 1
+        if (_gameOverCanvas.activeSelf) 
         {
             _gameOver = true;
-            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E))) //&& player.controllers.joystickCount >= 1
+            if (_player.GetButtonDown("Interact")) 
             {
                 MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-                ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-                ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
-                ChS_Controller._singlePlayer = false;
+                CharacterSelectModel._idToCharacter = new System.Collections.Generic.Dictionary<int, CharacterSelectModel.Character>();
+                CharacterSelectController._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+                CharacterSelectController._singlePlayer = false;
                 UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
                 Time.timeScale = 1;
                 SceneManager.LoadScene("MainMenu");
@@ -129,11 +129,13 @@ public class Player : MonoBehaviour
         }
         
         // Players Won
-        if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _victoryCanvas.activeSelf)
+        if (_player.GetButtonDown("Interact") && _victoryCanvas.activeSelf)
         {
+            print("HERE");
             Time.timeScale = 1;
             if (SceneManager.GetActiveScene().name.Equals("Level1"))
             {
+                print("HERE2");
                 UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
                 SceneManager.LoadScene("Level2");
             }
@@ -141,9 +143,9 @@ public class Player : MonoBehaviour
             {
                 UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
                 MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-                ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-                ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
-                ChS_Controller._singlePlayer = false;
+                CharacterSelectModel._idToCharacter = new System.Collections.Generic.Dictionary<int, CharacterSelectModel.Character>();
+                CharacterSelectController._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+                CharacterSelectController._singlePlayer = false;
                 SceneManager.LoadScene("MainMenu");
             }
         }
@@ -260,32 +262,36 @@ public class Player : MonoBehaviour
         if (_itemBufferTimer > Time.time) return; // Prevents unwanted spawm use/pickup.
         if (_cantUse) return; // Player is standing on another item
         // Ammo
-        if (_hasAmmo && (_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)))
+        if (_hasAmmo && _player.GetButtonDown("Interact"))
         {
             _ammoItem.use();
             _hasAmmo = false;
+            _itemBufferTimer = Time.time + _itemBufferCD;
         }
-        else if (_hasAmmo && (_player.GetButtonDown("DropItem") || Input.GetKeyDown(KeyCode.B)))
+        else if (_hasAmmo && _player.GetButton("DropItem"))
         {
             _ammoItem.gameObject.SetActive(true);
             _ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             _ammoItem.player = null;
             _ammoItem = null;
             _hasAmmo = false;
+            _itemBufferTimer = Time.time + _itemBufferCD;
         }
         // Healing
-        if (_hasHealing && (_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)))
+        if (_hasHealing && _player.GetButtonDown("Interact"))
         {
             _healingItem.use();
             _hasHealing = false;
+            _itemBufferTimer = Time.time + _itemBufferCD;
         }
-        else if (_hasHealing && (_player.GetButtonDown("DropItem") || Input.GetKeyDown(KeyCode.B)))
+        else if (_hasHealing && _player.GetButton("DropItem"))
         {
             _healingItem.gameObject.SetActive(true);
             _healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             _healingItem.player = null;
             _healingItem = null;
             _hasHealing = false;
+            _itemBufferTimer = Time.time + _itemBufferCD;
         }
     }
 
@@ -327,59 +333,65 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Ammo"))
         {
             _cantUse = true;
-            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && !(_hasAmmo || _hasHealing))
+            if (_player.GetButton("Interact"))
             {
-                _ammoItem = other.GetComponent<Ammo>();
-                _ammoItem.player = this;
-                _ammoItem.gameObject.SetActive(false);
-                _hasAmmo = true;
-                _itemBufferTimer = Time.time + _itemBufferCD;
-                _cantUse = false;
-            }
-            else if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _hasHealing)
-            {
-                _healingItem.gameObject.SetActive(true);
-                _healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                _healingItem.player = null;
-                _healingItem = null;
-                _hasHealing = false;
+                if (!(_hasAmmo || _hasHealing))
+                {
+                    _ammoItem = other.GetComponent<Ammo>();
+                    _ammoItem.player = this;
+                    _ammoItem.gameObject.SetActive(false);
+                    _hasAmmo = true;
+                    _itemBufferTimer = Time.time + _itemBufferCD;
+                    _cantUse = false;
+                }
+                else if (_hasHealing)
+                {
+                    _healingItem.gameObject.SetActive(true);
+                    _healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                    _healingItem.player = null;
+                    _healingItem = null;
+                    _hasHealing = false;
 
 
-                _ammoItem = other.GetComponent<Ammo>();
-                _ammoItem.player = this;
-                _ammoItem.gameObject.SetActive(false);
-                _hasAmmo = true;
-                _itemBufferTimer = Time.time + _itemBufferCD;
-                _cantUse = false;
+                    _ammoItem = other.GetComponent<Ammo>();
+                    _ammoItem.player = this;
+                    _ammoItem.gameObject.SetActive(false);
+                    _hasAmmo = true;
+                    _itemBufferTimer = Time.time + _itemBufferCD;
+                    _cantUse = false;
+                }
             }
 
         }
         if (other.CompareTag("Healing"))
         {
             _cantUse = true;
-            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && !(_hasAmmo || _hasHealing))
+            if (_player.GetButton("Interact"))
             {
-                _healingItem = other.GetComponent<Healing>();
-                _healingItem.player = this;
-                _healingItem.gameObject.SetActive(false);
-                _hasHealing = true;
-                _itemBufferTimer = Time.time + _itemBufferCD;
-                _cantUse = false;
-            }
-            else if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _hasAmmo)
-            {
-                _ammoItem.gameObject.SetActive(true);
-                _ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                _ammoItem.player = null;
-                _ammoItem = null;
-                _hasAmmo = false;
+                if (!(_hasAmmo || _hasHealing))
+                {
+                    _healingItem = other.GetComponent<Healing>();
+                    _healingItem.player = this;
+                    _healingItem.gameObject.SetActive(false);
+                    _hasHealing = true;
+                    _itemBufferTimer = Time.time + _itemBufferCD;
+                    _cantUse = false;
+                }
+                else if (_hasAmmo)
+                {
+                    _ammoItem.gameObject.SetActive(true);
+                    _ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                    _ammoItem.player = null;
+                    _ammoItem = null;
+                    _hasAmmo = false;
 
-                _healingItem = other.GetComponent<Healing>();
-                _healingItem.player = this;
-                _healingItem.gameObject.SetActive(false);
-                _hasHealing = true;
-                _itemBufferTimer = Time.time + _itemBufferCD;
-                _cantUse = false;
+                    _healingItem = other.GetComponent<Healing>();
+                    _healingItem.player = this;
+                    _healingItem.gameObject.SetActive(false);
+                    _hasHealing = true;
+                    _itemBufferTimer = Time.time + _itemBufferCD;
+                    _cantUse = false;
+                }
             }
         }
     }

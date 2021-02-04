@@ -284,13 +284,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f485aa86749a5c242aeeae046f8c49d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guns: {fileID: 4856432706868662893}
-  attackPoint: {fileID: 5906343118399378208}
-  projectile: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
-  text: {fileID: 4513628970400800474}
-  turretShotCD: 0.5
-  aliveTimer: 0
-  sound: {fileID: 3179296878697683410}
+  _guns: {fileID: 4856432706868662893}
+  _attackPoint: {fileID: 5906343118399378208}
+  _projectile: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
+  _text: {fileID: 4513628970400800474}
+  _turretShotCD: 0.8
+  _attackRange: 60
+  _aliveTimer: 15
+  _sound: {fileID: 3179296878697683410}
 --- !u!1 &1979424170074645009
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class PauseMenuController : MonoBehaviour
         buttons[0] = (selectButton);
         buttons[1] = (controlsButton);
         buttons[2] = (quitButton);
-        if (ChS_Controller._singlePlayer) return;
+        if (CharacterSelectController._singlePlayer) return;
         buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
     }
 
@@ -48,7 +48,7 @@ public class PauseMenuController : MonoBehaviour
         //    return;
         //}
 
-        if (ChS_Controller._singlePlayer) return;
+        if (CharacterSelectController._singlePlayer) return;
 
         if (player1.GetButtonDown("Interact"))
         {
@@ -109,9 +109,9 @@ public class PauseMenuController : MonoBehaviour
     public void exitGame()
     {
         MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-        ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-        ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
-        ChS_Controller._singlePlayer = false;
+        CharacterSelectModel._idToCharacter = new System.Collections.Generic.Dictionary<int, CharacterSelectModel.Character>();
+        CharacterSelectController._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+        CharacterSelectController._singlePlayer = false;
         UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
         SceneManager.LoadScene("MainMenu");
     }

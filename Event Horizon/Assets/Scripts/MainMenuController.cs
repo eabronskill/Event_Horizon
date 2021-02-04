@@ -36,11 +36,6 @@ public class MainMenuController : MonoBehaviour
         _buttons[1] = _controlsButton;
         _buttons[2] = _quitButton;
 
-        // Subscribe to events
-        ReInput.ControllerConnectedEvent += OnControllerConnected;
-        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
-        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
-
         // If any controllers are connected before the game starts, grab them now.
         // The events wont fire if they are already connected.
         foreach (Joystick cont in ReInput.controllers.Joysticks)

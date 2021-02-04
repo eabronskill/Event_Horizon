@@ -63,9 +63,9 @@ public class SoldierInput : Player
 
     void Initialize()
     {
-        if (ChS_Controller._finalSelection.ContainsKey("Soldier Icon"))
+        if (CharacterSelectController._finalSelection.ContainsKey("Soldier Icon"))
         {
-            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Soldier Icon"]);
+            _player = ReInput.players.GetPlayer(CharacterSelectController._finalSelection["Soldier Icon"]);
             MultipleTargetCamera.targets.Add(gameObject);
 
             _playerID = _player.id;

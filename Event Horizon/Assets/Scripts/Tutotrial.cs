@@ -41,7 +41,7 @@ public class Tutotrial : MonoBehaviour
                 enemies.Add(o.gameObject);
             }
         }
-        if (ChS_Controller._singlePlayer)
+        if (CharacterSelectController._singlePlayer)
         {
             text.GetComponent<Text>().text = "Use WASD to move";
         }
@@ -74,7 +74,7 @@ public class Tutotrial : MonoBehaviour
                 itemSpawn = true;
             }
 
-            if (ChS_Controller._singlePlayer)
+            if (CharacterSelectController._singlePlayer)
             {
                 text.GetComponent<Text>().text = "Use E to pick up Items, Press E again to Use, and B to Drop an Equipped Item";
             }
@@ -100,7 +100,7 @@ public class Tutotrial : MonoBehaviour
         else if (phase2)
         {
             text.GetComponent<Text>().fontSize = 70;
-            if (ChS_Controller._singlePlayer)
+            if (CharacterSelectController._singlePlayer)
             {
                 text.GetComponent<Text>().text = "Use Left Click to Shoot, Right Click to Melee, 1 for Ability 1, and 2 for Ability 2";
             }

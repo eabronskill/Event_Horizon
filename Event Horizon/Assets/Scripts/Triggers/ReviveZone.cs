@@ -10,13 +10,13 @@ public class ReviveZone : MonoBehaviour
 
     private void Start()
     {
-        if (ChS_Controller._singlePlayer) text.SetActive(false);
+        if (CharacterSelectController._singlePlayer) text.SetActive(false);
     }
     void OnTriggerStay(Collider col)
     {
         if (col.gameObject.tag == "Player")
         {
-            if (col.gameObject.GetComponent<Player>()._player.GetButtonDown("Interact") && !ChS_Controller._singlePlayer)
+            if (col.gameObject.GetComponent<Player>()._player.GetButtonDown("Interact") && !CharacterSelectController._singlePlayer)
             {
                 for (int i = 0; i < characters.Count; i++)
                 {
