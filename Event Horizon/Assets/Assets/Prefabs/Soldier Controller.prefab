@@ -2203,49 +2203,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bf21cd063adf74c924437b26720322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curMoveSpeed: 0
-  movementSpeed: 7.5
-  curHealth: 1
-  maxHealth: 100
-  curClip: 0
-  maxClip: 50
-  curAmmo: 150
-  maxAmmo: 150
-  dead: 0
-  playerAnimator: {fileID: 3617170065032838221}
-  rifle: {fileID: 9047443074189651426}
-  ammoItem: {fileID: 0}
-  healingItem: {fileID: 0}
-  hasAmmo: 0
-  hasHealing: 0
-  gameOverCanvas: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  victoryCanvas: {fileID: 0}
-  groundCheck: {fileID: 1551663166}
-  groundDistance: 0.4
-  gravity: -9.81
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  moved: 0
-  shot: 0
-  meleed: 0
-  usedAbility1: 0
-  usedAbility2: 0
-  playerID: -1
-  attackPoint: {fileID: 2923163325037765492}
-  bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
-  fireRate: 0.13
-  sword: {fileID: 3723409065150452892}
-  baseFireRate: 0
-  cnsmAmmo: 1
-  canUseGrenade: 1
-  canUseRF: 1
-  rapidFireCD: 0
-  grenadeCD: 0
-  gunshot: {fileID: 6621181750192075005}
-  powerup: {fileID: 1412807085544914547}
-  melee: {fileID: 7992006493774211357}
+  _playerID: -1
+  _curMoveSpeed: 0
+  _movementSpeed: 8
+  _curHealth: 0
+  _maxHealth: 100
+  _curClip: 0
+  _maxClip: 80
+  _curAmmo: 0
+  _maxAmmo: 160
+  _dead: 0
+  _attackPoint: {fileID: 2923163325037765492}
+  _bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
+  _fireRate: 0.13
+  _playerAnimator: {fileID: 3617170065032838221}
+  _rifleCol: {fileID: 9047443074189651426}
+  _ammoItem: {fileID: 0}
+  _healingItem: {fileID: 0}
+  _hasAmmo: 0
+  _hasHealing: 0
+  _gameOverCanvas: {fileID: 0}
+  _pauseMenu: {fileID: 0}
+  _victoryCanvas: {fileID: 0}
+  _moved: 0
+  _shot: 0
+  _meleed: 0
+  _usedAbility1: 0
+  _usedAbility2: 0
+  _gunshot: {fileID: 6621181750192075005}
+  _setItem: {fileID: 0}
+  _melee: {fileID: 7992006493774211357}
+  _baseFireRate: 0
+  _consumeAmmo: 1
+  _canUseGrenade: 1
+  _canUseRF: 1
+  _rapidFireCD: 0
+  _grenadeCD: 0
+  _powerup: {fileID: 1412807085544914547}
 --- !u!114 &8064502178942012885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2258,17 +2252,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7670b01518b32f1439daf94d3b1d14eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rapidFireDuration: 5
-  rfFireRate: 0.08
-  rapidFireCD: 60
-  rapidFireTimeRemaining: 0
-  grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
+  _rapidFireDuration: 5
+  _rfFireRate: 0.08
+  _rapidFireCD: 60
+  _rapidFireTimer: 0
+  _rapidFireTimeRemaining: 0
+  _grenadePrefab: {fileID: 1080155163683892490, guid: 6bfcec64fd2e1f443a3d475dc711213a,
     type: 3}
-  grenadeStart: {fileID: 8064502180463576899}
-  grenadeCD: 45
-  throwForce: 30
-  grenadeTimeRemaining: 0
-  canUseGrenade: 1
+  _grenadeStart: {fileID: 8064502180463576899}
+  _grenadeCD: 45
+  _throwForce: 30
+  _grenadeTimer: 0
+  _grenadeTimeRemaining: 0
+  _canUseGrenade: 1
 --- !u!136 &512554164
 CapsuleCollider:
   m_ObjectHideFlags: 0

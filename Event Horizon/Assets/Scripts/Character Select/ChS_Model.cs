@@ -4,9 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Handles all the back-end logic for Character Selection.
 /// </summary>
-public class ChS_Model : MonoBehaviour
+public class ChS_Model
 {
-    public GameObject tankIcon, soldierIcon, rogueIcon, engineerIcon;
+    public GameObject _tankIcon, _soldierIcon, _rogueIcon, _engineerIcon;
 
     /// <summary>
     /// Represents a Character in the Character Select screen. Contains the GameObject for the 
@@ -20,13 +20,13 @@ public class ChS_Model : MonoBehaviour
         public bool selected;
         public int playerID;
     }
-    Character tankChar, soldierChar, rogueChar, engineerChar;
+    Character _tankChar, _soldierChar, _rogueChar, _engineerChar;
 
     /// <summary>
     /// Map the playerID to the ID of the character they are currently hovering. Player IDs are
     /// 1-4.
     /// </summary>
-    public static Dictionary<int, int> playerIDToCharacterID = new Dictionary<int, int>()
+    public static Dictionary<int, int> _playerIDToCharacterID = new Dictionary<int, int>()
     {
         // All Players set to hover the Tank at start.
         {1, 0},
@@ -38,44 +38,44 @@ public class ChS_Model : MonoBehaviour
     /// <summary>
     /// Map the charcter ID to the corresponding Character struct.
     /// </summary>
-    public static Dictionary<int, Character> idToCharacter = new Dictionary<int, Character>();
+    public static Dictionary<int, Character> _idToCharacter = new Dictionary<int, Character>();
 
     /// <summary>
     /// Initialize the character structs and add to the idToCharacter dictionary.
     /// </summary>
-    public void intitialize()
+    public void Intitialize()
     {
-        tankChar = new Character()
+        _tankChar = new Character()
         {
-            characterIcon = tankIcon,
+            characterIcon = _tankIcon,
             selected = false,
             playerID = 0
         };
-        idToCharacter.Add(0, tankChar);
+        _idToCharacter.Add(0, _tankChar);
 
-        soldierChar = new Character()
+        _soldierChar = new Character()
         {
-            characterIcon = soldierIcon,
+            characterIcon = _soldierIcon,
             selected = false,
             playerID = 0
         };
-        idToCharacter.Add(1, soldierChar);
+        _idToCharacter.Add(1, _soldierChar);
 
-        rogueChar = new Character()
+        _rogueChar = new Character()
         {
-            characterIcon = rogueIcon,
+            characterIcon = _rogueIcon,
             selected = false,
             playerID = 0
         };
-        idToCharacter.Add(2, rogueChar);
+        _idToCharacter.Add(2, _rogueChar);
 
-        engineerChar = new Character()
+        _engineerChar = new Character()
         {
-            characterIcon = engineerIcon,
+            characterIcon = _engineerIcon,
             selected = false,
             playerID = 0
         };
-        idToCharacter.Add(3, engineerChar);
+        _idToCharacter.Add(3, _engineerChar);
     }
 
     /// <summary>
@@ -84,18 +84,18 @@ public class ChS_Model : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="classID"></param>
-    public bool selectCharacter(int playerID)
+    public bool SelectCharacter(int playerID)
     {
-        playerIDToCharacterID.TryGetValue(playerID, out int classID);
-        if (idToCharacter[classID].selected == true)
+        _playerIDToCharacterID.TryGetValue(playerID, out int classID);
+        if (_idToCharacter[classID].selected == true)
         {
             return false;
         }
         else
         {
-            idToCharacter[classID] = new Character()
+            _idToCharacter[classID] = new Character()
             {
-                characterIcon = idToCharacter[classID].characterIcon,
+                characterIcon = _idToCharacter[classID].characterIcon,
                 selected = true,
                 playerID = playerID
             };
@@ -108,12 +108,12 @@ public class ChS_Model : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="classID"></param>
-    public void unselectCharacter(int playerID)
+    public void UnselectCharacter(int playerID)
     {
-        playerIDToCharacterID.TryGetValue(playerID, out int classID);
-        idToCharacter[classID] = new Character()
+        _playerIDToCharacterID.TryGetValue(playerID, out int classID);
+        _idToCharacter[classID] = new Character()
         {
-            characterIcon = idToCharacter[classID].characterIcon,
+            characterIcon = _idToCharacter[classID].characterIcon,
             selected = false,
             playerID = 0
         };
@@ -123,9 +123,9 @@ public class ChS_Model : MonoBehaviour
     /// Return the character with the corresponding classID.
     /// </summary>
     /// <param name="characterID"></param>
-    public Character getCharacter(int characterID)
+    public Character GetCharacter(int characterID)
     {
-        idToCharacter.TryGetValue(characterID, out Character character);
+        _idToCharacter.TryGetValue(characterID, out Character character);
         return character;
     }
 
@@ -134,12 +134,12 @@ public class ChS_Model : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <returns></returns>
-    public Character nextCharacter(int playerID)
+    public Character NextCharacter(int playerID)
     {
-        playerIDToCharacterID.TryGetValue(playerID, out int ID);
+        _playerIDToCharacterID.TryGetValue(playerID, out int ID);
 
         // If this player has selected a character, the they can't use the Up and Down arrows.
-        if (idToCharacter[ID].selected == true && idToCharacter[ID].playerID == playerID)
+        if (_idToCharacter[ID].selected == true && _idToCharacter[ID].playerID == playerID)
         {
             return new Character()
             {
@@ -158,9 +158,9 @@ public class ChS_Model : MonoBehaviour
         {
             characterID += 1;
         }
-        playerIDToCharacterID[playerID] = characterID;
+        _playerIDToCharacterID[playerID] = characterID;
 
-        return getCharacter(characterID);
+        return GetCharacter(characterID);
     }
 
     /// <summary>
@@ -168,12 +168,12 @@ public class ChS_Model : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <returns></returns>
-    public Character previousCharacter(int playerID)
+    public Character PreviousCharacter(int playerID)
     {
-        playerIDToCharacterID.TryGetValue(playerID, out int ID);
+        _playerIDToCharacterID.TryGetValue(playerID, out int ID);
 
         // If this player has selected a character, the they can't use the Up and Down arrows.
-        if (idToCharacter[ID].selected == true && idToCharacter[ID].playerID == playerID)
+        if (_idToCharacter[ID].selected == true && _idToCharacter[ID].playerID == playerID)
         {
             return new Character()
             {
@@ -192,27 +192,27 @@ public class ChS_Model : MonoBehaviour
         {
             characterID -= 1;
         }
-        playerIDToCharacterID[playerID] = characterID;
+        _playerIDToCharacterID[playerID] = characterID;
 
-        return getCharacter(characterID);
+        return GetCharacter(characterID);
     }
 
     /// <summary>
     /// Gets the playerIDToCharacterID Dict.
     /// </summary>
     /// <returns></returns>
-    public Dictionary<int, int> getPIDtoCID()
+    public Dictionary<int, int> GetPIDtoCID()
     {
-        return playerIDToCharacterID;
+        return _playerIDToCharacterID;
     }
 
     /// <summary>
     /// Gets the idToCharacter Dict.
     /// </summary>
     /// <returns></returns>
-    public Dictionary<int, Character> getCIDtoC()
+    public Dictionary<int, Character> GetCIDtoC()
     {
-        return idToCharacter;
+        return _idToCharacter;
     }
 }
 

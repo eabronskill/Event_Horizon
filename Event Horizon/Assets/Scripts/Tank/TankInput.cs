@@ -2,76 +2,82 @@
 using UnityEngine.SceneManagement;
 using Rewired;
 
+/// <summary>
+/// Handles the Tank specific inputs.
+/// </summary>
 public class TankInput : Player
 {
-    private TankAbilities abilities;
-
-    /// <summary>
-    /// ID of the player who is controlling this character.
-    /// </summary>
-    public int playerID;
-
-    // Attacking vars
-    public GameObject attackPoint;
-    public GameObject bulletPrefab;
-    private float hammerTimer = 0;
-    private float strapTimer = 0;
-    private float strapWarmupTime = 1f;
-    public float fireRate;
+    private TankAbilities _abilities;
 
     // Ability vars
-    private bool canPlaceShield = true;
-    [HideInInspector]
-    public bool canPound = true;
-    public GameObject shieldText;
+    [HideInInspector] public bool _canPound = true;
+    public GameObject _shieldText;
+    bool _canPlaceShield = true;
 
-    // For Brett
-    public float shieldCD;
-    public float groundPoundCD;
-    public bool shieldDown;
+    // For HUD
+    [HideInInspector] public float _shieldCD, _groundPoundCD;
+    [HideInInspector] public bool _shieldDown;
 
-    public ParticleSystem particleGroundPound;
+    public ParticleSystem _particleGroundPound;
 
-    //sounds
-    public AudioSource gunshot;
-    public AudioSource groundpound;
-    public AudioSource setItem;
-    public AudioSource melee;
+    // Sounds
+    public AudioSource _shockwave;
 
     void Awake()
     {
-        curAmmo = maxAmmo;
-        curClip = maxClip;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
+        _curAmmo = _maxAmmo;
+        _curClip = _maxClip;
+        _curHealth = _maxHealth;
+        _curMoveSpeed = _movementSpeed;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        //if (testing)
-        //{
-        //    player = ReInput.players.GetPlayer(0);
-        //    MultipleTargetCamera.targets.Add(this.gameObject);
+        Initialize();     
+    }
 
-        //    playerID = 0;
-        //    controller = GetComponent<CharacterController>();
-        //    if (UIEventCOntroller.players.Count == 0)
-        //    {
-        //        UIEventCOntroller.players.Add("Tank", this.gameObject);
-        //    }
-        //    if (SceneManager.GetActiveScene().name == "Level1")
-        //    {
-        //        Tutotrial.players.Add(this.gameObject);
-        //    }
-        //}
-        if (ChS_Controller.finalSelection.ContainsKey("Tank Icon"))
+    new void Update()
+    {
+        // Call the Player Update method.
+        base.Update();
+
+        if (Time.timeScale != 1) return;
+
+        _shieldCD = _abilities._shieldTimeRemaining;
+        _groundPoundCD = _abilities._shockwaveTimeRemaining;
+        _shieldDown = _abilities._shieldDown;
+
+        ShootingInput();
+        
+        // Ability 1: Shield Plant
+        if (_canPlaceShield && _player.GetButtonDown("Ability1"))
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Tank Icon"]);
-            MultipleTargetCamera.targets.Add(this.gameObject);
+            _usedAbility1 = true;
+            _abilities.ShieldPlant();
+            _setItem.Play();
+            _canPlaceShield = false;
             
-            playerID = player.id;
-            controller = GetComponent<CharacterController>();
+        }
+
+        // Ability 2: Ground Pound
+        if (_player.GetButtonDown("Ability2") && _canPound)
+        {
+            _usedAbility2 = true;
+            _abilities.Shockwave();
+            _shockwave.Play();
+            _particleGroundPound.Play();   
+        }
+    }
+
+    void Initialize()
+    {
+        if (ChS_Controller._finalSelection.ContainsKey("Tank Icon"))
+        {
+            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Tank Icon"]);
+            MultipleTargetCamera.targets.Add(this.gameObject);
+
+            _playerID = _player.id;
+            _controller = GetComponent<CharacterController>();
             if (UIEventCOntroller.players.Count == 0)
             {
                 UIEventCOntroller.players.Add("Tank", this.gameObject);
@@ -80,71 +86,14 @@ public class TankInput : Player
             {
                 Tutotrial.players.Add(this.gameObject);
             }
+
+            _abilities = gameObject.GetComponent<TankAbilities>();
+            _shieldText.SetActive(false);
         }
         else
         {
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
-
-        abilities = this.gameObject.GetComponent<TankAbilities>();
-        shieldText.SetActive(false);
-        
-    }
-
-    // Update is called once per frame
-    new void Update()
-    {
-        shieldCD = abilities.shieldTimeRemaining;
-        groundPoundCD = abilities.groundPoundTimeRemaining;
-        shieldDown = abilities.shieldDown;
-
-        // Call the Player FixedUpdate method.
-        base.Update();
-
-        // Shooting
-        if (canShooty)
-        {
-            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
-            {
-                strapTimer = Time.time + fireRate;
-                Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-                shot = true;
-                gunshot.Play();
-                base.curClip--;
-
-            }
-            if (player.GetButton("Shoot") && base.curClip > 0)
-            {
-                base.curMoveSpeed = movementSpeed * 0.5f;
-            }
-            else
-            {
-                base.curMoveSpeed = movementSpeed;
-            }
-        }
-        
-        // Ability 1: Shield Plant
-        if (canPlaceShield && player.GetButtonDown("Ability1"))
-        {
-            // Call TankAbilities Script
-            usedAbility1 = true;
-            abilities.shieldPlant();
-            setItem.Play();
-            canPlaceShield = false;
-            
-        }
-
-        // Ability 2: Ground Pound
-        if (player.GetButtonDown("Ability2") && canPound)
-        {
-            // Call TankAbilities Script
-            usedAbility2 = true;
-            abilities.groundPound();
-            groundpound.Play();
-            particleGroundPound.Play();
-            
-        }
-        
     }
 
     /// <summary>
@@ -157,49 +106,42 @@ public class TankInput : Player
 
         if (other.gameObject.tag == "Shield")
         {
-            shieldText.SetActive(true);
+            _shieldText.SetActive(true);
             // Pickup the shield.
-            if (player.GetButtonDown("Interact"))
+            if (_player.GetButton("Interact"))
             {
-                canPlaceShield = true;
-                abilities.pickupShield();
-                setItem.Play();
+                _canPlaceShield = true;
+                _abilities.PickupShield();
+                _setItem.Play();
             }
-            
         }
-
     }
 
-    private void OnTriggerExit(Collider other)
+    /// <summary>
+    /// Called when the Tank leaves the radius of an item or his shield.
+    /// </summary>
+    /// <param name="other"></param>
+    new private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Shield")
+        base.OnTriggerExit(other);
+        if (other.gameObject.CompareTag("Shield"))
         {
-            shieldText.SetActive(false);
-
+            _shieldText.SetActive(false);
         }
     }
 
-    public void tankRepaired() //repaired by engineer
-    {
-        base.curHealth += base.maxHealth * .3f;
-        if (base.curHealth > base.maxHealth)
-        {
-            base.curHealth = base.maxHealth;
-        }
-    }
-
+    /// <summary>
+    /// Required for Tank Shield text to appear and dissapear.
+    /// </summary>
+    /// <param name="other"></param>
     new private void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
     }
 
-    /// <summary>
-    /// Used by the enemy script to cause damage to this player.
-    /// </summary>
-    /// <param name="damage"></param>
-    public new void takeDamage(float damage)
+    public override void ResetAbilities()
     {
-        base.takeDamage(damage);
+        _abilities._shieldTimer = 0;
+        _abilities._shockwaveTimer = 0;
     }
-    
 }

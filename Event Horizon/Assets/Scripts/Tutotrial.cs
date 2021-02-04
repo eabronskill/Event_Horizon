@@ -26,6 +26,7 @@ public class Tutotrial : MonoBehaviour
     private bool itemSpawn = false;
     public AudioSource sound;
     private bool hasPlayed = false;
+    bool _abilitiesReset;
 
     private void Awake()
     {
@@ -38,10 +39,7 @@ public class Tutotrial : MonoBehaviour
             foreach (Enemy o in parent.GetComponentsInChildren<Enemy>())
             {
                 enemies.Add(o.gameObject);
-                print("Enemies added to list.");
             }
-
-            
         }
     }
 
@@ -71,8 +69,12 @@ public class Tutotrial : MonoBehaviour
                 ammo4.SetActive(true);
                 itemSpawn = true;
             }
-           
-            text.GetComponent<Text>().text = "Use A to pick up Items, Press A again to Use, and B to Drop an Equipped Item";
+
+            if (ChS_Controller._singlePlayer)
+            {
+                text.GetComponent<Text>().text = "Use E to pick up Items, Press E again to Use, and B to Drop an Equipped Item";
+            }
+            else text.GetComponent<Text>().text = "Use A to pick up Items, Press A again to Use, and B to Drop an Equipped Item";
         }
         else if (phase1)
         {
@@ -81,7 +83,7 @@ public class Tutotrial : MonoBehaviour
             foreach (GameObject p in players)
             {
                 pl = p.GetComponent<Player>();
-                if (!pl.moved)
+                if (!pl._moved)
                 {
                     trigger = false;
                 }
@@ -94,13 +96,18 @@ public class Tutotrial : MonoBehaviour
         else if (phase2)
         {
             text.GetComponent<Text>().fontSize = 70;
-            text.GetComponent<Text>().text = "Use RT to Shoot, LT to Melee, RB for Ability 1, and LB for Ability 2";
+            if (ChS_Controller._singlePlayer)
+            {
+                text.GetComponent<Text>().text = "Use Left Click to Shoot, Right Click to Melee, 1 for Ability 1, and 2 for Ability 2";
+            }
+            else text.GetComponent<Text>().text = "Use RT to Shoot, LT to Melee, RB for Ability 1, and LB for Ability 2";
+
             bool trigger = true;
             Player pl;
             foreach (GameObject p in players)
             {
                 pl = p.GetComponent<Player>();
-                if (!pl.shot || !pl.meleed || !pl.usedAbility1 || !pl.usedAbility2)
+                if (!pl._shot || !pl._meleed || !pl._usedAbility1 || !pl._usedAbility2)
                 {
                     trigger = false;
                 }
@@ -129,6 +136,15 @@ public class Tutotrial : MonoBehaviour
                 {
                     trigger = false;
                 }
+            }
+            if (!_abilitiesReset)
+            {
+                foreach (GameObject p in players)
+                {
+                    if (p == null) continue;
+                    p.GetComponent<Player>().ResetAbilities();
+                }
+                _abilitiesReset = true;
             }
             if (trigger)
             {

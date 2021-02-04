@@ -15,8 +15,8 @@ public class RogueAbilities : MonoBehaviour
     public float mineTimeRemaining;
     public float spikeTimeRemaining;
 
-    private float mineSetTime;
-    private float spikeSetTime;
+    [HideInInspector] public float mineSetTime;
+    [HideInInspector] public float spikeSetTime;
 
     public GameObject spikes;
     private GameObject mine;

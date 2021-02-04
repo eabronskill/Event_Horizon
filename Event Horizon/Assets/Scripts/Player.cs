@@ -1,349 +1,404 @@
 ﻿using UnityEngine;
-using Rewired;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Base class for all characters. Contains generic logic for the HUD, Movement, Rotation, Reloading, Melee, Shooting, and Item Interaction.
+/// Also includes other helper functions used by enemies and triggers.
+/// </summary>
 public class Player : MonoBehaviour
 {
     // Rewired Vars
-    public Rewired.Player player; // Needs to be set by the Input script
+    public Rewired.Player _player; // Set by Input Scripts. Needs to be public for triggers.
+
+    /// <summary>
+    /// ID of the player who is controlling this character.
+    /// </summary>
+    [HideInInspector] public int _playerID = -1;
 
     // Stat vars
-    public float curMoveSpeed;
-    public float movementSpeed;
-    public float curHealth;
-    public float maxHealth;
-    public float curClip;
-    public float maxClip;
-    public float curAmmo;
-    public float maxAmmo;
-    private float dif;
-    public bool dead = false;
-    protected bool canShooty = true;
+    public float _curMoveSpeed;
+    public float _movementSpeed;
+    public float _curHealth;
+    public float _maxHealth;
+    public float _curClip;
+    public float _maxClip;
+    public float _curAmmo;
+    public float _maxAmmo;
+    [HideInInspector] public bool _dead;
+    protected bool _canShoot = true;
+
+    // Attacking vars
+    public GameObject _attackPoint;
+    public GameObject _bulletPrefab;
+    public float _fireRate;
+    protected float _strapTimer = 0;
 
     // Animation Vars
-    public Animator playerAnimator;
+    public Animator _playerAnimator;
 
     // Aiming vars
-    private Plane mousePlane;
-    private Ray cameraRay;
-    private float intersectionDistance = 0f;
-    public Collider rifle;
+    public Collider _rifleCol;
+    Plane _mousePlane;
+    Ray _cameraRay;
+    float _intersectionDistance = 0f;
 
     // Item vars
-    [HideInInspector]
-    public Ammo ammoItem;
-    [HideInInspector]
-    public Healing healingItem;
-    [HideInInspector]
-    public bool hasAmmo = false;
-    [HideInInspector]
-    public bool hasHealing = false;
-    private float bufferTimer = 0.5f;
-    private bool cantUse = false;
+    [HideInInspector] public Ammo _ammoItem;
+    [HideInInspector] public Healing _healingItem;
+    [HideInInspector] public bool _hasAmmo = false;
+    [HideInInspector] public bool _hasHealing = false;
+    float _itemBufferTimer;
+    float _itemBufferCD = 0.5f;
+    bool _cantUse = false;
 
     // Canvas Vars
-    public GameObject gameOverCanvas;
-    public GameObject pauseMenu;
-    public GameObject victoryCanvas;
-    private bool gameOver = false;
+    public GameObject _gameOverCanvas;
+    public GameObject _pauseMenu;
+    public GameObject _victoryCanvas;
+    bool _gameOver = false;
 
     //Movement Vars
-    protected CharacterController controller;
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public float gravity = -9.81f;
-    public LayerMask groundMask;
-    Vector3 velocity;
-    bool isGrounded;
+    protected CharacterController _controller;
 
     // Tutorial Vars
-    [HideInInspector]
-    public bool moved, shot, meleed, usedAbility1, usedAbility2;
+    [HideInInspector] public bool _moved, _shot, _meleed, _usedAbility1, _usedAbility2;
 
-    //public bool testing = true;
+    // Sounds
+    public AudioSource _gunshot;
+    public AudioSource _setItem;
+    public AudioSource _melee;
 
     public void Update()
     {
-        if (Time.timeScale == 1)
+        if (_curHealth <= 0) Die();
+        HUDLogic();
+
+        if (Time.timeScale != 1) return; // Do not want to take any input while game is paused or over.
+
+        MovementInput();
+        RotationInput();
+        ReloadInput();
+        MeleeInput();
+        ItemInteractionInput();
+    }
+
+    void HUDLogic()
+    {
+        // Game is Running
+        if (!_gameOver)
         {
-            // Old Movement
-            //Vector3 movementVec = new Vector3(player.GetAxis("Move Horizontal"), 0f, player.GetAxis("Move Vertical"));
-            //GetComponent<Rigidbody>().AddForce(movementVec * curMoveSpeed * Time.deltaTime);
-
-            // Test Movement
-            //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-            //if (isGrounded && velocity.y < 0)
-            //{
-            //    velocity.y = -2f;
-            //}
-
-            float x = player.GetAxis("Move Horizontal");
-            float z = player.GetAxis("Move Vertical");
-
-            Vector3 movementVec = new Vector3(x,0f,z);
-            if  (x !=0 && z != 0)
+            if (_player.GetButtonDown("Menu") && !_pauseMenu.activeSelf)
             {
-                moved = true;
+                Time.timeScale = 0;
+                _pauseMenu.SetActive(true);
+                _pauseMenu.GetComponent<PauseMenuController>().setPlayer(this._player);
             }
-
-            controller.Move(movementVec * curMoveSpeed * Time.deltaTime);
-            
-
-            //velocity.y += gravity * Time.deltaTime;
-
-            //controller.Move(velocity * Time.deltaTime);
-
-            // Movement Anims
-            if (playerAnimator != null)
-            {
-                if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.x >= 0.3f || movementVec.z <= -0.3f)
-                {
-                    playerAnimator.SetFloat("Blend", 1.0f);
-                    playerAnimator.SetBool("Running", true);
-                }
-                else
-                {
-                    playerAnimator.SetFloat("Blend", 0.0f);
-                    playerAnimator.SetBool("Running", false);
-                }
-            }
-            
-
-            // Rotation
-            Vector3 rotateVec = new Vector3(0, Mathf.Atan2(player.GetAxis("Rotate Horizontal"), player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
-            if (player.GetAxis("Rotate Horizontal") != 0 || player.GetAxis("Rotate Vertical") != 0)
-            {
-                transform.eulerAngles = rotateVec;
-
-                // blending anims:
-                // if (left l-stick)a - run left; within r-stick -75 to 14*
-                //wasd
-                // if (up l-stick)w - run forward; within r-stick -15 to 15*
-                //wasd
-                // if (right l-stick)d - run right; within r-stick 16 to 75*
-                //wasd
-                // if (down l-stick)s - backwards; within r-stick 76 - 180*
-                //wasd
-
-                //abilities stuff
-
-            }
-
-            // Reloading
-            if ((curClip != maxClip && curAmmo != 0) && player.GetButtonDown("Reload"))
-            {
-                if (curAmmo < (maxClip - curClip))
-                {
-                    curClip += curAmmo;
-                    curAmmo = 0;
-                }
-                else
-                {
-                    curAmmo -= (maxClip - curClip);
-                    curClip = maxClip;
-                }
-  
-            }
-
-            //melee
-            if (player.GetButtonDown("Melee")) //&& Time.time >= hammertimer)
-            {
-                //hammertimer = time.time + 1f;
-                //melee.soldiermelee();
-                playerAnimator.SetTrigger("Melee");
-                rifle.enabled = true;
-                canShooty = false;
-                Invoke("disableCol", 1.5f);
-                meleed = true;
-            }
-
-            // Items
-            if (hasAmmo && player.GetButtonDown("Interact"))
-            {
-                ammoItem.use();
-                hasAmmo = false;
-            }
-            else if (hasAmmo && player.GetButtonDown("DropItem"))
-            {
-                ammoItem.gameObject.SetActive(true);
-                ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-                ammoItem.player = null;
-                ammoItem = null;
-                hasAmmo = false;
-            }
-            if (hasHealing && player.GetButtonDown("Interact"))
-            {
-                healingItem.use();
-                hasHealing = false;
-            }
-            else if (hasHealing && player.GetButtonDown("DropItem"))
-            {
-                healingItem.gameObject.SetActive(true);
-                healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-                healingItem.player = null;
-                healingItem = null;
-                hasHealing = false;
-            }
-
-            // Death
-            if (curHealth <= 0)
-            {
-                this.gameObject.SetActive(false);
-            }
-        }
-        print("Gameover: " + gameOver);
-        // HUD
-        if (!gameOver)
-        {
-            
-            if (player.GetButtonDown("Menu") && !pauseMenu.activeSelf)
-            {
-                print("PAUSE");
-                pauseMenu.SetActive(true);
-
-                pauseMenu.GetComponent<PauseMenuController>().setPlayer(this.player);
-            }
-            else if (player.GetButtonDown("Menu") && pauseMenu.activeSelf)
+            else if (_player.GetButtonDown("Menu") && _pauseMenu.activeSelf)
             {
                 Time.timeScale = 1;
-                pauseMenu.SetActive(false);
-                pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
+                _pauseMenu.SetActive(false);
+                _pauseMenu.GetComponent<PauseMenuController>().setPlayer(null);
 
+            }
+        }
+
+        // Players Lost
+        if (_gameOverCanvas.activeSelf) // && player.controllers.joystickCount >= 1
+        {
+            _gameOver = true;
+            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E))) //&& player.controllers.joystickCount >= 1
+            {
+                MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+                ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+                ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+                ChS_Controller._singlePlayer = false;
+                UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
+                Time.timeScale = 1;
+                SceneManager.LoadScene("MainMenu");
             }
         }
         
-        if (gameOverCanvas.activeSelf && player.controllers.joystickCount >= 1)
-        {
-            
-            gameOver = true;
-        }
-        if (player.GetButtonDown("Interact") && gameOverCanvas.activeSelf && player.controllers.joystickCount >= 1)
-        {
-            
-            MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-            ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-            ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
-            UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
-            Time.timeScale = 1;
-            SceneManager.LoadScene("MainMenu");
-            
-        }
-        if (player.GetButtonDown("Interact") && victoryCanvas.activeSelf && player.controllers.joystickCount >= 1)
+        // Players Won
+        if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _victoryCanvas.activeSelf)
         {
             Time.timeScale = 1;
             if (SceneManager.GetActiveScene().name.Equals("Level1"))
             {
-                
-                //levelOne = false;
                 UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
                 SceneManager.LoadScene("Level2");
             }
             else
             {
                 UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
-                MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-                ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-                ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
-                
+                MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+                ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+                ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+                ChS_Controller._singlePlayer = false;
                 SceneManager.LoadScene("MainMenu");
             }
-            
         }
-        
-        
     }
 
-    private void disableCol()
+    void MovementInput()
     {
-        rifle.enabled = false;
-        canShooty = true;
-    }
+        float x = _player.GetAxis("Move Horizontal");
+        float z = _player.GetAxis("Move Vertical");
 
-    public void OnTriggerStay(Collider other)
-    {
-        if (bufferTimer < Time.time)
+        Vector3 movementVec = new Vector3(x, 0f, z);
+        if (x != 0 && z != 0)
         {
-            if (other.tag == "Ammo")
+            _moved = true;
+        }
+
+        _controller.Move(movementVec * _curMoveSpeed * Time.deltaTime);
+
+        // Movement Anims
+        if (_playerAnimator != null)
+        {
+            if (movementVec.z >= 0.3f || movementVec.x <= -0.3f || movementVec.x >= 0.3f || movementVec.z <= -0.3f)
             {
-                cantUse = true;
-                if (player.GetButton("Interact") && !(hasAmmo || hasHealing))
-                {
-                    ammoItem = other.GetComponent<Ammo>();
-                    ammoItem.player = this;
-                    ammoItem.gameObject.SetActive(false);
-                    hasAmmo = true;
-                    bufferTimer = Time.time + 1f;
-                    cantUse = false;
-                }
-                else if (player.GetButton("Interact") && hasHealing)
-                {
-                    healingItem.gameObject.SetActive(true);
-                    healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                    healingItem.player = null;
-                    healingItem = null;
-                    hasHealing = false;
-
-
-                    ammoItem = other.GetComponent<Ammo>();
-                    ammoItem.player = this;
-                    ammoItem.gameObject.SetActive(false);
-                    hasAmmo = true;
-                    bufferTimer = Time.time + 1f;
-                    cantUse = false;
-                }
-
+                _playerAnimator.SetFloat("Blend", 1.0f);
+                _playerAnimator.SetBool("Running", true);
             }
-            if (other.tag == "Healing")
+            else
             {
-                cantUse = true;
-                if (player.GetButton("Interact") && !(hasAmmo || hasHealing))
-                {
-                    healingItem = other.GetComponent<Healing>();
-                    healingItem.player = this;
-                    healingItem.gameObject.SetActive(false);
-                    hasHealing = true;
-                    bufferTimer = Time.time + 1f;
-                    cantUse = false;
-                }
-                else if (player.GetButton("Interact") && hasAmmo)
-                {
-                    ammoItem.gameObject.SetActive(true);
-                    ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
-                    ammoItem.player = null;
-                    ammoItem = null;
-                    hasAmmo = false;
+                _playerAnimator.SetFloat("Blend", 0.0f);
+                _playerAnimator.SetBool("Running", false);
+            }
+        }
+    }
 
-                    healingItem = other.GetComponent<Healing>();
-                    healingItem.player = this;
-                    healingItem.gameObject.SetActive(false);
-                    hasHealing = true;
-                    bufferTimer = Time.time + 1f;
-                    cantUse = false;
-                }
+    void RotationInput()
+    {
+        if (_player.controllers.joystickCount >= 1)
+        {
+            Vector3 rotateVec = new Vector3(0, Mathf.Atan2(_player.GetAxis("Rotate Horizontal"), _player.GetAxis("Rotate Vertical")) * 180 / Mathf.PI, 0);
+            if (_player.GetAxis("Rotate Horizontal") != 0 || _player.GetAxis("Rotate Vertical") != 0)
+            {
+                transform.eulerAngles = rotateVec;
+            }
+        }
+        else
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, 1000))
+            {
+                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            }
+        }
+    }
+
+    void ReloadInput()
+    {
+        if ((_curClip != _maxClip && _curAmmo != 0) && _player.GetButtonDown("Reload"))
+        {
+            if (_curAmmo < (_maxClip - _curClip))
+            {
+                _curClip += _curAmmo;
+                _curAmmo = 0;
+            }
+            else
+            {
+                _curAmmo -= (_maxClip - _curClip);
+                _curClip = _maxClip;
+            }
+        }
+    }
+
+    void MeleeInput()
+    {
+        if (_player.GetButtonDown("Melee"))
+        {
+            _playerAnimator.SetTrigger("Melee");
+            _rifleCol.enabled = true;
+            _canShoot = false;
+            Invoke(nameof(DisableRifleCol), 1.5f);
+            _meleed = true;
+        }
+    }
+
+    /// <summary>
+    /// Basic shooting. Override for Soldier and Engineer
+    /// </summary>
+    protected virtual void ShootingInput()
+    {
+        if (!_canShoot) return;
+
+        if (_player.GetButton("Shoot") && Time.time >= _strapTimer && _curClip > 0)
+        {
+            _strapTimer = Time.time + _fireRate;
+            Instantiate(_bulletPrefab, _attackPoint.transform.position, _attackPoint.transform.rotation);
+            _shot = true;
+            _gunshot.Play();
+            _curClip--;
+
+        }
+        if (_player.GetButton("Shoot") && _curClip > 0)
+        {
+            _curMoveSpeed = _movementSpeed * 0.5f;
+        }
+        else
+        {
+            _curMoveSpeed = _movementSpeed;
+        }
+    }
+
+    void ItemInteractionInput()
+    {
+        if (_itemBufferTimer > Time.time) return; // Prevents unwanted spawm use/pickup.
+        if (_cantUse) return; // Player is standing on another item
+        // Ammo
+        if (_hasAmmo && (_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)))
+        {
+            _ammoItem.use();
+            _hasAmmo = false;
+        }
+        else if (_hasAmmo && (_player.GetButtonDown("DropItem") || Input.GetKeyDown(KeyCode.B)))
+        {
+            _ammoItem.gameObject.SetActive(true);
+            _ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            _ammoItem.player = null;
+            _ammoItem = null;
+            _hasAmmo = false;
+        }
+        // Healing
+        if (_hasHealing && (_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)))
+        {
+            _healingItem.use();
+            _hasHealing = false;
+        }
+        else if (_hasHealing && (_player.GetButtonDown("DropItem") || Input.GetKeyDown(KeyCode.B)))
+        {
+            _healingItem.gameObject.SetActive(true);
+            _healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            _healingItem.player = null;
+            _healingItem = null;
+            _hasHealing = false;
+        }
+    }
+
+    void Die()
+    {
+        _dead = true;
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Called in an Invoke. Ignore C#'s insistence that it has no references.
+    /// </summary>
+    void DisableRifleCol()
+    {
+        _rifleCol.enabled = false;
+        _canShoot = true;
+    }
+
+    /// <summary>
+    /// Called by the enemy script to cause damage to this player.
+    /// </summary>
+    /// <param name="damage"></param>
+    public void TakeDamage(float damage)
+    {
+        _curHealth = _curHealth - damage;
+        if(_curHealth < 0)
+        {
+            _curHealth = 0;
+        }
+    }
+
+    /// <summary>
+    /// Used for item pickup.
+    /// </summary>
+    /// <param name="other"></param>
+    protected void OnTriggerStay(Collider other)
+    {
+        if (_itemBufferTimer > Time.time) return; // Prevents unwanted spam use/pickup.
+        if (other.CompareTag("Ammo"))
+        {
+            _cantUse = true;
+            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && !(_hasAmmo || _hasHealing))
+            {
+                _ammoItem = other.GetComponent<Ammo>();
+                _ammoItem.player = this;
+                _ammoItem.gameObject.SetActive(false);
+                _hasAmmo = true;
+                _itemBufferTimer = Time.time + _itemBufferCD;
+                _cantUse = false;
+            }
+            else if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _hasHealing)
+            {
+                _healingItem.gameObject.SetActive(true);
+                _healingItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                _healingItem.player = null;
+                _healingItem = null;
+                _hasHealing = false;
+
+
+                _ammoItem = other.GetComponent<Ammo>();
+                _ammoItem.player = this;
+                _ammoItem.gameObject.SetActive(false);
+                _hasAmmo = true;
+                _itemBufferTimer = Time.time + _itemBufferCD;
+                _cantUse = false;
+            }
+
+        }
+        if (other.CompareTag("Healing"))
+        {
+            _cantUse = true;
+            if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && !(_hasAmmo || _hasHealing))
+            {
+                _healingItem = other.GetComponent<Healing>();
+                _healingItem.player = this;
+                _healingItem.gameObject.SetActive(false);
+                _hasHealing = true;
+                _itemBufferTimer = Time.time + _itemBufferCD;
+                _cantUse = false;
+            }
+            else if ((_player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)) && _hasAmmo)
+            {
+                _ammoItem.gameObject.SetActive(true);
+                _ammoItem.transform.position = new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z);
+                _ammoItem.player = null;
+                _ammoItem = null;
+                _hasAmmo = false;
+
+                _healingItem = other.GetComponent<Healing>();
+                _healingItem.player = this;
+                _healingItem.gameObject.SetActive(false);
+                _hasHealing = true;
+                _itemBufferTimer = Time.time + _itemBufferCD;
+                _cantUse = false;
             }
         }
     }
 
     /// <summary>
-    /// Used by the enemy script to cause damage to this player.
+    /// Used for item use.
     /// </summary>
-    /// <param name="damage"></param>
-    public void takeDamage(float damage)
+    /// <param name="other"></param>
+    protected void OnTriggerExit(Collider other)
     {
-        curHealth = curHealth - damage;
-        if(curHealth < 0)
+        if (other.CompareTag("Ammo") || other.CompareTag("Healing"))
         {
-            curHealth = 0;
-            dead = true;
+            print("Exit");
+            _cantUse = false;
         }
     }
 
-    public void OnCollisionEnter(Collision coll)
+    /// <summary>
+    /// Used to sense enemy bullets.
+    /// </summary>
+    /// <param name="coll"></param>
+    protected void OnCollisionEnter(Collision coll)
     {
         if (coll.gameObject.tag == "Enemy Bullet")
         {
-            takeDamage(30);
-            print("Bullet Damage");
+            TakeDamage(30);
         }
     }
+
+    // Must be implemented by Input classes.
+    public virtual void ResetAbilities() { }
 }

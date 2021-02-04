@@ -2694,6 +2694,8 @@ MonoBehaviour:
   mineCD: 60
   mineTimeRemaining: 0
   spikeTimeRemaining: 0
+  mineSetTime: 0
+  spikeSetTime: 0
   spikes: {fileID: 4234290519466868736, guid: c2d24e70f7373b143b8a928e28fb161d, type: 3}
   minePrefab: {fileID: 3021328355752557052, guid: 687e910fc405d9346bd3dcd0e01aa2ff,
     type: 3}
@@ -2710,35 +2712,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f560eeef99097a4a8e304feb341cd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curMoveSpeed: 0
-  movementSpeed: 7.5
-  curHealth: 0
-  maxHealth: 100
-  curClip: 0
-  maxClip: 10
-  curAmmo: 0
-  maxAmmo: 50
-  dead: 0
-  playerAnimator: {fileID: 4546795898852939774}
-  rifle: {fileID: 1006397763725657983}
-  ammoItem: {fileID: 0}
-  healingItem: {fileID: 0}
-  hasAmmo: 0
-  hasHealing: 0
-  gameOverCanvas: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  victoryCanvas: {fileID: 0}
-  groundCheck: {fileID: 482621694}
-  groundDistance: 0.4
-  gravity: -9.81
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  moved: 0
-  shot: 0
-  meleed: 0
-  usedAbility1: 0
-  usedAbility2: 0
+  _playerID: -1
+  _curMoveSpeed: 0
+  _movementSpeed: 10
+  _curHealth: 0
+  _maxHealth: 100
+  _curClip: 0
+  _maxClip: 30
+  _curAmmo: 0
+  _maxAmmo: 60
+  _dead: 0
+  _attackPoint: {fileID: 1380645521}
+  _bulletPrefab: {fileID: 7196980638786986980, guid: cacec3a032e32a14c9c5b5311378b224,
+    type: 3}
+  _fireRate: 0.8
+  _playerAnimator: {fileID: 4546795898852939774}
+  _rifleCol: {fileID: 1006397763725657983}
+  _ammoItem: {fileID: 0}
+  _healingItem: {fileID: 0}
+  _hasAmmo: 0
+  _hasHealing: 0
+  _gameOverCanvas: {fileID: 0}
+  _pauseMenu: {fileID: 0}
+  _victoryCanvas: {fileID: 0}
+  _moved: 0
+  _shot: 0
+  _meleed: 0
+  _usedAbility1: 0
+  _usedAbility2: 0
+  _gunshot: {fileID: 1442287912184924358}
+  _setItem: {fileID: 2975120344266476868}
+  _melee: {fileID: 1631408603483024510}
   strap: {fileID: 1380645521}
   sword: {fileID: 1304543148345225303}
   projectile: {fileID: 7196980638786986980, guid: cacec3a032e32a14c9c5b5311378b224,
@@ -2754,7 +2758,6 @@ MonoBehaviour:
   setItem: {fileID: 2975120344266476868}
   detonateMine: {fileID: 7750594146428266712}
   melee: {fileID: 1631408603483024510}
-  playerID: -1
 --- !u!114 &111121729
 MonoBehaviour:
   m_ObjectHideFlags: 0

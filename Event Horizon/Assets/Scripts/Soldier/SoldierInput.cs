@@ -2,150 +2,117 @@
 using UnityEngine.SceneManagement;
 using Rewired;
 
+/// <summary>
+/// Handles the Soldier specific inputs.
+/// </summary>
 public class SoldierInput : Player
 {
-    private SoldierAbilities abilities;
+    private SoldierAbilities _abilities;
 
-    /// <summary>
-    /// ID of the player who is controlling this character.
-    /// </summary>
-    public int playerID;
-
-    // Attacking vars
-    public GameObject attackPoint;
-    public GameObject bulletPrefab;
-    private float hammerTimer = 0;
-    private float strapTimer = 0;
-    public float fireRate;
-    public Sword sword;
-    
     // Ability vars
-    [HideInInspector]
-    public float baseFireRate;
-    [HideInInspector]
-    public bool cnsmAmmo = true;
-    [HideInInspector]
-    public bool canUseGrenade = true;
-    [HideInInspector]
-    public bool canUseRF = true;
-    private float grenadeTimer = 0.65f;
+    [HideInInspector] public float _baseFireRate;
+    [HideInInspector] public bool _consumeAmmo = true;
+    [HideInInspector] public bool _canUseGrenade = true;
+    [HideInInspector] public bool _canUseRF = true;
 
-    // For Brett
-    public float rapidFireCD;
-    public float grenadeCD;
+    // For HUD
+    [HideInInspector] public float _rapidFireCD, _grenadeCD;
 
-    //sounds
-    public AudioSource gunshot;
-    public AudioSource powerup;
-    public AudioSource melee;
+    // Sounds
+    public AudioSource _powerup;
 
     void Awake()
     {
-        curAmmo = maxAmmo;
-        curClip = maxClip;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
+        _curAmmo = _maxAmmo;
+        _curClip = _maxClip;
+        _curHealth = _maxHealth;
+        _curMoveSpeed = _movementSpeed;
     }
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        //if (testing)
-        //{
-        //    player = ReInput.players.GetPlayer(0);
-        //    MultipleTargetCamera.targets.Add(this.gameObject);
+    void Start() => Initialize();
 
-        //    playerID = 1;
-        //    controller = GetComponent<CharacterController>();
-        //    if (UIEventCOntroller.players.Count == 0)
-        //    {
-        //        UIEventCOntroller.players.Add("Soldier", this.gameObject);
-        //    }
-        //    if (SceneManager.GetActiveScene().name == "Level1")
-        //    {
-        //        Tutotrial.players.Add(this.gameObject);
-        //    }
-        //}
-        if (ChS_Controller.finalSelection.ContainsKey("Soldier Icon"))
-        {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Soldier Icon"]);
-            MultipleTargetCamera.targets.Add(this.gameObject);
-            
-            playerID = player.id;
-            controller = GetComponent<CharacterController>();
-            if (UIEventCOntroller.players.Count == 0)
-            {
-                UIEventCOntroller.players.Add("Soldier", this.gameObject);
-            }
-            if (SceneManager.GetActiveScene().name == "Level1")
-            {
-                Tutotrial.players.Add(this.gameObject);
-            }
-
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
-
-        baseFireRate = fireRate;
-        abilities = this.gameObject.GetComponent<SoldierAbilities>();
-    }
-
-    // Update is called once per frame
     new void Update()
     {
-        rapidFireCD = abilities.rapidFireTimeRemaining;
-        grenadeCD = abilities.grenadeTimeRemaining;
-        // Call the Player FixedUpdate method.
+        // Call the Player Update
         base.Update();
 
-        // Shooting
-        if (canShooty)
-        {
-            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
-            {
-                strapTimer = Time.time + fireRate;
-                shot = true;
-                Instantiate(bulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
-                
-                if (cnsmAmmo)
-                {
-                    base.curClip--;
-                    gunshot.Play();
-                }
-            }
-            if (player.GetButton("Shoot") && base.curClip > 0)
-            {
-                base.curMoveSpeed = movementSpeed * 0.5f;
+        if (Time.timeScale != 1) return;
 
-            }
-            else
-            {
-                base.curMoveSpeed = movementSpeed;
-            }
-        }
-        
+        _rapidFireCD = _abilities._rapidFireTimeRemaining;
+        _grenadeCD = _abilities._grenadeTimeRemaining;
+
+        ShootingInput();
 
         // Ability 1: Rapid Fire
-        if (player.GetButton("Ability1") && canUseRF)
+        if (_player.GetButton("Ability1") && _canUseRF)
         {
-            // Call SoldierAbilities Script
-            usedAbility1 = true;
-            abilities.rapidFire();
-            powerup.Play();
+            _usedAbility1 = true;
+            _abilities.rapidFire();
+            _powerup.Play();
             
         }
 
         // Ability 2: Grenade 
-        if (player.GetButtonDown("Ability2") && abilities.canUseGrenade)
+        if (_player.GetButtonDown("Ability2") && _abilities._canUseGrenade)
         {
-            // Call TankAbilities Script
-            playerAnimator.SetTrigger("Grenade");
-           // grenadeTimer = Time.time + grenadeCD;
-            //abilities.Invoke("grenadeToss", 0.65f);
-            abilities.grenadeToss();
-            usedAbility2 = true;
+            _playerAnimator.SetTrigger("Grenade");
+            _abilities.grenadeToss();
+            _usedAbility2 = true;
+        }
+    }
+
+    void Initialize()
+    {
+        if (ChS_Controller._finalSelection.ContainsKey("Soldier Icon"))
+        {
+            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Soldier Icon"]);
+            MultipleTargetCamera.targets.Add(gameObject);
+
+            _playerID = _player.id;
+            _controller = GetComponent<CharacterController>();
+            if (UIEventCOntroller.players.Count == 0)
+            {
+                UIEventCOntroller.players.Add("Soldier", gameObject);
+            }
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                Tutotrial.players.Add(gameObject);
+            }
+            _baseFireRate = _fireRate;
+            _abilities = gameObject.GetComponent<SoldierAbilities>();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Soldier specific shooting logic.
+    /// </summary>
+    protected override void ShootingInput()
+    {
+        if (!_canShoot) return;
+
+        if (_player.GetButton("Shoot") && Time.time >= _strapTimer && _curClip > 0)
+        {
+            _strapTimer = Time.time + _fireRate;
+            _shot = true;
+            Instantiate(_bulletPrefab, _attackPoint.transform.position, _attackPoint.transform.rotation);
+
+            if (_consumeAmmo)
+            {
+                _curClip--;
+                _gunshot.Play();
+            }
+        }
+        if (_player.GetButton("Shoot") && _curClip > 0)
+        {
+            _curMoveSpeed = _movementSpeed * 0.5f;
+        }
+        else
+        {
+            _curMoveSpeed = _movementSpeed;
         }
     }
 
@@ -158,14 +125,20 @@ public class SoldierInput : Player
     /// Used by the enemy script to cause damage to this player.
     /// </summary>
     /// <param name="damage"></param>
-    public new void takeDamage(float damage)
+    public new void TakeDamage(float damage)
     {
-        base.takeDamage(damage);
+        base.TakeDamage(damage);
     }
 
     new private void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
+    }
+
+    public override void ResetAbilities()
+    {
+        _abilities._grenadeTimer = 0;
+        _abilities._rapidFireTimer = 0;
     }
     
 }

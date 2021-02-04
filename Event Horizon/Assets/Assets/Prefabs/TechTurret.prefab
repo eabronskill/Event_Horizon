@@ -288,7 +288,7 @@ MonoBehaviour:
   attackPoint: {fileID: 5906343118399378208}
   projectile: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
   text: {fileID: 4513628970400800474}
-  turretShotCD: 1
+  turretShotCD: 0.5
   aliveTimer: 0
   sound: {fileID: 3179296878697683410}
 --- !u!1 &1979424170074645009

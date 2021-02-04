@@ -40,7 +40,6 @@ public class LockedDoor : MonoBehaviour
     
     void Update()
     {
-        print("NumAlive:" + numAlive);
         if (open)
         {
             left.transform.position = Vector3.Lerp(left.transform.position, leftDest.position, 0.01f);

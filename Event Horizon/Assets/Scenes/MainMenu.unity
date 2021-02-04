@@ -431,8 +431,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: options
+      - m_Target: {fileID: 1518832050}
+        m_MethodName: OpenControlls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -559,8 +559,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: exitGame
+      - m_Target: {fileID: 1518832050}
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -687,8 +687,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: playGame
+      - m_Target: {fileID: 1518832050}
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1182,11 +1182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91a6287c4f8a48489e845b189c2844e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControlsMenu: {fileID: 854462169}
-  selectButton: {fileID: 808153672}
-  controlsButton: {fileID: 118206468}
-  quitButton: {fileID: 246362179}
-  buttonSwitch: {fileID: 1684147917}
+  _controlsMenu: {fileID: 854462169}
+  _startButton: {fileID: 808153672}
+  _controlsButton: {fileID: 118206468}
+  _quitButton: {fileID: 246362179}
+  _buttonSwitch: {fileID: 1684147917}
 --- !u!4 &1518832051
 Transform:
   m_ObjectHideFlags: 0

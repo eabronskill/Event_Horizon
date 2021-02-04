@@ -66,34 +66,34 @@ public class EndSceneTrigger : MonoBehaviour
                 text.SetActive(true);
                 if (col.gameObject.name.Equals("Tank Controller"))
                 {
-                    player = col.GetComponent<TankInput>().player;
+                    player = col.GetComponent<TankInput>()._player;
                     if (player.GetButton("Interact"))
                     {
-                        col.GetComponent<TankInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<TankInput>()._victoryCanvas.SetActive(true);
                     }
                 }
                 if (col.gameObject.name.Equals("Soldier Controller"))
                 {
-                    player = col.GetComponent<SoldierInput>().player;
+                    player = col.GetComponent<SoldierInput>()._player;
                     if (player.GetButton("Interact"))
                     {
-                        col.GetComponent<SoldierInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<SoldierInput>()._victoryCanvas.SetActive(true);
                     }
                 }
                 if (col.gameObject.name.Equals("Engineer Controller"))
                 {
-                    player = col.GetComponent<TechnicianInput>().player;
+                    player = col.GetComponent<TechnicianInput>()._player;
                     if (player.GetButton("Interact"))
                     {
-                        col.GetComponent<TechnicianInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<TechnicianInput>()._victoryCanvas.SetActive(true);
                     }
                 }
                 if (col.gameObject.name.Equals("Rogue Controller"))
                 {
-                    player = col.GetComponent<rogueInput>().player;
+                    player = col.GetComponent<rogueInput>()._player;
                     if (player.GetButton("Interact"))
                     {
-                        col.GetComponent<rogueInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<rogueInput>()._victoryCanvas.SetActive(true);
                     }
                 }
             }

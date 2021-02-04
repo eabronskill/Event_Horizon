@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Ammo : MonoBehaviour
@@ -12,13 +13,14 @@ public class Ammo : MonoBehaviour
     public void Start()
     {
         text.SetActive(false);
+        if (ChS_Controller._singlePlayer) text.GetComponent<TextMeshPro>().text = "'E':\nHealing";
     }
     public void use()
     {
-        player.curAmmo += player.maxAmmo * ammoPercentage;
-        if (player.curAmmo > player.maxAmmo)
+        player._curAmmo += player._maxAmmo * ammoPercentage;
+        if (player._curAmmo > player._maxAmmo)
         {
-            player.curAmmo = player.maxAmmo;
+            player._curAmmo = player._maxAmmo;
         }
         Destroy(this.gameObject);
     }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1745867382}
   - component: {fileID: 614572776}
   - component: {fileID: 614572778}
+  - component: {fileID: 2625893873570170316}
   m_Layer: 9
   m_Name: Tank Ground Shield
   m_TagString: Shield
@@ -78,6 +79,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0.28}
   m_TimeToStationary: 0.5
+--- !u!114 &2625893873570170316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845483493688506866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f77a1c25a239804d96a2342301af8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 7375212196271698668}
 --- !u!1 &4226855838670232262
 GameObject:
   m_ObjectHideFlags: 0

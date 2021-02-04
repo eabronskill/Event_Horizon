@@ -1,66 +1,52 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Holds the logic for all the Soldier Abilities.
+/// </summary>
 public class SoldierAbilities : MonoBehaviour
 {
-    private SoldierInput soldier;
+    SoldierInput _soldier;
 
     // Rapid Fire vars
-    private float curAmmo;
-    private float cnsmAmmoTimer = 0f;
-
-    public float rapidFireDuration;
-    public float rfFireRate;
-
-    public float rapidFireCD;
-    private float rapidFireTimer = 0f;
-    public float rapidFireTimeRemaining = 0f;
+    public float _rapidFireDuration;
+    public float _rfFireRate;
+    public float _rapidFireCD;
+    [HideInInspector] public float _rapidFireTimer = 0f;
+    [HideInInspector] public float _rapidFireTimeRemaining = 0f;
+    float _consumeAmmoTimer = 0f;
 
     // Grenade vars
-    public GameObject grenadePrefab;
-    public GameObject grenadeStart;
+    public GameObject _grenadePrefab;
+    public GameObject _grenadeStart;
+    public float _grenadeCD;
+    public float _throwForce;
+    [HideInInspector] public float _grenadeTimer = 0f;
+    [HideInInspector] public float _grenadeTimeRemaining = 0f;
+    public bool _canUseGrenade = true;
 
-    public float grenadeCD;
-    public float throwForce;
-
-    private float grenadeTimer = 0f;
-    public float grenadeTimeRemaining = 0f;
-    public bool canUseGrenade = true;
-
-    //public GameObject stunSprite;
-    private float spriteTimer = 0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        soldier = GetComponent<SoldierInput>();
-    }
+    void Start() => _soldier = GetComponent<SoldierInput>();
 
     void Update()
     {
-        rapidFireTimeRemaining = rapidFireTimer - Time.time;
-        grenadeTimeRemaining = grenadeTimer - Time.time;
-        if (rapidFireTimeRemaining <= 0)
-        {
-            rapidFireTimeRemaining = 0;
-        }
-        if (grenadeTimeRemaining <= 0)
-        {
-            grenadeTimeRemaining = 0;
-        }
+        _rapidFireTimeRemaining = _rapidFireTimer - Time.time;
+        _grenadeTimeRemaining = _grenadeTimer - Time.time;
 
-        if (Time.time > cnsmAmmoTimer)
+        if (_rapidFireTimeRemaining <= 0) _rapidFireTimeRemaining = 0;
+        if (_grenadeTimeRemaining <= 0) _grenadeTimeRemaining = 0;
+
+        if (Time.time > _consumeAmmoTimer)
         {
-            soldier.cnsmAmmo = true;
-            soldier.fireRate = soldier.baseFireRate;
+            _soldier._consumeAmmo = true;
+            _soldier._fireRate = _soldier._baseFireRate;
         }
-        if (Time.time > grenadeTimer)
+        if (Time.time > _grenadeTimer)
         {
-            canUseGrenade = true;
+            _canUseGrenade = true;
         }
-        if (Time.time > rapidFireTimer)
+        if (Time.time > _rapidFireTimer)
         {
-            soldier.canUseRF = true;
+            _soldier._canUseRF = true;
         }
     }
 
@@ -69,19 +55,16 @@ public class SoldierAbilities : MonoBehaviour
     /// </summary>
     public void rapidFire()
     {
-        // Animation
-        // TODO
-
         // Don't consume ammo.
-        cnsmAmmoTimer = Time.time + rapidFireDuration;
-        soldier.cnsmAmmo = false;
+        _consumeAmmoTimer = Time.time + _rapidFireDuration;
+        _soldier._consumeAmmo = false;
 
         // Increase fire rate.
-        soldier.fireRate = rfFireRate;
+        _soldier._fireRate = _rfFireRate;
 
         // Set timers
-        rapidFireTimer = Time.time + rapidFireCD;
-        soldier.canUseRF = false;
+        _rapidFireTimer = Time.time + _rapidFireCD;
+        _soldier._canUseRF = false;
         
     }
 
@@ -90,16 +73,13 @@ public class SoldierAbilities : MonoBehaviour
     /// </summary>
     public void grenadeToss()
     {
-        // Animation
-        // TODO
-        
         // Create a grenade and apply force
-        GameObject grenade = Instantiate(grenadePrefab, grenadeStart.transform.position, grenadeStart.transform.rotation);
+        GameObject grenade = Instantiate(_grenadePrefab, _grenadeStart.transform.position, _grenadeStart.transform.rotation);
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+        rb.AddForce(transform.forward * _throwForce, ForceMode.VelocityChange);
 
         // Set timers
-        grenadeTimer = Time.time + grenadeCD;
-        canUseGrenade = false;
+        _grenadeTimer = Time.time + _grenadeCD;
+        _canUseGrenade = false;
     }
 }

@@ -33,7 +33,7 @@ public class PauseMenuController : MonoBehaviour
             Time.timeScale = 0;
         }
         
-        if (player1.controllers.Joysticks.Count > 0)
+        if (player1?.controllers.Joysticks.Count > 0)
         {
             if (player1.GetButtonDown("Interact"))
             {
@@ -103,9 +103,9 @@ public class PauseMenuController : MonoBehaviour
 
     private void exitGame()
     {
-        MainMenuController.controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
-        ChS_Model.idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
-        ChS_Controller.finalSelection = new System.Collections.Generic.Dictionary<string, int>();
+        MainMenuController._controllerIDToPlayerID = new System.Collections.Generic.Dictionary<int, int>();
+        ChS_Model._idToCharacter = new System.Collections.Generic.Dictionary<int, ChS_Model.Character>();
+        ChS_Controller._finalSelection = new System.Collections.Generic.Dictionary<string, int>();
         UIEventCOntroller.players = new System.Collections.Generic.Dictionary<string, GameObject>();
         SceneManager.LoadScene("MainMenu");
     }

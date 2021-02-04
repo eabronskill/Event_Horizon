@@ -7,19 +7,20 @@ using Rewired;
 
 public class MainMenuController : MonoBehaviour
 {
-    public GameObject ControlsMenu, selectButton, controlsButton, quitButton;
+    public GameObject _controlsMenu, _startButton, _controlsButton, _quitButton;
 
-    public AudioSource buttonSwitch;
+    public AudioSource _buttonSwitch;
 
     /// <summary>
     /// Maps the player number to the Rewired Player.
     /// </summary>
-    public static Dictionary<int, int> controllerIDToPlayerID = new Dictionary<int, int>();
+    public static Dictionary<int, int> _controllerIDToPlayerID = new Dictionary<int, int>();
 
-    Rewired.Player player1;
+    Rewired.Player _player1;
     
-    private GameObject[] buttons = new GameObject[3];
-    private int iter = 0;
+    private GameObject[] _buttons = new GameObject[3];
+    private int _buttonsIter = 0;
+    bool _controllerConnected;
 
     public void Awake()
     {
@@ -31,88 +32,119 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        //player1 = ReInput.players.GetPlayer(0);
-        buttons[0] = (selectButton);
-        buttons[1] = (controlsButton);
-        buttons[2] = (quitButton);
-
-        buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
+        _buttons[0] = _startButton;
+        _buttons[1] = _controlsButton;
+        _buttons[2] = _quitButton;
 
         // Subscribe to events
         ReInput.ControllerConnectedEvent += OnControllerConnected;
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
         ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
 
+        // If any controllers are connected before the game starts, grab them now.
+        // The events wont fire if they are already connected.
         foreach (Joystick cont in ReInput.controllers.Joysticks)
         {
-            print("Controller (" + cont.id + ") found.");
-            controllerIDToPlayerID.Add(cont.id, cont.id);
+            _controllerIDToPlayerID.Add(cont.id, cont.id);
             if (cont.id == 0)
             {
-                player1 = ReInput.players.GetPlayer(cont.id);
+                _player1 = ReInput.players.GetPlayer(cont.id);
             }
-           
         }
     }
 
     void Update()
     {
-        if (player1 != null && player1.controllers.Joysticks.Count > 0)
+        _controllerConnected = _player1 != null && _player1.controllers.Joysticks.Count > 0;
+        if (_controllerConnected)
         {
-            if (player1.GetButtonDown("Select"))
+            ControllerInput();
+        }
+        else KeyboardInput();
+    }
+
+    void ControllerInput()
+    {
+        if (_player1.GetButtonDown("Select"))
+        {
+            _buttonSwitch.pitch = 1;
+            _buttonSwitch.Play();
+            if (_buttonsIter == 0)
             {
-                buttonSwitch.pitch = 1;
-                buttonSwitch.Play();
-                if (iter == 0)
-                {
-                    playGame();
-                }
-                else if(iter == 1)
-                {
-                    options();
-                }
-                else
-                {
-                    exitGame();
-                }
+                PlayGame();
             }
-            if (player1.GetButtonDown("Up"))
+            else if (_buttonsIter == 1)
             {
-                buttonSwitch.pitch = 2;
-                buttonSwitch.Play();
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
-                if (iter == 0)
-                {
-                    iter = 2;
-                }
-                else
-                {
-                    iter--;
-                }
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
+                OpenControlls();
             }
-            if (player1.GetButtonDown("Down"))
+            else
             {
-                buttonSwitch.pitch = 2;
-                buttonSwitch.Play();
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.normalColor;
-                
-                if (iter == 2)
-                {
-                    iter = 0;
-                }
-                else
-                {
-                    iter++;
-                }
-                buttons[iter].GetComponent<Image>().color = buttons[iter].GetComponent<Button>().colors.highlightedColor;
+                ExitGame();
             }
-            if (ControlsMenu.activeSelf && player1.GetButtonDown("Back"))
+        }
+        else if (_player1.GetButtonDown("Up"))
+        {
+            _buttonSwitch.pitch = 2;
+            _buttonSwitch.Play();
+            _buttons[_buttonsIter].GetComponent<Image>().color = _buttons[_buttonsIter].GetComponent<Button>().colors.normalColor;
+            if (_buttonsIter == 0)
             {
-                buttonSwitch.pitch = 1;
-                buttonSwitch.Play();
-                ControlsMenu.SetActive(false);
+                _buttonsIter = 2;
             }
+            else
+            {
+                _buttonsIter--;
+            }
+            _buttons[_buttonsIter].GetComponent<Image>().color = _buttons[_buttonsIter].GetComponent<Button>().colors.highlightedColor;
+        }
+        else if (_player1.GetButtonDown("Down"))
+        {
+            _buttonSwitch.pitch = 2;
+            _buttonSwitch.Play();
+            _buttons[_buttonsIter].GetComponent<Image>().color = _buttons[_buttonsIter].GetComponent<Button>().colors.normalColor;
+
+            if (_buttonsIter == 2)
+            {
+                _buttonsIter = 0;
+            }
+            else
+            {
+                _buttonsIter++;
+            }
+            _buttons[_buttonsIter].GetComponent<Image>().color = _buttons[_buttonsIter].GetComponent<Button>().colors.highlightedColor;
+        }
+        else if (_controlsMenu.activeSelf && _player1.GetButtonDown("Back"))
+        {
+            _buttonSwitch.pitch = 1;
+            _buttonSwitch.Play();
+            _controlsMenu.SetActive(false);
+        }
+    }
+    void KeyboardInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _buttonSwitch.pitch = 1;
+            _buttonSwitch.Play();
+            if (_buttonsIter == 0)
+            {
+                PlayGame();
+            }
+            else if (_buttonsIter == 1)
+            {
+                OpenControlls();
+            }
+            else
+            {
+                ExitGame();
+            }
+        }
+
+        if (_controlsMenu.activeSelf && (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.Escape)))
+        {
+            _buttonSwitch.pitch = 1;
+            _buttonSwitch.Play();
+            _controlsMenu.SetActive(false);
         }
     }
 
@@ -125,11 +157,12 @@ public class MainMenuController : MonoBehaviour
         {
             if (args.controllerId == 0)
             {
-                player1 = ReInput.players.GetPlayer(args.controllerId);
+                _player1 = ReInput.players.GetPlayer(args.controllerId);
+                _buttons[0].GetComponent<Image>().color = _buttons[0].GetComponent<Button>().colors.highlightedColor;
             }
-            controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
+            _controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
         }
-        controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
+        _controllerIDToPlayerID.Add(args.controllerId, args.controllerId);
     }
 
     // This function will be called when a controller is fully disconnected
@@ -139,10 +172,10 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
         if (args.controllerType == ControllerType.Joystick)
         {
-            controllerIDToPlayerID.Remove(args.controllerId);
+            _controllerIDToPlayerID.Remove(args.controllerId);
             if (args.controllerId == 0)
             {
-                player1 = null;
+                _player1 = null;
             }
 
         }
@@ -156,18 +189,17 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("A controller is being disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
     }
 
-
-    private void playGame()
+    public void PlayGame()
     {
         SceneManager.LoadScene("Character Select");
     }
 
-    private void options()
+    public void OpenControlls()
     {
-        ControlsMenu.SetActive(true);
+        _controlsMenu.SetActive(true);
     }
 
-    private void exitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }

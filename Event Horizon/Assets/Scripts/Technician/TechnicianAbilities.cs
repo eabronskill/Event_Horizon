@@ -15,8 +15,8 @@ public class TechnicianAbilities : MonoBehaviour
     public float turretTimeRemaining;
     public float repairTimeRemaining;
 
-    private float turretDestroyedTime;
-    private float lastRepairTime;
+    [HideInInspector] public float turretDestroyedTime;
+    [HideInInspector] public float lastRepairTime;
 
     public float turretAliveTime;
 
@@ -58,6 +58,8 @@ public class TechnicianAbilities : MonoBehaviour
         turretLoc.y += .3f;
         turretLoc += transform.forward * 2;
 
+        if (turret) Destroy(turret);
+
         turret = Instantiate(turretPrefab, turretLoc, transform.rotation); //TODO: TURRET LOGIC
         turret.GetComponent<Turret>().aliveTimer = turretAliveTime;
         Invoke("resetTurret", turretCD);
@@ -81,10 +83,7 @@ public class TechnicianAbilities : MonoBehaviour
 
         SendMessage("engineerHeal");
         Invoke("resetRepair", repairCD);
-        SendMessage("tankRepaired");
         
-
-        //TODO: REPAIR TURRET OR TANK
     }
 
 

@@ -964,7 +964,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288006837}
-        m_MethodName: selectButtonClick
+        m_MethodName: SelectButtonClick
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1733,7 +1733,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288006837}
-        m_MethodName: upButtonClick
+        m_MethodName: UpButtonClick
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2500,9 +2500,9 @@ MonoBehaviour:
   group2: {fileID: 609458320}
   group3: {fileID: 1889776835}
   group4: {fileID: 1686487322}
-  buttonClickSound: {fileID: 790424325}
-  readytoPlay: {fileID: 806784201}
-  waitingforPlayers: {fileID: 1165947756}
+  _buttonClickSound: {fileID: 790424325}
+  _readytoPlay: {fileID: 806784201}
+  _waitingforPlayers: {fileID: 1165947756}
 --- !u!4 &1288006838
 Transform:
   m_ObjectHideFlags: 0
@@ -3777,7 +3777,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288006837}
-        m_MethodName: downButtonClick
+        m_MethodName: DownButtonClick
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3996,7 +3996,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288006837}
-        m_MethodName: playButtonClick
+        m_MethodName: PlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

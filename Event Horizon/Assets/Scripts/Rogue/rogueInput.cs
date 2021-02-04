@@ -35,46 +35,25 @@ public class rogueInput : Player
     public AudioSource detonateMine;
     public AudioSource melee;
 
-    /// <summary>
-    /// ID of the player who is controlling this character.
-    /// </summary>
-    public int playerID;
-
 
     void Awake()
     {
-        curAmmo = maxAmmo;
-        curClip = maxClip;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
+        _curAmmo = _maxAmmo;
+        _curClip = _maxClip;
+        _curHealth = _maxHealth;
+        _curMoveSpeed = _movementSpeed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //if (testing)
-        //{
-        //    player = ReInput.players.GetPlayer(0);
-        //    MultipleTargetCamera.targets.Add(this.gameObject);
-
-        //    playerID = 3;
-        //    controller = GetComponent<CharacterController>();
-        //    if (UIEventCOntroller.players.Count == 0)
-        //    {
-        //        UIEventCOntroller.players.Add("Rogue", this.gameObject);
-        //    }
-        //    if (SceneManager.GetActiveScene().name == "Level1")
-        //    {
-        //        Tutotrial.players.Add(this.gameObject);
-        //    }
-        //}
-        if (ChS_Controller.finalSelection.ContainsKey("Rogue Icon"))
+        if (ChS_Controller._finalSelection.ContainsKey("Rogue Icon"))
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Rogue Icon"]);
+            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Rogue Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             
-            playerID = player.id;
-            controller = GetComponent<CharacterController>();
+            _playerID = _player.id;
+            _controller = GetComponent<CharacterController>();
             if (UIEventCOntroller.players.Count == 0)
             {
                 UIEventCOntroller.players.Add("Rogue", this.gameObject);
@@ -110,25 +89,26 @@ public class rogueInput : Player
     // Update is called once per frame
     new void Update()
     {
+        if (Time.timeScale != 1) return;
         base.Update();
 
         if (Input.GetKeyDown("space") && canJump)
             jump();
         if (Input.GetKeyDown("v") && canJump)
             dash();
-        if (player.GetButtonDown("Ability1") && abilities.canSetSpikes)
+        if (_player.GetButtonDown("Ability1") && abilities.canSetSpikes)
         {
-            usedAbility1 = true;
+            _usedAbility1 = true;
             abilities.setSpikes();
             setItem.Play();
         }
-        if (player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
+        if (_player.GetButtonDown("Ability2") && abilities.canSetMine && !abilities.mineSet)
         {
-            usedAbility2 = true;
+            _usedAbility2 = true;
             abilities.setMine();
             setItem.Play();
         }
-        else if (player.GetButtonDown("Ability2") && abilities.mineSet)
+        else if (_player.GetButtonDown("Ability2") && abilities.mineSet)
         {
             
             abilities.detonate();
@@ -136,29 +116,7 @@ public class rogueInput : Player
 
         }
 
-        if (canShooty)
-        {
-            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
-            {
-                strapTimer = Time.time + .6f;
-                Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
-                shot = true;
-                base.curClip--;
-                gunshot.Play();
-                //gunFlash.Play();
-
-            }
-            if (strapTimer > Time.time) //gun movement
-            {
-                strapRecoil(strapRot, finalRot);
-            }
-            else if (strap.transform.localRotation.x != 0)
-            {
-                strapRotateBack(strap.transform.localRotation, strapRot);
-            }
-
-        }
-
+        ShootingInput();
     }
 
     private void jump()
@@ -217,7 +175,15 @@ public class rogueInput : Player
     /// <param name="damage"></param>
     public new void takeDamage(float damage)
     {
-        base.takeDamage(damage);
+        base.TakeDamage(damage);
+    }
+
+    public override void ResetAbilities()
+    {
+        abilities.mineSetTime = 0;
+        abilities.spikeSetTime = 0;
+        abilities.canSetMine = true;
+        abilities.canSetSpikes = true;
     }
 
 }

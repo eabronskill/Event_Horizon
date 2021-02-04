@@ -26,7 +26,7 @@ public class Terminal : MonoBehaviour
 
             if (col.gameObject.name.Equals("Tank Controller"))
             {
-                player = col.GetComponent<TankInput>().player;
+                player = col.GetComponent<TankInput>()._player;
                 if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
@@ -37,7 +37,7 @@ public class Terminal : MonoBehaviour
             }
             if (col.gameObject.name.Equals("Soldier Controller"))
             {
-                player = col.GetComponent<SoldierInput>().player;
+                player = col.GetComponent<SoldierInput>()._player;
                 if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
@@ -48,7 +48,7 @@ public class Terminal : MonoBehaviour
             }
             if (col.gameObject.name.Equals("Engineer Controller"))
             {
-                player = col.GetComponent<TechnicianInput>().player;
+                player = col.GetComponent<TechnicianInput>()._player;
                 if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;
@@ -59,7 +59,7 @@ public class Terminal : MonoBehaviour
             }
             if (col.gameObject.name.Equals("Rogue Controller"))
             {
-                player = col.GetComponent<rogueInput>().player;
+                player = col.GetComponent<rogueInput>()._player;
                 if (player.GetButton("Interact") && !activated)
                 {
                     lockedDoor.GetComponent<LockedDoor>().activated++;

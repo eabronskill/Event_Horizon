@@ -1452,35 +1452,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666bbd84a7a22a7409953c3d7bcd3538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curMoveSpeed: 0
-  movementSpeed: 7.5
-  curHealth: 0
-  maxHealth: 100
-  curClip: 0
-  maxClip: 30
-  curAmmo: 0
-  maxAmmo: 90
-  dead: 0
-  playerAnimator: {fileID: 914611112046995819}
-  rifle: {fileID: 705560047380870581}
-  ammoItem: {fileID: 0}
-  healingItem: {fileID: 0}
-  hasAmmo: 0
-  hasHealing: 0
-  gameOverCanvas: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  victoryCanvas: {fileID: 0}
-  groundCheck: {fileID: 1418038938}
-  groundDistance: 0.4
-  gravity: -9.81
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  moved: 0
-  shot: 0
-  meleed: 0
-  usedAbility1: 0
-  usedAbility2: 0
+  _playerID: -1
+  _curMoveSpeed: 0
+  _movementSpeed: 8
+  _curHealth: 0
+  _maxHealth: 100
+  _curClip: 0
+  _maxClip: 30
+  _curAmmo: 0
+  _maxAmmo: 90
+  _dead: 0
+  _attackPoint: {fileID: 64533964}
+  _bulletPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
+  _fireRate: 0.8
+  _playerAnimator: {fileID: 914611112046995819}
+  _rifleCol: {fileID: 705560047380870581}
+  _ammoItem: {fileID: 0}
+  _healingItem: {fileID: 0}
+  _hasAmmo: 0
+  _hasHealing: 0
+  _gameOverCanvas: {fileID: 0}
+  _pauseMenu: {fileID: 0}
+  _victoryCanvas: {fileID: 0}
+  _moved: 0
+  _shot: 0
+  _meleed: 0
+  _usedAbility1: 0
+  _usedAbility2: 0
+  _gunshot: {fileID: 3786750244924374001}
+  _setItem: {fileID: 7113470011698970072}
+  _melee: {fileID: 7573681905401984918}
   strap: {fileID: 64533964}
   sword: {fileID: 1350386741239768041}
   projectile: {fileID: 5216780853246038395, guid: 92c340b1ab1b15e44bc53c2c8a5f4df7,
@@ -1498,7 +1499,6 @@ MonoBehaviour:
   melee: {fileID: -490808153324306235, guid: 34feca1ad22151444a69921db9027164, type: 3}
   placeTurret: {fileID: 7113470011698970072}
   healsound: {fileID: 1829226543715891953}
-  playerID: -1
 --- !u!114 &5087981238401012163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,6 +1518,8 @@ MonoBehaviour:
   repairCD: 60
   turretTimeRemaining: 0
   repairTimeRemaining: 0
+  turretDestroyedTime: 0
+  lastRepairTime: 0
   turretAliveTime: 16
   turret: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da, type: 3}
   turretPrefab: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da,
@@ -3160,15 +3162,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 454d136b87095b643bef43fdd33370a4, type: 3}
---- !u!82 &7113470011698970072 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4543459729778685161, guid: 454d136b87095b643bef43fdd33370a4,
-    type: 3}
-  m_PrefabInstance: {fileID: 6752448094743677233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6944910361988003782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4455402438803635959, guid: 454d136b87095b643bef43fdd33370a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6752448094743677233}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7113470011698970072 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4543459729778685161, guid: 454d136b87095b643bef43fdd33370a4,
     type: 3}
   m_PrefabInstance: {fileID: 6752448094743677233}
   m_PrefabAsset: {fileID: 0}
@@ -3335,6 +3337,12 @@ PrefabInstance:
 --- !u!4 &22002342665631996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8392978848762623049, guid: fa992f81f95b3724093cba9b61a3f97c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8374428973413911733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7573681905401984918 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2102316091515255587, guid: fa992f81f95b3724093cba9b61a3f97c,
     type: 3}
   m_PrefabInstance: {fileID: 8374428973413911733}
   m_PrefabAsset: {fileID: 0}

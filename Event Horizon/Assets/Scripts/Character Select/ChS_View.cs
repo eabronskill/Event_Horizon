@@ -5,23 +5,23 @@ using UnityEngine.UI;
 /// <summary>
 /// Handles the updates to the visuals in the Character Select screen.
 /// </summary>
-public class ChS_View : MonoBehaviour
+public class ChS_View
 {
     public GameObject player1Hover, player2Hover, player3Hover, player4Hover, tankIcon, soldierIcon,
         rogueIcon, engineerIcon, selectButton1, selectButton2, selectButton3, selectButton4, upButton1,
         upButton2, upButton3, upButton4, downButton1, downButton2, downButton3, downButton4;
 
-    private Dictionary<int, GameObject> playerToHover = new Dictionary<int, GameObject>();
-    public Dictionary<int, GameObject> playerToSelectBtn = new Dictionary<int, GameObject>();
-    private Dictionary<int, GameObject> playerToUpBtn = new Dictionary<int, GameObject>();
-    private Dictionary<int, GameObject> playerToDownBtn = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> _playerToHover = new Dictionary<int, GameObject>();
+    public Dictionary<int, GameObject> _playerToSelectBtn = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> _playerToUpBtn = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> _playerToDownBtn = new Dictionary<int, GameObject>();
 
-    public bool player1, player2, player3, player4;
+    public bool _player1, _player2, _player3, _player4;
 
     /// <summary>
     /// Initialize the images and dictionaries used in the View.
     /// </summary>
-    public void initialize()
+    public void Initialize()
     {
         // Set all Hover sprites to Tank to start.
         player1Hover.GetComponent<Image>().sprite = tankIcon.GetComponent<Image>().sprite;
@@ -30,28 +30,28 @@ public class ChS_View : MonoBehaviour
         player4Hover.GetComponent<Image>().sprite = tankIcon.GetComponent<Image>().sprite;
 
         // Initialize dictionary for Hover Images
-        playerToHover.Add(1, player1Hover);
-        playerToHover.Add(2, player2Hover);
-        playerToHover.Add(3, player3Hover);
-        playerToHover.Add(4, player4Hover);
+        _playerToHover.Add(1, player1Hover);
+        _playerToHover.Add(2, player2Hover);
+        _playerToHover.Add(3, player3Hover);
+        _playerToHover.Add(4, player4Hover);
 
         // Initialize dictionary for Select Buttons
-        playerToSelectBtn.Add(1, selectButton1);
-        playerToSelectBtn.Add(2, selectButton2);
-        playerToSelectBtn.Add(3, selectButton3);
-        playerToSelectBtn.Add(4, selectButton4);
+        _playerToSelectBtn.Add(1, selectButton1);
+        _playerToSelectBtn.Add(2, selectButton2);
+        _playerToSelectBtn.Add(3, selectButton3);
+        _playerToSelectBtn.Add(4, selectButton4);
 
         // Initialzie dictionary for the Up Buttons
-        playerToUpBtn.Add(1, upButton1);
-        playerToUpBtn.Add(2, upButton2);
-        playerToUpBtn.Add(3, upButton3);
-        playerToUpBtn.Add(4, upButton4);
+        _playerToUpBtn.Add(1, upButton1);
+        _playerToUpBtn.Add(2, upButton2);
+        _playerToUpBtn.Add(3, upButton3);
+        _playerToUpBtn.Add(4, upButton4);
 
         // Initialize dictionary for the Down Buttons
-        playerToDownBtn.Add(1, downButton1);
-        playerToDownBtn.Add(2, downButton2);
-        playerToDownBtn.Add(3, downButton3);
-        playerToDownBtn.Add(4, downButton4);
+        _playerToDownBtn.Add(1, downButton1);
+        _playerToDownBtn.Add(2, downButton2);
+        _playerToDownBtn.Add(3, downButton3);
+        _playerToDownBtn.Add(4, downButton4);
     }
 
     /// <summary>
@@ -59,30 +59,30 @@ public class ChS_View : MonoBehaviour
     /// and fades out the Up and Down buttons.
     /// </summary>
     /// <param name="playerID"></param>
-    public void characterSelected(int playerID)
+    public void CharacterSelected(int playerID)
     {
-        playerToHover.TryGetValue(playerID, out GameObject thisPlayerIcon);
+        _playerToHover.TryGetValue(playerID, out GameObject thisPlayerIcon);
         Sprite thisSprite = thisPlayerIcon.GetComponent<Image>().sprite;
 
         // Fade this icon for the other players
-        foreach (int player in playerToHover.Keys)
+        foreach (int player in _playerToHover.Keys)
         {
             if (player != playerID)
             {
-                playerToHover.TryGetValue(player, out GameObject otherPlayerIcon);
+                _playerToHover.TryGetValue(player, out GameObject otherPlayerIcon);
                 
                 if (otherPlayerIcon.GetComponent<Image>().sprite == thisSprite)
                 {
-                    fade(player);
+                    FadeSelectedIcon(player);
                 }
             }
         }
         // Change the Selected Button text to Unselect
-        playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text = "Unselect";
+        _playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text = "Unselect";
 
         // Fade the Up and Down arrows
-        playerToUpBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-        playerToDownBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        _playerToUpBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        _playerToDownBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
 
     }
 
@@ -91,30 +91,30 @@ public class ChS_View : MonoBehaviour
     /// and restores the Up and Down buttons.
     /// </summary>
     /// <param name="playerID"></param>
-    public void characterUnselected(int playerID)
+    public void CharacterUnselected(int playerID)
     {
-        playerToHover.TryGetValue(playerID, out GameObject thisPlayerIcon);
+        _playerToHover.TryGetValue(playerID, out GameObject thisPlayerIcon);
         Sprite thisSprite = thisPlayerIcon.GetComponent<Image>().sprite;
 
         // Restore this icon for the other players
-        foreach (int player in playerToHover.Keys)
+        foreach (int player in _playerToHover.Keys)
         {
             if (player != playerID)
             {
-                playerToHover.TryGetValue(player, out GameObject otherPlayerIcon);
+                _playerToHover.TryGetValue(player, out GameObject otherPlayerIcon);
 
                 if (otherPlayerIcon.GetComponent<Image>().sprite == thisSprite)
                 {
-                    restore(player);
+                    RestoreSelectedIcon(player);
                 }
             }
         }
         // Change the Selected Button text to Unselect
-        playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text = "Select";
+        _playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text = "Select";
 
         // Fade the Up and Down arrows
-        playerToUpBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
-        playerToDownBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+        _playerToUpBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+        _playerToDownBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
 
     }
 
@@ -124,7 +124,7 @@ public class ChS_View : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="character"></param>
-    public void nextCharacter(int playerID, ChS_Model.Character character)
+    public void NextCharacter(int playerID, ChS_Model.Character character)
     {
         // If the character has a playerID of -1, it means the player has selected this character, and the 
         // Up and Down buttons should do nothing. So, do nothing and return.
@@ -133,17 +133,17 @@ public class ChS_View : MonoBehaviour
             return;
         }
 
-        playerToHover.TryGetValue(playerID, out GameObject imageToChange);
+        _playerToHover.TryGetValue(playerID, out GameObject imageToChange);
         imageToChange.GetComponent<Image>().sprite = character.characterIcon.GetComponent<Image>().sprite;
         
         // If this character has been selected, fade the icon.
         if (character.selected)
         {
-            fade(playerID);
+            FadeSelectedIcon(playerID);
         }
         else
         {
-            restore(playerID);
+            RestoreSelectedIcon(playerID);
         }
     }
 
@@ -152,29 +152,29 @@ public class ChS_View : MonoBehaviour
     /// when they are hovering the playerIDs Icon.
     /// </summary>
     /// <param name="playerID"></param>
-    private void fade(int playerID)
+    private void FadeSelectedIcon(int playerID)
     {
-        playerToHover.TryGetValue(playerID, out GameObject imageToChange);
+        _playerToHover.TryGetValue(playerID, out GameObject imageToChange);
         imageToChange.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-        playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        _playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
     /// <summary>
     /// Restores the playerIDs Icon for all other players. Also restores the Select button for all other players.
     /// <param name="playerID"></param>
-    private void restore(int playerID)
+    private void RestoreSelectedIcon(int playerID)
     {
-        playerToHover.TryGetValue(playerID, out GameObject imageToChange);
+        _playerToHover.TryGetValue(playerID, out GameObject imageToChange);
         imageToChange.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
-        playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+        _playerToSelectBtn[playerID].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
     }
 
-    public void toggleGroupOff(GameObject group)
+    public void ToggleGroupOff(GameObject group)
     {
         group.gameObject.SetActive(false);
     }
 
-    public void toggleGroupOn(GameObject group)
+    public void ToggleGroupOn(GameObject group)
     {
         group.gameObject.SetActive(true);
     }

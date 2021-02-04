@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Rewired;
-
+using UnityEngine.SceneManagement;
 
 public class UIEventCOntroller : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class UIEventCOntroller : MonoBehaviour
     Rewired.Player player1;
     public static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     public GameObject tut;
+    bool paused;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +21,17 @@ public class UIEventCOntroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (player1.GetButtonDown("Play"))
-        //{
-        //    Pause();
-        //}
+        if (player1 != null && player1.GetButtonDown("Play"))
+        {
+            Pause();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
 
         if (playerOne.activeSelf == false && playerTwo.activeSelf == false && playerThree.activeSelf == false && playerFour.activeSelf == false)
         {
-            print("Game Over");
             GameOver();
             if (tut)
             {
@@ -44,18 +48,36 @@ public class UIEventCOntroller : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 0f;
-        PauseMenu.SetActive(true);
+        if (!paused)
+        {
+            Time.timeScale = 0f;
+            PauseMenu.SetActive(true);
+            paused = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            PauseMenu.SetActive(false);
+            paused = false;
+        }
+        
     }
 
     public void Resume()
     {
+        print("Resumed");
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
     }
 
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void GameOver()
     {
+
         foreach (GameObject o in players.Values)
         {
             o.gameObject.SetActive(true);

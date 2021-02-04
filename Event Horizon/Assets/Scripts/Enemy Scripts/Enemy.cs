@@ -73,8 +73,6 @@ public class Enemy : MonoBehaviour
                 players.Add(p);
             }
         }
-        print("Players assigned to enemy." + players.Count);
-        
         nav = GetComponent<NavMeshAgent>();
         if (melee)
         {
@@ -221,11 +219,11 @@ public class Enemy : MonoBehaviour
                     }
                     if (player.gameObject.name.Equals("Tank Controller"))
                     {
-                        player.GetComponent<TankInput>().takeDamage(damage);
+                        player.GetComponent<TankInput>().TakeDamage(damage);
                     }
                     if (player.gameObject.name.Equals("Soldier Controller"))
                     {
-                        player.GetComponent<SoldierInput>().takeDamage(damage);
+                        player.GetComponent<SoldierInput>().TakeDamage(damage);
                     }
                     if (player.gameObject.name.Equals("Engineer Controller"))
                     {

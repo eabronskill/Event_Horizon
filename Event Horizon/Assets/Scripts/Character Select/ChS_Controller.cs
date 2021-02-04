@@ -16,36 +16,38 @@ public class ChS_Controller : MonoBehaviour
     /// <summary>
     /// Maps the player number to the Rewired Player.
     /// </summary>
-    private Dictionary<int, Rewired.Player> playerIDToPlayer = new Dictionary<int, Rewired.Player>();
+    Dictionary<int, Rewired.Player> _playerIDToPlayer = new Dictionary<int, Rewired.Player>();
 
     /// <summary>
     /// Will be used to map the players to the characters in the actual levels.
     /// </summary>
-    public static Dictionary<string, int> finalSelection = new Dictionary<string, int>();
+    public static Dictionary<string, int> _finalSelection = new Dictionary<string, int>();
 
-    private ChS_Model model;
-    private ChS_View view;
+    ChS_Model _model;
+    ChS_View _view;
 
-    public AudioSource buttonClickSound;
+    public AudioSource _buttonClickSound;
 
-    private int connectedControllers;
-    private bool canPlay;
+    public static bool _singlePlayer; // Used for singleplayer functionality in other classes.
+    int _connectedControllers; 
+    int _charactersSelected;
+    bool _canPlay;
 
-    public GameObject readytoPlay;
-    public GameObject waitingforPlayers;
+    public GameObject _readytoPlay;
+    public GameObject _waitingforPlayers;
 
     void Awake()
     {
         // Inilialize model and view.
-        model = new ChS_Model()
+        _model = new ChS_Model()
         {
-            tankIcon = tankIcon,
-            soldierIcon = soldierIcon,
-            rogueIcon = rogueIcon,
-            engineerIcon = engineerIcon
+            _tankIcon = tankIcon,
+            _soldierIcon = soldierIcon,
+            _rogueIcon = rogueIcon,
+            _engineerIcon = engineerIcon
         };
-        model.intitialize();
-        view = new ChS_View()
+        _model.Intitialize();
+        _view = new ChS_View()
         {
             player1Hover = player1Hover,
             player2Hover = player2Hover,
@@ -68,7 +70,7 @@ public class ChS_Controller : MonoBehaviour
             downButton3 = downButton3,
             downButton4 = downButton4
         };
-        view.initialize();
+        _view.Initialize();
 
         // Subscribe to events
         ReInput.ControllerConnectedEvent += OnControllerConnected;
@@ -81,100 +83,99 @@ public class ChS_Controller : MonoBehaviour
         // Grab all the joysticks and assign players to them.
         foreach (Joystick cont in ReInput.controllers.Joysticks)
         {
-            print("Controller (" + cont.id + ") found.");
-            playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
+            _playerIDToPlayer.Add(cont.id, ReInput.players.GetPlayer(cont.id));
         }
-        view.toggleGroupOn(group1);
-        view.toggleGroupOn(group2);
-        view.toggleGroupOn(group3);
-        view.toggleGroupOn(group4);
+        _view.ToggleGroupOn(group1);
+        _view.ToggleGroupOn(group2);
+        _view.ToggleGroupOn(group3);
+        _view.ToggleGroupOn(group4);
+
         // Subscribe to events
         ReInput.ControllerConnectedEvent += OnControllerConnected;
         ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
         ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
+
         playButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-        readytoPlay.SetActive(false);
-        waitingforPlayers.SetActive(true);
+        _readytoPlay.SetActive(false);
+        _waitingforPlayers.SetActive(true);
     }
 
     void Update()
     {
-        print(connectedControllers);
-
-        //Player 1 Logic
-        if (playerIDToPlayer.ContainsKey(0) && playerIDToPlayer[0].controllers.Joysticks.Count > 0)
-        {
-            view.toggleGroupOn(group1);
-            print("Player1");
-            getInput(0);
-        }
-        else
-        {
-            view.toggleGroupOff(group1);
-        }
-        //Player 2 Logic
-        if (playerIDToPlayer.ContainsKey(1) && playerIDToPlayer[1].controllers.Joysticks.Count > 0)
-        {
-            view.toggleGroupOn(group2);
-            print("Player2");
-            getInput(1);
-        }
-        else
-        {
-            view.toggleGroupOff(group2);
-        }
-        //Player 3 Logic
-        if (playerIDToPlayer.ContainsKey(2) && playerIDToPlayer[2].controllers.Joysticks.Count > 0)
-        {
-            view.toggleGroupOn(group3); 
-            print("Player3");
-            getInput(2);
-        }
-        else
-        {
-            view.toggleGroupOff(group3);
-        }
-        //Player 4 Logic
-        if (playerIDToPlayer.ContainsKey(3) && playerIDToPlayer[3].controllers.Joysticks.Count > 0)
-        {
-            view.toggleGroupOn(group4);
-            print("Player4");
-            getInput(3);
-        }
-        else
-        {
-            view.toggleGroupOff(group4);
-        }
+        ControllerInput();
 
         int numNeeded = 0;
         // Check to see if all the characters have been selected. If one has not been selected, then don't load the level.
-        foreach (int cID in model.getCIDtoC().Keys)
+        foreach (int cID in _model.GetCIDtoC().Keys)
         {
-            if (model.getCIDtoC()[cID].selected)
+            if (_model.GetCIDtoC()[cID].selected)
             {
                 numNeeded++;
             }
         }
-        print("NumNeeded: " + numNeeded);
-        if (numNeeded == connectedControllers && connectedControllers != 0)
+
+        if (numNeeded >= _connectedControllers && _charactersSelected > 0)
         {
-            canPlay = true;
+            _canPlay = true;
             playButton.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
-            readytoPlay.SetActive(true);
-            waitingforPlayers.SetActive(false);
+            _readytoPlay.SetActive(true);
+            _waitingforPlayers.SetActive(false);
         }
         else
         {
-            canPlay = false;
+            _canPlay = false;
             playButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-            readytoPlay.SetActive(false);
-            waitingforPlayers.SetActive(true);
+            _readytoPlay.SetActive(false);
+            _waitingforPlayers.SetActive(true);
         }
     }
 
     void LateUpdate()
     {
-        connectedControllers = ReInput.controllers.Joysticks.Count;
+        _connectedControllers = ReInput.controllers.Joysticks.Count;
+    }
+
+    void ControllerInput()
+    {
+        _view.ToggleGroupOn(group1);
+        //Player 1 Logic
+        if (_playerIDToPlayer.ContainsKey(0) && _playerIDToPlayer[0].controllers.Joysticks.Count > 0)
+        {
+            GetInput(0);
+        }
+        //Player 2 Logic
+        if (_playerIDToPlayer.ContainsKey(1) && _playerIDToPlayer[1].controllers.Joysticks.Count > 0)
+        {
+            _view.ToggleGroupOn(group2);
+            print("Player2");
+            GetInput(1);
+        }
+        else
+        {
+            _view.ToggleGroupOff(group2);
+        }
+        //Player 3 Logic
+        if (_playerIDToPlayer.ContainsKey(2) && _playerIDToPlayer[2].controllers.Joysticks.Count > 0)
+        {
+            _view.ToggleGroupOn(group3);
+            print("Player3");
+            GetInput(2);
+        }
+        else
+        {
+            _view.ToggleGroupOff(group3);
+        }
+        //Player 4 Logic
+        if (_playerIDToPlayer.ContainsKey(3) && _playerIDToPlayer[3].controllers.Joysticks.Count > 0)
+        {
+            _view.ToggleGroupOn(group4);
+            print("Player4");
+            GetInput(3);
+        }
+        else
+        {
+            _view.ToggleGroupOff(group4);
+        }
     }
 
     // This function will be called when a controller is connected
@@ -185,7 +186,7 @@ public class ChS_Controller : MonoBehaviour
 
         if (args.controllerType == ControllerType.Joystick)
         {
-            playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
+            _playerIDToPlayer.Add(args.controllerId, ReInput.players.GetPlayer(args.controllerId));
         }
     }
     
@@ -196,7 +197,7 @@ public class ChS_Controller : MonoBehaviour
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
         if (args.controllerType == ControllerType.Joystick)
         {
-            playerIDToPlayer.Remove(args.controllerId);
+            _playerIDToPlayer.Remove(args.controllerId);
         }
     }
 
@@ -212,33 +213,33 @@ public class ChS_Controller : MonoBehaviour
     /// Calls the methods that correspond to the input from the Player with the input playerID.
     /// </summary>
     /// <param name="playerID"></param>
-    private void getInput(int playerID)
+    private void GetInput(int playerID)
     {
-        if (playerIDToPlayer[playerID].GetButtonDown("Select"))
+        if (_playerIDToPlayer[playerID].GetButtonDown("Select"))
         {
-            buttonClickSound.pitch = 1;
-            buttonClickSound.Play();
+            _buttonClickSound.pitch = 1;
+            _buttonClickSound.Play();
             print("Select" + playerID);
-            selectButtonClick(playerID+1);
+            SelectButtonClick(playerID+1);
         }
-        if (playerIDToPlayer[playerID].GetButtonDown("Up"))
+        if (_playerIDToPlayer[playerID].GetButtonDown("Up"))
         {
-            buttonClickSound.pitch = 2;
-            buttonClickSound.Play();
+            _buttonClickSound.pitch = 2;
+            _buttonClickSound.Play();
             print("Up" + playerID);
-            upButtonClick(playerID+1);
+            UpButtonClick(playerID+1);
         }
-        if (playerIDToPlayer[playerID].GetButtonDown("Down"))
+        if (_playerIDToPlayer[playerID].GetButtonDown("Down"))
         {
-            buttonClickSound.pitch = 2;
-            buttonClickSound.Play();
+            _buttonClickSound.pitch = 2;
+            _buttonClickSound.Play();
             print("Down" + playerID);
-            downButtonClick(playerID+1);
+            DownButtonClick(playerID+1);
         }
-        if (playerIDToPlayer[playerID].GetButtonDown("Play"))
+        if (_playerIDToPlayer[playerID].GetButtonDown("Play"))
         {
             print("Play" + playerID);
-            playButtonClick();
+            PlayButtonClick();
         }
     }
 
@@ -247,19 +248,21 @@ public class ChS_Controller : MonoBehaviour
     /// </summary>
     /// <param name="playerID"></param>
     /// <param name="classID"></param>
-    public void selectButtonClick(int playerID)
+    public void SelectButtonClick(int playerID)
     {
         // If button has already been selected, call the unselect logic.
-        if (view.playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text == "Unselect")
+        if (_view._playerToSelectBtn[playerID].GetComponentInChildren<Text>().GetComponent<Text>().text == "Unselect")
         {
-            model.unselectCharacter(playerID);
-            view.characterUnselected(playerID);
+            _model.UnselectCharacter(playerID);
+            _view.CharacterUnselected(playerID);
+            _charactersSelected--;
         }
         else
         {
-            if (model.selectCharacter(playerID))
+            if (_model.SelectCharacter(playerID))
             {
-                view.characterSelected(playerID);
+                _view.CharacterSelected(playerID);
+                _charactersSelected++;
             }
         }
     }
@@ -268,45 +271,39 @@ public class ChS_Controller : MonoBehaviour
     /// Called when a Up button is clicked.
     /// </summary>
     /// <param name="playerID"></param>
-    public void upButtonClick(int playerID)
+    public void UpButtonClick(int playerID)
     {
-        view.nextCharacter(playerID, model.previousCharacter(playerID));
+        _view.NextCharacter(playerID, _model.PreviousCharacter(playerID));
     }
 
     /// <summary>
     /// Called when a Down button is clicked.
     /// </summary>
     /// <param name="playerID"></param>
-    public void downButtonClick(int playerID)
+    public void DownButtonClick(int playerID)
     {
-        view.nextCharacter(playerID, model.nextCharacter(playerID));
+        _view.NextCharacter(playerID, _model.NextCharacter(playerID));
     }
 
     /// <summary>
     /// Called when the Play button is clicked.
     /// </summary>
-    public void playButtonClick()
+    public void PlayButtonClick()
     {
-        if (!canPlay)
-        {
-            return;
-        }
+        if (!_canPlay) return;
 
         // Finalize the selections
         for (int i = 1; i <= 4; i++)
         {
-            print("i: " + i);
-            if (model.getCIDtoC()[model.getPIDtoCID()[i]].selected && (model.getCIDtoC()[model.getPIDtoCID()[i]].playerID == i))//!finalSelection.ContainsKey(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name))
+            if (_model.GetCIDtoC()[_model.GetPIDtoCID()[i]].selected && (_model.GetCIDtoC()[_model.GetPIDtoCID()[i]].playerID == i))
             {
-                finalSelection.Add(model.getCIDtoC()[model.getPIDtoCID()[i]].characterIcon.name, model.getCIDtoC()[model.getPIDtoCID()[i]].playerID -1);
+                _finalSelection.Add(_model.GetCIDtoC()[_model.GetPIDtoCID()[i]].characterIcon.name, _model.GetCIDtoC()[_model.GetPIDtoCID()[i]].playerID -1);
+                print(_finalSelection.Keys.Count);
             }
         }
-        buttonClickSound.pitch = 1;
-        buttonClickSound.Play();
-        // TODO: Load the first level.
+        _buttonClickSound.pitch = 1;
+        _buttonClickSound.Play();
+        if (_connectedControllers == 0) _singlePlayer = true;
         SceneManager.LoadScene("Level1");
-        
-        
     }
-
 }

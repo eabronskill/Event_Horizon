@@ -38,46 +38,25 @@ public class TechnicianInput : Player
     public AudioSource placeTurret;
     public AudioSource healsound;
 
-    /// <summary>
-    /// ID of the player who is controlling this character.
-    /// </summary>
-    public int playerID;
-
 
     void Awake()
     {
-        curAmmo = maxAmmo;
-        curClip = maxClip;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
+        _curAmmo = _maxAmmo;
+        _curClip = _maxClip;
+        _curHealth = _maxHealth;
+        _curMoveSpeed = _movementSpeed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //if (testing)
-        //{
-        //    player = ReInput.players.GetPlayer(0);
-        //    MultipleTargetCamera.targets.Add(this.gameObject);
-
-        //    playerID = 2;
-        //    controller = GetComponent<CharacterController>();
-        //    if (UIEventCOntroller.players.Count == 0)
-        //    {
-        //        UIEventCOntroller.players.Add("Engineer", this.gameObject);
-        //    }
-        //    if (SceneManager.GetActiveScene().name == "Level1")
-        //    {
-        //        Tutotrial.players.Add(this.gameObject);
-        //    }
-        //}
-        if (ChS_Controller.finalSelection.ContainsKey("Engineer Icon"))
+        if (ChS_Controller._finalSelection.ContainsKey("Engineer Icon"))
         {
-            player = ReInput.players.GetPlayer(ChS_Controller.finalSelection["Engineer Icon"]);
+            _player = ReInput.players.GetPlayer(ChS_Controller._finalSelection["Engineer Icon"]);
             MultipleTargetCamera.targets.Add(this.gameObject);
             
-            playerID = player.id;
-            controller = GetComponent<CharacterController>();
+            _playerID = _player.id;
+            _controller = GetComponent<CharacterController>();
 
             if (UIEventCOntroller.players.Count == 0)
             {
@@ -108,55 +87,56 @@ public class TechnicianInput : Player
         finalRot = strapRot;
         finalRot.x -= .6f;
 
-        curAmmo = maxAmmo;
-        curClip = maxClip;
-        curHealth = maxHealth;
-        curMoveSpeed = movementSpeed;
+        _curAmmo = _maxAmmo;
+        _curClip = _maxClip;
+        _curHealth = _maxHealth;
+        _curMoveSpeed = _movementSpeed;
 
         abilities = this.gameObject.GetComponent<TechnicianAbilities>();
 
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        if (Time.timeScale != 1) return;
         base.Update();
 
         if (Input.GetKeyDown("space") && canJump)
             jump();
 
-        if (player.GetButtonDown("Ability1") && abilities.canSetTurret)
+        if (_player.GetButtonDown("Ability1") && abilities.canSetTurret)
         {
-            usedAbility1 = true;
+            _usedAbility1 = true;
             abilities.setTurret();
             placeTurret.Play();
         }
-        if (player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
+        if (_player.GetButtonDown("Ability2") && abilities.canRepair && abilities.turretSet)
         {
-            usedAbility2 = true;
+            _usedAbility2 = true;
             abilities.repair();
             healsound.Play();
         }
         
-        if (canShooty)
+        if (_canShoot)
         {
-            if (player.GetButton("Shoot") && Time.time >= strapTimer && base.curClip > 0)
+            if (_player.GetButton("Shoot") && Time.time >= strapTimer && base._curClip > 0)
             {
                 strapTimer = Time.time + .6f;
                 Instantiate(projectile, attackPoint.transform.position, attackPoint.transform.rotation);
                 Instantiate(projectile, attackPoint.transform.position, attackPoint2.transform.rotation);
                 Instantiate(projectile, attackPoint.transform.position, attackPoint3.transform.rotation);
 
-                shot = true;
+                _shot = true;
                 if (!gunshot.isPlaying)
                 {
                     gunshot.Play();
                 }
 
-                base.curClip -= 3;
-                if (base.curClip < 0)
+                base._curClip -= 3;
+                if (base._curClip < 0)
                 {
-                    curClip = 0;
+                    _curClip = 0;
                 }
             }
 
@@ -169,16 +149,17 @@ public class TechnicianInput : Player
                 strapRotateBack(strap.transform.localRotation, strapRot);
             }
         }
+
         
 
     }
 
     public void engineerHeal()
     {
-        curHealth += maxHealth * 0.5f;
-        if (curHealth > maxHealth)
+        _curHealth += _maxHealth * 0.5f;
+        if (_curHealth > _maxHealth)
         {
-            curHealth = maxHealth;
+            _curHealth = _maxHealth;
         }
     }
 
@@ -221,7 +202,15 @@ public class TechnicianInput : Player
     /// <param name="damage"></param>
     public new void takeDamage(float damage)
     {
-        base.takeDamage(damage);
+        base.TakeDamage(damage);
+    }
+
+    public override void ResetAbilities()
+    {
+        abilities.turretDestroyedTime = 0;
+        abilities.lastRepairTime = 0;
+        abilities.canSetTurret = true;
+        abilities.canRepair = true;
     }
 
 }

@@ -413,6 +413,11 @@ PrefabInstance:
       propertyPath: characters.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 296408932883424212, guid: f12801d0a72fe554d899310d49b8baa8,
+        type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 2101443410}
     - target: {fileID: 296408932883424213, guid: f12801d0a72fe554d899310d49b8baa8,
         type: 3}
       propertyPath: m_Name

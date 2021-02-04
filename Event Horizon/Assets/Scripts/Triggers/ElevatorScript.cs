@@ -44,8 +44,6 @@ public class ElevatorScript : MonoBehaviour
     {
         if (phase2)
         {
-            
-             
             if (Time.time < timer)
             {
                 countdown = (int)(timer - Time.time);
@@ -61,9 +59,6 @@ public class ElevatorScript : MonoBehaviour
                     Instantiate(enemy, spawn4.transform);
                     enemyTimer = Time.time + 2f;
                 }
-                  
-
-                
             }
             else
             {
@@ -74,10 +69,6 @@ public class ElevatorScript : MonoBehaviour
                 phase2 = false;
                 phase3 = true;
             }
-            
-
-
-            
         }
     }
 
@@ -110,41 +101,44 @@ public class ElevatorScript : MonoBehaviour
                 if (col.gameObject.name.Equals("Tank Controller"))
                 {
                     tank = true;
-                    player1 = col.GetComponent<TankInput>().player;
+                    player1 = col.GetComponent<TankInput>()._player;
                     if (player1.GetButtonDown("Interact"))
                     {
-                        col.GetComponent<TankInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<TankInput>()._victoryCanvas.SetActive(true);
+                        phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Soldier Controller"))
                 {
                     soldier = true;
-                    player2 = col.GetComponent<SoldierInput>().player;
+                    player2 = col.GetComponent<SoldierInput>()._player;
                     if (player2.GetButtonDown("Interact"))
                     {
-                        col.GetComponent<SoldierInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<SoldierInput>()._victoryCanvas.SetActive(true);
+                        phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Engineer Controller"))
                 {
                     engineer = true;
-                    player3 = col.GetComponent<TechnicianInput>().player;
+                    player3 = col.GetComponent<TechnicianInput>()._player;
                     if (player3.GetButtonDown("Interact"))
                     {
-                        col.GetComponent<TechnicianInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<TechnicianInput>()._victoryCanvas.SetActive(true);
+                        phase3 = false;
                     }
                 }
                 if (col.gameObject.name.Equals("Rogue Controller"))
                 {
                     rogue = true;
-                    player4 = col.GetComponent<rogueInput>().player;
+                    player4 = col.GetComponent<rogueInput>()._player;
                     if (player4.GetButtonDown("Interact"))
                     {
-                        col.GetComponent<rogueInput>().victoryCanvas.SetActive(true);
+                        col.GetComponent<rogueInput>()._victoryCanvas.SetActive(true);
+                        phase3 = false;
                     }
                 }
             }
         }
-        
     }
 }
