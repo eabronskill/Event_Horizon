@@ -1471,6 +1471,7 @@ MonoBehaviour:
   _healingItem: {fileID: 0}
   _hasAmmo: 0
   _hasHealing: 0
+  _cantUse: 0
   _gameOverCanvas: {fileID: 0}
   _pauseMenu: {fileID: 0}
   _victoryCanvas: {fileID: 0}
@@ -1521,7 +1522,8 @@ MonoBehaviour:
   turretDestroyedTime: 0
   lastRepairTime: 0
   turretAliveTime: 16
-  turret: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da, type: 3}
+  turretGObj: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da,
+    type: 3}
   turretPrefab: {fileID: 1979424168699089503, guid: aa2425a241c72954d89cc2797f6702da,
     type: 3}
 --- !u!54 &816178615

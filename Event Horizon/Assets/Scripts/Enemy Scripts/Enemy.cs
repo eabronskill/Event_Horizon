@@ -117,19 +117,16 @@ public class Enemy : MonoBehaviour
                 if (active && !nav.hasPath)
                 {
                     setPathClosestPlayer();
-                    print("Setting Path");
                 }
                 // This melee enemy has not reached its destination and it is time to find the nearest enemy.
                 else if (melee && nav.remainingDistance - nav.stoppingDistance > 0 && Time.time > changeTargetTimer)
                 {
                     setPathClosestPlayer();
-                    print("Resetting Path");
                 }
                 // This ranged enemy has not reached its destination and it is time to find the nearest enemy.
                 else if (ranged && nav.remainingDistance - nav.stoppingDistance <= 0 && Time.time > changeTargetTimer)
                 {
                     setPathClosestPlayer();
-                    print("Resetting Path");
                 }
                 // This enemy has not reached its destination.
                 else if (nav.remainingDistance - nav.stoppingDistance > 0)
@@ -193,7 +190,6 @@ public class Enemy : MonoBehaviour
         }
         changeTargetTimer = Time.time + changeTargetTime;
         nav.SetDestination(target.transform.position);
-        print(target.name);
     }
 
     /// <summary>

@@ -20,8 +20,9 @@ public class TechnicianAbilities : MonoBehaviour
 
     public float turretAliveTime;
 
-    public GameObject turret;
+    public GameObject turretGObj;
     public GameObject turretPrefab;
+    Turret turret;
     //Enemy enemy;
 
     void Start()
@@ -29,7 +30,6 @@ public class TechnicianAbilities : MonoBehaviour
         canSetTurret = true;
         canRepair = true;
         turretSet = false;
-
     }
 
     // Update is called once per frame
@@ -58,10 +58,14 @@ public class TechnicianAbilities : MonoBehaviour
         turretLoc.y += .3f;
         turretLoc += transform.forward * 2;
 
-        if (turret) turret.GetComponent<Turret>().Kill();
-
-        turret = Instantiate(turretPrefab, turretLoc, transform.rotation); //TODO: TURRET LOGIC
-        turret.GetComponent<Turret>()._aliveTime = turretAliveTime;
+        if (turret)
+        {
+            turret.Kill();
+            turret = null;
+        } 
+        turretGObj = Instantiate(turretPrefab, turretLoc, transform.rotation);
+        turret = turretGObj.GetComponent<Turret>();
+        turret._aliveTime = turretAliveTime;
         Invoke("resetTurret", turretCD);
         Invoke("destroyTurret", turretAliveTime);
         turretSet = true;
@@ -69,7 +73,7 @@ public class TechnicianAbilities : MonoBehaviour
 
     private void destroyTurret()
     {
-        Destroy(turret);
+        Destroy(turretGObj);
     }
     private void resetTurret()
     {

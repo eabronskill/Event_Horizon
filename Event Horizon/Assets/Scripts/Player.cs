@@ -262,7 +262,7 @@ public class Player : MonoBehaviour
         if (_itemBufferTimer > Time.time) return; // Prevents unwanted spawm use/pickup.
         if (_cantUse) return; // Player is standing on another item
         // Ammo
-        if (_hasAmmo && _player.GetButtonDown("Interact"))
+        if (_hasAmmo && _player.GetButtonDown("Interact") && _curAmmo != _maxAmmo)
         {
             _ammoItem.use();
             _hasAmmo = false;
@@ -278,7 +278,7 @@ public class Player : MonoBehaviour
             _itemBufferTimer = Time.time + _itemBufferCD;
         }
         // Healing
-        if (_hasHealing && _player.GetButtonDown("Interact"))
+        if (_hasHealing && _player.GetButtonDown("Interact") && _curHealth != _maxHealth)
         {
             _healingItem.use();
             _hasHealing = false;

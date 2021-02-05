@@ -75,6 +75,7 @@ public class Terminal : MonoBehaviour
         else if (col.gameObject.tag == "Player" && activated)
         {
             col.gameObject.GetComponent<Player>()._cantUse = false;
+            directions.SetActive(false);
         }
     }
 

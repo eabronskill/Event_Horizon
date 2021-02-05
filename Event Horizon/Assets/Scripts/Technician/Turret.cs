@@ -7,7 +7,6 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     public GameObject _guns, _attackPoint, _projectile, _text;
-    GameObject[] _enemies;
     GameObject _target;
 
     public float _turretShotCD = 1;
@@ -30,13 +29,23 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
+        print("alive");
+        if (_timeRemaining <= 0) Destroy(gameObject);
+
         UpdateCountdownText();
         
         if (_target)
         {
+            print(_target);
             // Check if the Target is dead, out of range, or LOSed
-            _ray = new Ray(_attackPoint.transform.position, (_target.transform.position - transform.position));
-            if (Physics.Raycast(_ray, out _hit, _attackRange) && (_target.GetComponent<Enemy>().dead || _hit.collider.gameObject.CompareTag("Untagged")))
+            _ray = new Ray(_attackPoint.transform.position, _target.transform.position - transform.position);
+            if (!_target.GetComponent<Enemy>())
+            {
+                _target = null;
+                return;
+            }
+            Physics.Raycast(_ray, out _hit, _attackRange);
+            if (_hit.transform == null || _target.GetComponent<Enemy>().dead || _hit.collider.gameObject.CompareTag("Untagged"))
             {
                 _target = null;
                 return;
@@ -61,16 +70,17 @@ public class Turret : MonoBehaviour
             float closestSoFar = 10000000f;
             float distance;
             GameObject bestSoFar = null;
-            _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in _enemies)
+            foreach (Collider enemy in Physics.OverlapSphere(transform.position, _attackRange))
             {
-                _ray = new Ray(_attackPoint.transform.position, (enemy.transform.position - transform.position));
-                distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+                if (!enemy.gameObject.CompareTag("Enemy")) continue;
+
+                _ray = new Ray(_attackPoint.transform.position, enemy.gameObject.transform.position - transform.position);
+                distance = Vector3.Distance(enemy.gameObject.transform.position, gameObject.transform.position);
                 if (distance <= _attackRange)
                 {
                     if (Physics.Raycast(_ray, out _hit, closestSoFar) && _hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        bestSoFar = enemy;
+                        bestSoFar = enemy.gameObject;
                         closestSoFar = distance;
                     }
                 }
@@ -87,6 +97,11 @@ public class Turret : MonoBehaviour
         {
             _text.GetComponent<Billboard>().cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         }
+    }
+
+    public void InvokeKill()
+    {
+        Invoke(nameof(Kill), 0f);
     }
 
     public void Kill()
